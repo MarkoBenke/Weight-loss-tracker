@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/launch_screen_image">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:gravity="center"
+        android:lineSpacingMultiplier="1.2"
+        android:padding="@dimen/large_padding"
+        android:shadowColor="@android:color/black"
+        android:shadowRadius="4"
+        android:text="@string/welcome_setup_message"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/startButton"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/basic_dialog_button_height"
+        android:layout_alignParentBottom="true"
+        android:layout_marginHorizontal="@dimen/large_margin"
+        android:layout_marginBottom="48dp"
+        android:text="@string/start_button_text"
+        android:textAllCaps="false"
+        android:textSize="18sp" />
+</RelativeLayout>

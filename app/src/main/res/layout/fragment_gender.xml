@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/track"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="3">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="15dp"
+            android:layout_weight="1"
+            android:background="@color/on_board_progress_color" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/track"
+        android:gravity="center"
+        android:padding="30dp"
+        android:text="@string/select_gender_title"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <io.ghyeok.stickyswitch.widget.StickySwitch
+        android:id="@+id/genderSwitch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginHorizontal="64dp"
+        android:layout_marginTop="@dimen/large_margin"
+        app:ss_animationDuration="600"
+        app:ss_animationType="line"
+        app:ss_iconPadding="18dp"
+        app:ss_leftIcon="@drawable/ic_male_gender"
+        app:ss_leftText="@string/gender_male"
+        app:ss_rightIcon="@drawable/ic_female_gender"
+        app:ss_rightText="@string/gender_female"
+        app:ss_selectedTextSize="20sp"
+        app:ss_sliderBackgroundColor="@android:color/darker_gray"
+        app:ss_textColor="@color/primaryTextColor"
+        app:ss_textSize="16sp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/next"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/basic_dialog_button_height"
+        android:layout_alignParentBottom="true"
+        android:layout_marginHorizontal="@dimen/large_margin"
+        android:layout_marginTop="@dimen/large_margin"
+        android:layout_marginBottom="24dp"
+        android:text="@string/next_button_text"
+        android:textAllCaps="false"
+        android:textSize="18sp" />
+</RelativeLayout>

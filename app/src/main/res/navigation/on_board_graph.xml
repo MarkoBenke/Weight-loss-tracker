@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/on_board_graph"
+    app:startDestination="@id/genderFragment">
+
+    <fragment
+        android:id="@+id/genderFragment"
+        android:name="com.example.weightlosstracker.ui.onboarding.GenderFragment"
+        android:label="GenderFragment">
+        <action
+            android:id="@+id/action_genderFragment_to_basicInfoFragment"
+            app:destination="@id/basicInfoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/basicInfoFragment"
+        android:name="com.example.weightlosstracker.ui.onboarding.BasicInfoFragment"
+        android:label="BasicInfoFragment">
+        <action
+            android:id="@+id/action_basicInfoFragment_to_targetWeightFragment"
+            app:destination="@id/targetWeightFragment" />
+        <argument
+            android:name="user"
+            app:argType="com.example.weightlosstracker.domain.User" />
+    </fragment>
+    <fragment
+        android:id="@+id/targetWeightFragment"
+        android:name="com.example.weightlosstracker.ui.onboarding.TargetWeightFragment"
+        android:label="TargetWeightFragment">
+        <argument
+            android:name="user"
+            app:argType="com.example.weightlosstracker.domain.User" />
+    </fragment>
+</navigation>

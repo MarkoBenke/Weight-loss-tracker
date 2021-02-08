@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/main_graph"
+    app:startDestination="@id/home">
+
+    <fragment
+        android:id="@+id/home"
+        android:name="com.example.weightlosstracker.ui.main.home.HomeFragment"
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_addEntryFragment"
+            app:destination="@id/addEntry" />
+    </fragment>
+    <fragment
+        android:id="@+id/addEntry"
+        android:name="com.example.weightlosstracker.ui.main.add.AddEntryFragment"
+        android:label="AddEntryFragment" >
+        <action
+            android:id="@+id/action_addEntryFragment_to_statsFragment"
+            app:destination="@id/stats" />
+    </fragment>
+    <fragment
+        android:id="@+id/entryHistory"
+        android:name="com.example.weightlosstracker.ui.main.history.EntryHistoryFragment"
+        android:label="EntryHistoryFragment" />
+    <fragment
+        android:id="@+id/stats"
+        android:name="com.example.weightlosstracker.ui.main.stats.StatsFragment"
+        android:label="StatsFragment" >
+        <action
+            android:id="@+id/action_statsFragment_to_entryHistoryFragment"
+            app:destination="@id/entryHistory" />
+    </fragment>
+</navigation>
