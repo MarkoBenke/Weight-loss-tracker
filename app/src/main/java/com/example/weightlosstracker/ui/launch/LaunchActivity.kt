@@ -6,14 +6,14 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.example.weightlosstracker.databinding.ActivityLaunchBinding
 import com.example.weightlosstracker.ui.onboarding.OnBoardingActivity
+import com.example.weightlosstracker.util.viewBinding
 
 class LaunchActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityLaunchBinding
+    private val binding by viewBinding(ActivityLaunchBinding::inflate)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityLaunchBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         window.setFlags(

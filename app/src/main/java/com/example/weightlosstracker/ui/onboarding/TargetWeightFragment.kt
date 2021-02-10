@@ -5,32 +5,33 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.example.weightlosstracker.R
 import com.example.weightlosstracker.databinding.FragmentTargetWeightBinding
 import com.example.weightlosstracker.domain.User
 import com.example.weightlosstracker.ui.main.MainActivity
 import com.example.weightlosstracker.util.calculateBmi
+import com.example.weightlosstracker.util.viewBinding
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class TargetWeightFragment: Fragment(R.layout.fragment_target_weight) {
 
-    private var binding: FragmentTargetWeightBinding? = null
+    private val binding by viewBinding(FragmentTargetWeightBinding::bind)
     private var user: User? = null
     private val viewModel: TargetWeightViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentTargetWeightBinding.bind(view)
 
         user = requireArguments().getParcelable(OnBoardingActivity.USER_KEY)
-        binding?.idealWeight?.text = getString(R.string.ideal_weight_text,
+        binding.idealWeight.text = getString(R.string.ideal_weight_text,
             viewModel.generateIdealWeight(user))
 
-        binding?.submit?.setOnClickListener {
+        binding.submit.setOnClickListener {
             viewModel.validate(
-                binding?.targetWeight?.editText?.text.toString()
+                binding.targetWeight.editText?.text.toString()
             )
         }
 
@@ -38,9 +39,9 @@ class TargetWeightFragment: Fragment(R.layout.fragment_target_weight) {
     }
 
     private fun subscribeToObservers() {
-        viewModel.validateLiveData.observe(viewLifecycleOwner, { success ->
+        viewModel.validateLiveData.observe(viewLifecycleOwner, Observer { success ->
             if (success) {
-                val userTargetWeight = binding?.targetWeight?.editText?.text.toString()
+                val userTargetWeight = binding.targetWeight.editText?.text.toString()
                 user?.apply {
                     goalName = generateName(userTargetWeight)
                     targetWeight = userTargetWeight.toFloat()
@@ -55,7 +56,7 @@ class TargetWeightFragment: Fragment(R.layout.fragment_target_weight) {
             }
         })
 
-        viewModel.insertUserLiveData.observe(viewLifecycleOwner, {
+        viewModel.insertUserLiveData.observe(viewLifecycleOwner, Observer {
             if (it) {
                 val intent = Intent(requireActivity(), MainActivity::class.java).apply {
                     putExtra(OnBoardingActivity.USER_KEY, user)
@@ -69,10 +70,5 @@ class TargetWeightFragment: Fragment(R.layout.fragment_target_weight) {
 
     private fun generateName(targetWeight: String): String {
         return getString(R.string.goal_name, targetWeight)
-    }
-
-    override fun onDestroyView() {
-        binding = null
-        super.onDestroyView()
     }
 }

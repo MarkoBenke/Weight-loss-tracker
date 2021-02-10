@@ -6,12 +6,14 @@ import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.weightlosstracker.R
 import com.example.weightlosstracker.databinding.FragmentBasicInfoBinding
 import com.example.weightlosstracker.domain.User
 import com.example.weightlosstracker.util.getCurrentDate
 import com.example.weightlosstracker.util.parseSelectedDate
+import com.example.weightlosstracker.util.viewBinding
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -19,20 +21,19 @@ import java.util.*
 @AndroidEntryPoint
 class BasicInfoFragment : Fragment(R.layout.fragment_basic_info) {
 
-    private var binding: FragmentBasicInfoBinding? = null
+    private val binding by viewBinding(FragmentBasicInfoBinding::bind)
     private val viewModel: BasicInfoViewModel by viewModels()
     private var user: User? = null
     private var calendar = Calendar.getInstance()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentBasicInfoBinding.bind(view)
 
-        binding?.next?.setOnClickListener {
+        binding.next.setOnClickListener {
             viewModel.validate(
-                binding?.height?.editText?.text.toString(),
-                binding?.age?.editText?.text.toString(),
-                binding?.currentWeight?.editText?.text.toString(),
+                binding.height.editText?.text.toString(),
+                binding.age.editText?.text.toString(),
+                binding.currentWeight.editText?.text.toString(),
             )
         }
 
@@ -42,16 +43,16 @@ class BasicInfoFragment : Fragment(R.layout.fragment_basic_info) {
 
     private fun subscribeToObservers() {
         user = requireArguments().getParcelable(OnBoardingActivity.USER_KEY)
-        viewModel.validateLiveData.observe(viewLifecycleOwner, { success ->
+        viewModel.validateLiveData.observe(viewLifecycleOwner, Observer { success ->
             if (success) {
                 user?.apply {
-                    height = binding?.height?.editText?.text.toString().toFloat()
-                    age = binding?.age?.editText?.text.toString().toInt()
-                    currentWeight = binding?.currentWeight?.editText?.text.toString().toFloat()
+                    height = binding.height.editText?.text.toString().toFloat()
+                    age = binding.age.editText?.text.toString().toInt()
+                    currentWeight = binding.currentWeight.editText?.text.toString().toFloat()
                     startWaistSize =
-                        binding?.waistSize?.editText?.text.toString().toIntOrNull() ?: 0
+                        binding.waistSize.editText?.text.toString().toIntOrNull() ?: 0
                     startWeight = currentWeight
-                    startDate = binding?.setDateText?.text.toString()
+                    startDate = binding.setDateText.text.toString()
                 }
                 val bundle = bundleOf(
                     OnBoardingActivity.USER_KEY to user
@@ -70,16 +71,16 @@ class BasicInfoFragment : Fragment(R.layout.fragment_basic_info) {
     }
 
     private fun initDateCalendar() {
-        binding?.setDateText?.text = getCurrentDate()
+        binding.setDateText.text = getCurrentDate()
         val dateSetListener =
             DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                 calendar.set(Calendar.YEAR, year)
                 calendar.set(Calendar.MONTH, monthOfYear)
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                binding?.setDateText?.text = parseSelectedDate(calendar.time)
+                binding.setDateText.text = parseSelectedDate(calendar.time)
             }
 
-        binding?.setDate?.setOnClickListener {
+        binding.setDate.setOnClickListener {
             val datePickerDialog = DatePickerDialog(
                 requireActivity(), dateSetListener,
                 calendar.get(Calendar.YEAR),
@@ -89,10 +90,5 @@ class BasicInfoFragment : Fragment(R.layout.fragment_basic_info) {
             datePickerDialog.datePicker.maxDate = System.currentTimeMillis()
             datePickerDialog.show()
         }
-    }
-
-    override fun onDestroyView() {
-        binding = null
-        super.onDestroyView()
     }
 }

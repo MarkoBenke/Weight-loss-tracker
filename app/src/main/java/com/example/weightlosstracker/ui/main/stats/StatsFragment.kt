@@ -5,11 +5,13 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.example.weightlosstracker.R
 import com.example.weightlosstracker.databinding.FragmentStatsBinding
 import com.example.weightlosstracker.domain.Stats
 import com.example.weightlosstracker.util.Constants
 import com.example.weightlosstracker.util.makeShort
+import com.example.weightlosstracker.util.viewBinding
 import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.components.LimitLine
 import com.github.mikephil.charting.components.XAxis
@@ -22,19 +24,13 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class StatsFragment : Fragment(R.layout.fragment_stats), OnChartValueSelectedListener {
 
-    private var binding: FragmentStatsBinding? = null
+    private val binding by viewBinding(FragmentStatsBinding::bind)
     private val viewModel: StatsViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentStatsBinding.bind(view)
 
         subscribeToObservers()
-    }
-
-    override fun onDestroyView() {
-        binding = null
-        super.onDestroyView()
     }
 
     override fun onValueSelected(e: Entry?, h: Highlight?) {
@@ -46,7 +42,7 @@ class StatsFragment : Fragment(R.layout.fragment_stats), OnChartValueSelectedLis
     override fun onNothingSelected() {}
 
     private fun subscribeToObservers() {
-        viewModel.userStatsLiveData.observe(viewLifecycleOwner, {
+        viewModel.userStatsLiveData.observe(viewLifecycleOwner, Observer {
             if (it.success) {
                 initChart(it)
                 initChartLimitLines(it.stats)
@@ -59,29 +55,31 @@ class StatsFragment : Fragment(R.layout.fragment_stats), OnChartValueSelectedLis
 
     private fun initStatsUi(stats: Stats?) {
         stats?.let {
-            binding?.currentWeight?.text = getString(R.string.kg, it.currentWeight.toString().makeShort())
-            binding?.targetWeight?.text = getString(R.string.kg, it.targetWeight.toString().makeShort())
-            binding?.totalLoss?.text = getString(R.string.kg, it.totalLoss.toString().makeShort())
-            binding?.remainig?.text = getString(R.string.kg, it.remaining.toString().makeShort())
-            binding?.bmiCategory?.text = getBmiCategory(it.bmi)
+            binding.currentWeight.text = getString(R.string.kg, it.currentWeight.toString().makeShort())
+            binding.targetWeight.text = getString(R.string.kg, it.targetWeight.toString().makeShort())
+            binding.totalLoss.text = getString(R.string.kg, it.totalLoss.toString().makeShort())
+            binding.remainig.text = getString(R.string.kg, it.remaining.toString().makeShort())
+            binding.bmiCategory.text = getBmiCategory(it.bmi)
 
         }
-        binding?.totalEntries?.text = viewModel.getTotalEntries()
-        binding?.worstRecord?.text = getString(R.string.kg, viewModel.getWorstRecord())
-        binding?.bestRecord?.text = getString(R.string.kg, viewModel.getBestRecord())
+        binding.totalEntries.text = viewModel.getTotalEntries()
+        binding.worstRecord.text = getString(R.string.kg, viewModel.getWorstRecord())
+        binding.bestRecord.text = getString(R.string.kg, viewModel.getBestRecord())
     }
 
     private fun initChart(it: StatsWeightEntryViewData) {
-        binding?.lineChart?.animateX(ANIMATE_DURATION)
-        binding?.lineChart?.data = it.yData
-        binding?.lineChart?.xAxis?.position = XAxis.XAxisPosition.BOTTOM
-        binding?.lineChart?.xAxis?.valueFormatter = IndexAxisValueFormatter(it.xData)
-        binding?.lineChart?.xAxis?.isGranularityEnabled = true
-        binding?.lineChart?.setOnChartValueSelectedListener(this)
-        binding?.lineChart?.setPinchZoom(true)
         val description = Description()
         description.text = ""
-        binding?.lineChart?.description = description
+        with(binding) {
+            lineChart.animateX(ANIMATE_DURATION)
+            lineChart.data = it.yData
+            lineChart.xAxis?.position = XAxis.XAxisPosition.BOTTOM
+            lineChart.xAxis?.valueFormatter = IndexAxisValueFormatter(it.xData)
+            lineChart.xAxis?.isGranularityEnabled = true
+            lineChart.setOnChartValueSelectedListener(this@StatsFragment)
+            lineChart.setPinchZoom(true)
+            lineChart.description = description
+        }
     }
 
     private fun initChartLimitLines(stats: Stats?) {
@@ -96,7 +94,7 @@ class StatsFragment : Fragment(R.layout.fragment_stats), OnChartValueSelectedLis
                 it.targetWeight
             )
             targetWeightLine.labelPosition = LimitLine.LimitLabelPosition.LEFT_BOTTOM
-            val yAxis = binding?.lineChart?.axisLeft
+            val yAxis = binding.lineChart.axisLeft
 
             yAxis?.setDrawLimitLinesBehindData(true)
             yAxis?.addLimitLine(startWeightLine)

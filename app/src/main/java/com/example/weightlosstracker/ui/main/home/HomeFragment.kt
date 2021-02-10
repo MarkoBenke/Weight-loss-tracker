@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.example.weightlosstracker.R
 import com.example.weightlosstracker.databinding.FragmentHomeBinding
 import com.example.weightlosstracker.domain.Stats
@@ -17,53 +18,55 @@ import mobi.gspd.segmentedbarview.Segment
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private val viewModel: HomeViewModel by viewModels()
-    private var binding: FragmentHomeBinding? = null
+    private val binding by viewBinding(FragmentHomeBinding::bind)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentHomeBinding.bind(view)
-
         subscribeToObservers()
     }
 
     private fun subscribeToObservers() {
-        viewModel.quoteLiveData.observe(viewLifecycleOwner, {
+        viewModel.quoteLiveData.observe(viewLifecycleOwner, Observer {
             when (it) {
                 is DataState.Success -> {
-                    binding?.progressBar?.isVisible = false
-                    binding?.quoteText?.text = it.data.quote
-                    binding?.quoteAuthor?.text = it.data.author
+                    binding.progressBar.isVisible = false
+                    binding.quoteText.text = it.data.quote
+                    binding.quoteAuthor.text = it.data.author
                 }
                 is DataState.Error -> {
-                    binding?.progressBar?.isVisible = false
+                    binding.progressBar.isVisible = false
                 }
                 DataState.Loading -> {
-                    binding?.progressBar?.isVisible = true
+                    binding.progressBar.isVisible = true
                 }
             }
         })
 
-        viewModel.userStatsLiveData.observe(viewLifecycleOwner, {
+        viewModel.userStatsLiveData.observe(viewLifecycleOwner, Observer {
             initUi(it)
         })
     }
 
     private fun initUi(stats: Stats) {
         setupBmiSegments(stats)
-        binding?.currentBmi?.text = getString(R.string.bmi_details_card, stats.bmi.shortToString())
-        binding?.currentWeight?.text = getString(R.string.kg, stats.currentWeight.shortToString())
-        binding?.currentDate?.text = stats.lastEntryDate
-        binding?.goalName?.text = getGoalName(stats.targetWeight.toString())
-        binding?.startWeight?.text = getString(R.string.kg, stats.startWeight.toString())
-        binding?.startBmi?.text =
-            getString(R.string.bmi_details_card, stats.startBmi.shortToString())
-        binding?.startDate?.text = stats.startDate
+        with(binding) {
+            currentBmi.text = getString(R.string.bmi_details_card, stats.bmi.shortToString())
+            currentWeight.text = getString(R.string.kg, stats.currentWeight.shortToString())
+            currentDate.text = stats.lastEntryDate
+            goalName.text = getGoalName(stats.targetWeight.toString())
+            startWeight.text = getString(R.string.kg, stats.startWeight.toString())
+            startBmi.text =
+                getString(R.string.bmi_details_card, stats.startBmi.shortToString())
+            startDate.text = stats.startDate
+        }
     }
 
     private fun setupBmiSegments(stats: Stats) {
-        binding?.segments?.setSegments(generateItemList())
-        binding?.segments?.valueSegment = getBmiType(stats.bmi)
-        binding?.segments?.setValueWithUnit(stats.bmi.short(), getString(R.string.bmi_label))
+        with(binding) {
+            segments.setSegments(generateItemList())
+            segments.valueSegment = getBmiType(stats.bmi)
+            segments.setValueWithUnit(stats.bmi.short(), getString(R.string.bmi_label))
+        }
     }
 
     private fun generateItemList(): ArrayList<Segment> {
@@ -106,10 +109,5 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private fun getGoalName(targetWeight: String): String {
         return getString(R.string.goal_name, targetWeight)
-    }
-
-    override fun onDestroyView() {
-        binding = null
-        super.onDestroyView()
     }
 }

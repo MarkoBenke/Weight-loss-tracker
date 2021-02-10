@@ -2,9 +2,12 @@ package com.example.weightlosstracker.util
 
 import android.app.Activity
 import android.content.Context
+import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.viewbinding.ViewBinding
 import com.google.android.material.textfield.TextInputLayout
 
 private fun Context.hideKeyboard(view: View) {
@@ -34,3 +37,9 @@ fun Float.short(): Float {
         this.toString().substring(0, 5).toFloat()
     } else this
 }
+
+inline fun <T : ViewBinding> AppCompatActivity.viewBinding(
+    crossinline bindingInflater: (LayoutInflater) -> T) =
+    lazy(LazyThreadSafetyMode.NONE) {
+        bindingInflater.invoke(layoutInflater)
+    }
