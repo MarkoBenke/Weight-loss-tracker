@@ -1,4 +1,4 @@
-package com.example.weightlosstracker.utils
+package com.example.weightlosstracker
 
 import android.app.Application
 import android.content.Context

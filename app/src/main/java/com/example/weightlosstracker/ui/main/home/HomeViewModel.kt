@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weightlosstracker.domain.Quote
 import com.example.weightlosstracker.domain.Stats
-import com.example.weightlosstracker.repository.qoutes.QuotesRepository
+import com.example.weightlosstracker.repository.quotes.QuotesRepository
 import com.example.weightlosstracker.repository.weightentry.WeightEntryRepository
 import com.example.weightlosstracker.util.DataState
 import com.example.weightlosstracker.util.DispatcherProvider

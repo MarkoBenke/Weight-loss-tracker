@@ -1,16 +1,16 @@
 package com.example.weightlosstracker.di
 
 import com.example.weightlosstracker.data.local.SettingsManager
-import com.example.weightlosstracker.data.local.dao.QuoteDAO
-import com.example.weightlosstracker.data.local.dao.UserDAO
-import com.example.weightlosstracker.data.local.dao.WeightEntryDAO
+import com.example.weightlosstracker.data.local.dao.QuoteDao
+import com.example.weightlosstracker.data.local.dao.UserDao
+import com.example.weightlosstracker.data.local.dao.WeightEntryDao
 import com.example.weightlosstracker.data.local.mappers.QuoteLocalMapper
 import com.example.weightlosstracker.data.local.mappers.UserMapper
 import com.example.weightlosstracker.data.local.mappers.WeightEntryMapper
 import com.example.weightlosstracker.data.remote.QuoteNetworkMapper
-import com.example.weightlosstracker.data.remote.QuotesApi
-import com.example.weightlosstracker.repository.qoutes.DefaultQuotesRepository
-import com.example.weightlosstracker.repository.qoutes.QuotesRepository
+import com.example.weightlosstracker.data.remote.QuotesRetrofitApi
+import com.example.weightlosstracker.repository.quotes.DefaultQuotesRepository
+import com.example.weightlosstracker.repository.quotes.QuotesRepository
 import com.example.weightlosstracker.repository.user.DefaultUserRepository
 import com.example.weightlosstracker.repository.user.UserRepository
 import com.example.weightlosstracker.repository.weightentry.DefaultWeightEntryRepository
@@ -29,20 +29,20 @@ object RepositoryModule {
     @Singleton
     @Provides
     fun provideQuotesRepository(
-        quotesApi: QuotesApi, quoteDAO: QuoteDAO,
+        quotesRetrofitApi: QuotesRetrofitApi, quoteDao: QuoteDao,
         networkMapper: QuoteNetworkMapper, localMapper: QuoteLocalMapper
-    ): QuotesRepository = DefaultQuotesRepository(quotesApi, quoteDAO, networkMapper, localMapper)
+    ): QuotesRepository = DefaultQuotesRepository(quotesRetrofitApi, quoteDao, networkMapper, localMapper)
 
     @Singleton
     @Provides
     fun provideUserRepository(
-        userDAO: UserDAO,
-        weightEntryDAO: WeightEntryDAO,
+        userDao: UserDao,
+        weightEntryDao: WeightEntryDao,
         settingsManager: SettingsManager,
         userMapper: UserMapper
     ): UserRepository = DefaultUserRepository(
-        userDAO,
-        weightEntryDAO,
+        userDao,
+        weightEntryDao,
         settingsManager,
         userMapper
     )
@@ -50,6 +50,6 @@ object RepositoryModule {
     @Singleton
     @Provides
     fun provideWeightEntryRepository(
-        weightEntryDAO: WeightEntryDAO, userDAO: UserDAO, mapper: WeightEntryMapper
-    ): WeightEntryRepository = DefaultWeightEntryRepository(weightEntryDAO, userDAO, mapper)
+        weightEntryDao: WeightEntryDao, userDao: UserDao, mapper: WeightEntryMapper
+    ): WeightEntryRepository = DefaultWeightEntryRepository(weightEntryDao, userDao, mapper)
 }

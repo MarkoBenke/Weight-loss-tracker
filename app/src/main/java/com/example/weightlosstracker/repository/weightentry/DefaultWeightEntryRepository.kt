@@ -1,7 +1,7 @@
 package com.example.weightlosstracker.repository.weightentry
 
-import com.example.weightlosstracker.data.local.dao.UserDAO
-import com.example.weightlosstracker.data.local.dao.WeightEntryDAO
+import com.example.weightlosstracker.data.local.dao.UserDao
+import com.example.weightlosstracker.data.local.dao.WeightEntryDao
 import com.example.weightlosstracker.data.local.mappers.WeightEntryMapper
 import com.example.weightlosstracker.domain.Stats
 import com.example.weightlosstracker.domain.WeightEntry
@@ -12,15 +12,15 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class DefaultWeightEntryRepository constructor(
-    private val weightEntryDAO: WeightEntryDAO,
-    private val userDAO: UserDAO,
+    private val weightEntryDao: WeightEntryDao,
+    private val userDao: UserDao,
     private val mapper: WeightEntryMapper
 ) : WeightEntryRepository {
 
     override suspend fun getAllEntries(): Flow<DataState<List<WeightEntry>>> = flow {
         emit(DataState.Loading)
 
-        val entries = weightEntryDAO.getAllWeightEntries()
+        val entries = weightEntryDao.getAllWeightEntries()
         val sortedList = entries.sortedByDescending {
             parseDate(it.date)
         }
@@ -30,7 +30,7 @@ class DefaultWeightEntryRepository constructor(
     override suspend fun getLastEntry(): Flow<DataState<WeightEntry>> = flow {
         emit(DataState.Loading)
 
-        val entries = weightEntryDAO.getAllWeightEntries()
+        val entries = weightEntryDao.getAllWeightEntries()
         if (entries.isEmpty()) {
             emit(DataState.Error("No data found"))
         } else {
@@ -42,8 +42,8 @@ class DefaultWeightEntryRepository constructor(
     }
 
     override suspend fun getUserStats(): Flow<Stats> = flow {
-        val userData = userDAO.getUser()
-        val entries = weightEntryDAO.getAllWeightEntries()
+        val userData = userDao.getUser()
+        val entries = weightEntryDao.getAllWeightEntries()
         if (entries.isNotEmpty()) {
             val sortedList = entries.sortedByDescending {
                 parseDate(it.date)
@@ -65,6 +65,6 @@ class DefaultWeightEntryRepository constructor(
     }
 
     override suspend fun insertWeight(weightEntry: WeightEntry) {
-        weightEntryDAO.insertWeightEntry(mapper.mapToEntity(weightEntry))
+        weightEntryDao.insertWeightEntry(mapper.mapToEntity(weightEntry))
     }
 }

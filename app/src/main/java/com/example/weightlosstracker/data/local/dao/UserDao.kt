@@ -4,7 +4,7 @@ import androidx.room.*
 import com.example.weightlosstracker.data.local.model.UserCache
 
 @Dao
-interface UserDAO {
+interface UserDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertUserGoal(userData: UserCache)

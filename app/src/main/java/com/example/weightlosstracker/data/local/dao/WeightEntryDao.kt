@@ -5,10 +5,13 @@ import androidx.room.*
 import com.example.weightlosstracker.data.local.model.WeightEntryCache
 
 @Dao
-interface WeightEntryDAO {
+interface WeightEntryDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertWeightEntry(weightEntry: WeightEntryCache)
+
+    @Delete
+    suspend fun deleteWeightEntry(weightEntry: WeightEntryCache)
 
     @Query("SELECT * FROM weight_entries_table")
     suspend fun getAllWeightEntries(): List<WeightEntryCache>

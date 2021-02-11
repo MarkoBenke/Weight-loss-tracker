@@ -1,7 +1,7 @@
 package com.example.weightlosstracker.repository
 
 import com.example.weightlosstracker.domain.Quote
-import com.example.weightlosstracker.repository.qoutes.QuotesRepository
+import com.example.weightlosstracker.repository.quotes.QuotesRepository
 import com.example.weightlosstracker.util.DataState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

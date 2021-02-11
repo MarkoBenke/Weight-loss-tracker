@@ -10,13 +10,14 @@ import kotlinx.coroutines.flow.flow
 class FakeWeightEntryRepository : WeightEntryRepository {
 
     override suspend fun getAllEntries(): Flow<DataState<List<WeightEntry>>> = flow {
-        emit(DataState.Success(arrayListOf()))
+        emit(DataState.Success(arrayListOf<WeightEntry>()))
     }
 
     override suspend fun getLastEntry(): Flow<DataState<WeightEntry>> = flow {
         emit(DataState.Success(WeightEntry(
             currentWeight = 95f,
             date = "25.05.2005.",
+            waistSize = 50,
             description = "desc"
         )))
     }

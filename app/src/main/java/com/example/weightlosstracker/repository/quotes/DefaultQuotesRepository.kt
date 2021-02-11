@@ -1,17 +1,17 @@
-package com.example.weightlosstracker.repository.qoutes
+package com.example.weightlosstracker.repository.quotes
 
-import com.example.weightlosstracker.data.local.dao.QuoteDAO
+import com.example.weightlosstracker.data.local.dao.QuoteDao
 import com.example.weightlosstracker.data.local.mappers.QuoteLocalMapper
 import com.example.weightlosstracker.data.remote.QuoteNetworkMapper
-import com.example.weightlosstracker.data.remote.QuotesApi
+import com.example.weightlosstracker.data.remote.QuotesRetrofitApi
 import com.example.weightlosstracker.domain.Quote
 import com.example.weightlosstracker.util.DataState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class DefaultQuotesRepository constructor(
-    private val quotesApi: QuotesApi,
-    private val quoteDAO: QuoteDAO,
+    private val quotesRetrofitApi: QuotesRetrofitApi,
+    private val quoteDao: QuoteDao,
     private val quoteNetworkMapper: QuoteNetworkMapper,
     private val quoteLocalMapper: QuoteLocalMapper
 ) : QuotesRepository {
@@ -19,12 +19,12 @@ class DefaultQuotesRepository constructor(
     override suspend fun getQuote(): Flow<DataState<Quote>> = flow {
         emit(DataState.Loading)
         try {
-            val response = quotesApi.getQuoteOfDay()
+            val response = quotesRetrofitApi.getQuoteOfDay()
             if (response.isSuccessful) {
                 response.body()?.let {
                     val quote = quoteNetworkMapper.mapFromEntity(it.first())
-                    quoteDAO.insertQuote(quoteLocalMapper.mapToEntity(quote))
-                    val quotes = quoteDAO.getAllQuotes()
+                    quoteDao.insertQuote(quoteLocalMapper.mapToEntity(quote))
+                    val quotes = quoteDao.getAllQuotes()
                     if (quotes.isNotEmpty()) {
                         val randomQuote = quotes.random()
                         emit(DataState.Success(quoteLocalMapper.mapFromEntity(randomQuote)))

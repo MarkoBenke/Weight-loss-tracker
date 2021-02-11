@@ -7,7 +7,7 @@ import androidx.room.Query
 import com.example.weightlosstracker.data.local.model.QuoteCache
 
 @Dao
-interface QuoteDAO {
+interface QuoteDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertQuote(quote: QuoteCache)
