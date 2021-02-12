@@ -10,12 +10,18 @@ import androidx.test.espresso.assertion.ViewAssertions.doesNotExist
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.RootMatchers.withDecorView
 import androidx.test.espresso.matcher.ViewMatchers.*
+import com.example.weightlosstracker.R
 import com.google.android.material.textfield.TextInputLayout
 import org.hamcrest.*
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.core.StringContains
 
 abstract class BaseUiTest  {
+
+    fun checkSnackbarText(stringResId: Int) {
+        onView(withId(com.google.android.material.R.id.snackbar_text))
+            .check(matches(withText(stringResId)))
+    }
 
     fun viewPagerSwipeLeft(viewId: Int) {
         onView(withId(viewId)).perform(swipeLeft())
@@ -234,6 +240,14 @@ abstract class BaseUiTest  {
      */
     protected fun isTextDisplayedInView(id: Int, text: String) =
         onView(withId(id)).check(matches(withText(text)))
+
+    /**
+     * Check is text displayed in view
+     * @id view id
+     * @text text inside view
+     */
+    protected fun isTextDisplayedInView(id: Int, stringResId: Int) =
+        onView(withId(id)).check(matches(withText(stringResId)))
 
     /**
      * Check is text contained in view

@@ -1,4 +1,4 @@
-package com.example.weightlosstracker.ui.onboarding
+package com.example.weightlosstracker.ui.main.add
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.weightlosstracker.DataGenerator
@@ -6,8 +6,8 @@ import com.example.weightlosstracker.FakeDispatcherProvider
 import com.example.weightlosstracker.MainCoroutineRule
 import com.example.weightlosstracker.getOrAwaitValueTest
 import com.example.weightlosstracker.repository.FakeUserRepositoryTest
+import com.example.weightlosstracker.repository.FakeWeightEntryRepositoryTest
 import com.example.weightlosstracker.util.DataState
-import com.example.weightlosstracker.util.DispatcherProvider
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Before
@@ -15,7 +15,7 @@ import org.junit.Rule
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
-class TargetWeightViewModelTest {
+class AddEntryViewModelTest {
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
@@ -23,27 +23,31 @@ class TargetWeightViewModelTest {
     @get:Rule
     var mainCoroutineRule = MainCoroutineRule()
 
-    private lateinit var viewModel: TargetWeightViewModel
+    lateinit var viewModel: AddEntryViewModel
 
     @Before
     fun setup() {
-        viewModel = TargetWeightViewModel(FakeUserRepositoryTest(), FakeDispatcherProvider())
+        viewModel = AddEntryViewModel(
+            FakeWeightEntryRepositoryTest(),
+            FakeUserRepositoryTest(),
+            FakeDispatcherProvider()
+        )
     }
 
     @Test
-    fun `validate target weight, invalid input, returns error`() {
-        viewModel.insertUserToDb("", DataGenerator.user)
+    fun `validate insert new weight entry, returns error`() {
+        viewModel.insertNewEntry("", DataGenerator.weightEntry)
 
-        val value = viewModel.insertUserLiveData.getOrAwaitValueTest()
+        val value = viewModel.insertWeightLiveData.getOrAwaitValueTest()
 
         assertThat(value.getContentIfNotHandled()).isEqualTo(DataState.Error())
     }
 
     @Test
-    fun `validate target weight, valid input, returns success`() {
-        viewModel.insertUserToDb("70", DataGenerator.user)
+    fun `validate insert new weight entry, returns success`() {
+        viewModel.insertNewEntry("85", DataGenerator.weightEntry)
 
-        val value = viewModel.insertUserLiveData.getOrAwaitValueTest()
+        val value = viewModel.insertWeightLiveData.getOrAwaitValueTest()
 
         assertThat(value.getContentIfNotHandled()).isEqualTo(DataState.Success(Unit))
     }

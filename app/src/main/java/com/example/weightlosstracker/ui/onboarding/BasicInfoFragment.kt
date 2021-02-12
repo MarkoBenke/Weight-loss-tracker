@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.weightlosstracker.R
 import com.example.weightlosstracker.databinding.FragmentBasicInfoBinding
 import com.example.weightlosstracker.domain.User
+import com.example.weightlosstracker.util.DataState
 import com.example.weightlosstracker.util.getCurrentDate
 import com.example.weightlosstracker.util.parseSelectedDate
 import com.example.weightlosstracker.util.viewBinding
@@ -43,29 +44,40 @@ class BasicInfoFragment : Fragment(R.layout.fragment_basic_info) {
 
     private fun subscribeToObservers() {
         user = requireArguments().getParcelable(OnBoardingActivity.USER_KEY)
-        viewModel.validateLiveData.observe(viewLifecycleOwner, Observer { success ->
-            if (success) {
-                user?.apply {
-                    height = binding.height.editText?.text.toString().toFloat()
-                    age = binding.age.editText?.text.toString().toInt()
-                    currentWeight = binding.currentWeight.editText?.text.toString().toFloat()
-                    startWaistSize =
-                        binding.waistSize.editText?.text.toString().toIntOrNull() ?: 0
-                    startWeight = currentWeight
-                    startDate = binding.setDateText.text.toString()
+        //TODO not working
+        viewModel.validateLiveData.observe(viewLifecycleOwner, Observer { event ->
+            event.getContentIfNotHandled()?.let { result -> {
+                    when (result) {
+                        is DataState.Success -> {
+                            user?.apply {
+                                height = binding.height.editText?.text.toString().toFloat()
+                                age = binding.age.editText?.text.toString().toInt()
+                                currentWeight =
+                                    binding.currentWeight.editText?.text.toString().toFloat()
+                                startWaistSize =
+                                    binding.waistSize.editText?.text.toString().toIntOrNull() ?: 0
+                                startWeight = currentWeight
+                                startDate = binding.setDateText.text.toString()
+                            }
+                            val bundle = bundleOf(
+                                OnBoardingActivity.USER_KEY to user
+                            )
+                            findNavController().navigate(
+                                R.id.action_basicInfoFragment_to_targetWeightFragment,
+                                bundle
+                            )
+                        }
+                        is DataState.Error -> {
+                            Snackbar.make(
+                                requireView(), getString(R.string.mandatory_fields_error_message),
+                                Snackbar.LENGTH_LONG
+                            ).show()
+                        }
+                        DataState.Loading -> {
+                            /* No-OP */
+                        }
+                    }
                 }
-                val bundle = bundleOf(
-                    OnBoardingActivity.USER_KEY to user
-                )
-                findNavController().navigate(
-                    R.id.action_basicInfoFragment_to_targetWeightFragment,
-                    bundle
-                )
-            } else {
-                Snackbar.make(
-                    requireView(), getString(R.string.mandatory_fields_error_message),
-                    Snackbar.LENGTH_LONG
-                ).show()
             }
         })
     }

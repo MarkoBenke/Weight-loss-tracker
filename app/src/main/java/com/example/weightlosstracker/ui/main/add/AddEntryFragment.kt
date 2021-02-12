@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import com.example.weightlosstracker.R
 import com.example.weightlosstracker.databinding.FragmentAddEntryBinding
 import com.example.weightlosstracker.domain.WeightEntry
+import com.example.weightlosstracker.util.DataState
 import com.example.weightlosstracker.util.getCurrentDate
 import com.example.weightlosstracker.util.parseSelectedDate
 import com.example.weightlosstracker.util.viewBinding
@@ -32,8 +33,15 @@ class AddEntryFragment : Fragment(R.layout.fragment_add_entry) {
 
     private fun initSubmit() {
         binding.submitBtn.setOnClickListener {
-            viewModel.validate(
-                binding.newWeight.editText?.text.toString()
+            val newWeight =  binding.newWeight.editText?.text.toString()
+            viewModel.insertNewEntry(
+                newWeight,
+                WeightEntry(
+                    currentWeight = newWeight.toFloat(),
+                    waistSize = binding.waistSize.editText?.text.toString().toIntOrNull() ?: 0,
+                    date = binding.setDateText.text.toString(),
+                    description = binding.description.editText?.text.toString(),
+                )
             )
         }
     }
@@ -42,33 +50,28 @@ class AddEntryFragment : Fragment(R.layout.fragment_add_entry) {
         viewModel.startDateLiveData.observe(viewLifecycleOwner, Observer { startDateInMillis ->
             initDateCalendar(startDateInMillis)
         })
-        viewModel.validateLiveData.observe(viewLifecycleOwner, Observer { success ->
-            if (success) {
-                viewModel.insertNewEntry(
-                    WeightEntry(
-                        currentWeight = binding.newWeight.editText?.text?.toString()!!.toFloat(),
-                        waistSize = binding.waistSize.editText?.text?.toString()!!.toIntOrNull()
-                            ?: 0,
-                        date = binding.setDateText.text.toString(),
-                        description = binding.description.editText?.text.toString(),
-                    )
-                )
-            } else {
-                Snackbar.make(
-                    requireView(),
-                    getString(R.string.current_weight_error_message),
-                    Snackbar.LENGTH_LONG
-                ).show()
-            }
-        })
 
-        viewModel.insertWeightLiveData.observe(viewLifecycleOwner, Observer {
-            if (it) {
-                Snackbar.make(
-                    requireView(),
-                    getString(R.string.entry_success),
-                    Snackbar.LENGTH_LONG
-                ).show()
+        viewModel.insertWeightLiveData.observe(viewLifecycleOwner, Observer { event ->
+            event.getContentIfNotHandled()?.let { result ->
+                when(result) {
+                    is DataState.Success -> {
+                        Snackbar.make(
+                            requireView(),
+                            getString(R.string.entry_success),
+                            Snackbar.LENGTH_LONG
+                        ).show()
+                    }
+                    is DataState.Error -> {
+                        Snackbar.make(
+                            requireView(),
+                            getString(R.string.current_weight_error_message),
+                            Snackbar.LENGTH_LONG
+                        ).show()
+                    }
+                    DataState.Loading -> {
+                        /* NO-OP */
+                    }
+                }
             }
         })
     }

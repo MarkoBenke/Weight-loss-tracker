@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class FakeWeightEntryRepository @Inject constructor() : WeightEntryRepository {
+class FakeWeightEntryRepositoryTest @Inject constructor() : WeightEntryRepository {
 
     override suspend fun getAllEntries(): Flow<DataState<List<WeightEntry>>> = flow {
         emit(DataState.Success(arrayListOf<WeightEntry>()))

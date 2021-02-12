@@ -6,7 +6,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.weightlosstracker.domain.Gender
 import com.example.weightlosstracker.domain.User
 import com.example.weightlosstracker.repository.user.UserRepository
+import com.example.weightlosstracker.util.DataState
 import com.example.weightlosstracker.util.DispatcherProvider
+import com.example.weightlosstracker.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -18,19 +20,18 @@ class TargetWeightViewModel @Inject constructor(
     private val dispatchers: DispatcherProvider
 ) : ViewModel() {
 
-    val validateLiveData = MutableLiveData<Boolean>()
-    val insertUserLiveData = MutableLiveData<Boolean>()
+    val insertUserLiveData = MutableLiveData<Event<DataState<Unit>>>()
 
-    fun validate(targetWeight: String) {
-        validateLiveData.postValue(targetWeight.isNotEmpty())
-    }
-
-    fun insertUserToDb(user: User?) {
-        user?.let {
-            viewModelScope.launch(dispatchers.io) {
-                userRepository.insertUser(it)
-                withContext(dispatchers.main) {
-                    insertUserLiveData.postValue(true)
+    fun insertUserToDb(targetWeight: String, user: User?) {
+        if (targetWeight.isEmpty()) {
+            insertUserLiveData.postValue(Event(DataState.Error()))
+        } else {
+            user?.let {
+                viewModelScope.launch(dispatchers.io) {
+                    userRepository.insertUser(it)
+                    withContext(dispatchers.main) {
+                        insertUserLiveData.postValue(Event(DataState.Success(Unit)))
+                    }
                 }
             }
         }

@@ -6,7 +6,7 @@ import com.example.weightlosstracker.util.DataState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class FakeUserRepository: UserRepository {
+class FakeUserRepositoryTest: UserRepository {
 
     override suspend fun insertUser(user: User) {
         //todo

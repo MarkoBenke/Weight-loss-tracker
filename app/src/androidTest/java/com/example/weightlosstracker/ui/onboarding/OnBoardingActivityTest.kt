@@ -1,44 +1,76 @@
 package com.example.weightlosstracker.ui.onboarding
 
+import androidx.lifecycle.Lifecycle
 import androidx.test.core.app.ActivityScenario
-import com.example.weightlosstracker.di.RepositoryModule
-import com.example.weightlosstracker.repository.FakeQuotesRepository
-import com.example.weightlosstracker.repository.FakeUserRepositoryAndroidTest
-import com.example.weightlosstracker.repository.FakeWeightEntryRepository
-import com.example.weightlosstracker.repository.quotes.QuotesRepository
-import com.example.weightlosstracker.repository.user.UserRepository
-import com.example.weightlosstracker.repository.weightentry.WeightEntryRepository
-import com.example.weightlosstracker.ui.main.MainActivity
-import dagger.hilt.android.testing.BindValue
-import dagger.hilt.android.testing.HiltAndroidRule
+import androidx.test.espresso.Espresso.pressBack
+import com.example.weightlosstracker.R
+import com.example.weightlosstracker.utils.BaseTest
 import dagger.hilt.android.testing.HiltAndroidTest
-import dagger.hilt.android.testing.UninstallModules
-import org.junit.Rule
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Test
 
-
-@UninstallModules(RepositoryModule::class)
+@ExperimentalCoroutinesApi
 @HiltAndroidTest
-class OnBoardingActivityTest {
-
-    @get:Rule
-    var hiltRule = HiltAndroidRule(this)
-
-    @BindValue @JvmField
-    val weightEntryRepository: WeightEntryRepository = FakeWeightEntryRepository()
-
-    @BindValue @JvmField
-    val userRepository: UserRepository = FakeUserRepositoryAndroidTest()
-
-    @BindValue @JvmField
-    val quotesRepository: QuotesRepository = FakeQuotesRepository()
+class OnBoardingActivityTest : BaseTest() {
 
     @Test
-    fun test() {
-        ActivityScenario.launch(MainActivity::class.java)
+    fun walkThroughOnBoarding() {
+        val onBoardingActivity = ActivityScenario.launch(OnBoardingActivity::class.java)
 
-        // TODO check custom method for launch fragment in container with hilt Lackner YT
-//        launchFragmentInContainer<HomeFragment>()
-//        onView(withId(R.id.addEntry)).perform(click())
+        //screen 1
+        isTextDisplayedInView(R.id.genderTitle, R.string.select_gender_title)
+        clickOnView(R.id.next)
+
+        //screen 2
+        isTextDisplayedInView(R.id.weightDataText, R.string.weight_data_title)
+        clickOnView(R.id.next)
+        checkSnackbarText(R.string.mandatory_fields_error_message)
+
+        fillBasicInfoData()
+        clickOnView(R.id.next)
+
+        //screen 3
+        isViewVisible(R.id.idealWeight)
+        clickOnView(R.id.submit)
+        checkSnackbarText(R.string.target_weight_error_message)
+
+        typeTextOnInputLayout(R.id.targetWeight, "70")
+        clickOnView(R.id.submit)
+
+        assert(onBoardingActivity.state.isAtLeast(Lifecycle.State.DESTROYED))
+    }
+
+    @Test
+    fun onBoardingNavigation() {
+        ActivityScenario.launch(OnBoardingActivity::class.java)
+
+        //screen 1
+        isViewVisible(R.id.genderTitle)
+        clickOnView(R.id.next)
+
+        //screen 2
+        isViewVisible(R.id.weightDataText)
+        fillBasicInfoData()
+        clickOnView(R.id.next)
+
+        //screen 3
+        isViewVisible(R.id.idealWeight)
+
+        pressBack()
+
+        //screen 2
+        isViewVisible(R.id.weightDataText)
+
+        pressBack()
+
+        //screen 1
+        isViewVisible(R.id.genderTitle)
+    }
+
+    private fun fillBasicInfoData() {
+        typeTextOnInputLayout(R.id.height, "175")
+        typeTextOnInputLayout(R.id.age, "30")
+        typeTextOnInputLayout(R.id.currentWeight, "85")
+        typeTextOnInputLayout(R.id.waistSize, "88")
     }
 }

@@ -5,8 +5,9 @@ import com.example.weightlosstracker.repository.quotes.QuotesRepository
 import com.example.weightlosstracker.util.DataState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
 
-class FakeQuotesRepository: QuotesRepository {
+class FakeQuotesRepository @Inject constructor(): QuotesRepository {
 
     override suspend fun getQuote(): Flow<DataState<Quote>> = flow {
         emit(DataState.Success(Quote(

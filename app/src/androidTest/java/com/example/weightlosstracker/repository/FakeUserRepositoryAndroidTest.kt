@@ -7,8 +7,9 @@ import com.example.weightlosstracker.util.DataState
 import com.example.weightlosstracker.util.parseDate
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
 
-class FakeUserRepositoryAndroidTest : UserRepository {
+class FakeUserRepositoryAndroidTest @Inject constructor() : UserRepository {
 
     private val users = mutableListOf<User>()
     private val observableUsers = MutableLiveData<List<User>>(users)

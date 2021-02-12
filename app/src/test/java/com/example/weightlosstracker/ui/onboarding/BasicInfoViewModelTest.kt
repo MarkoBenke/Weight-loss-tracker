@@ -3,6 +3,7 @@ package com.example.weightlosstracker.ui.onboarding
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.weightlosstracker.MainCoroutineRule
 import com.example.weightlosstracker.getOrAwaitValueTest
+import com.example.weightlosstracker.util.DataState
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Test
@@ -37,7 +38,7 @@ class BasicInfoViewModelTest {
 
         val value = viewModel.validateLiveData.getOrAwaitValueTest()
 
-        assertThat(value).isFalse()
+        assertThat(value.getContentIfNotHandled()).isEqualTo(DataState.Error())
     }
 
     @Test
@@ -46,7 +47,7 @@ class BasicInfoViewModelTest {
 
         val value = viewModel.validateLiveData.getOrAwaitValueTest()
 
-        assertThat(value).isFalse()
+        assertThat(value.getContentIfNotHandled()).isEqualTo(DataState.Error())
     }
 
     @Test
@@ -55,7 +56,7 @@ class BasicInfoViewModelTest {
 
         val value = viewModel.validateLiveData.getOrAwaitValueTest()
 
-        assertThat(value).isFalse()
+        assertThat(value.getContentIfNotHandled()).isEqualTo(DataState.Error())
     }
 
     @Test
@@ -64,7 +65,7 @@ class BasicInfoViewModelTest {
 
         val value = viewModel.validateLiveData.getOrAwaitValueTest()
 
-        assertThat(value).isFalse()
+        assertThat(value.getContentIfNotHandled()).isEqualTo(DataState.Error())
     }
 
     @Test
@@ -73,6 +74,6 @@ class BasicInfoViewModelTest {
 
         val value = viewModel.validateLiveData.getOrAwaitValueTest()
 
-        assertThat(value).isTrue()
+        assertThat(value.getContentIfNotHandled()).isEqualTo(DataState.Success(Unit))
     }
 }
