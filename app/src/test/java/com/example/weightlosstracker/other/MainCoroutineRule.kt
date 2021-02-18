@@ -1,4 +1,4 @@
-package com.example.weightlosstracker
+package com.example.weightlosstracker.other
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers

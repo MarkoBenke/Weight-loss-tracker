@@ -1,10 +1,10 @@
 package com.example.weightlosstracker.ui.onboarding
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.weightlosstracker.DataGenerator
-import com.example.weightlosstracker.FakeDispatcherProvider
-import com.example.weightlosstracker.MainCoroutineRule
-import com.example.weightlosstracker.getOrAwaitValueTest
+import com.example.weightlosstracker.other.DataGenerator
+import com.example.weightlosstracker.other.FakeDispatcherProvider
+import com.example.weightlosstracker.other.MainCoroutineRule
+import com.example.weightlosstracker.other.getOrAwaitValueTest
 import com.example.weightlosstracker.repository.FakeUserRepositoryTest
 import com.example.weightlosstracker.util.DataState
 import com.google.common.truth.Truth.assertThat
@@ -20,13 +20,16 @@ class TargetWeightViewModelTest {
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @get:Rule
-    var mainCoroutineRule = MainCoroutineRule()
+    var mainCoroutineRule =
+        MainCoroutineRule()
 
     private lateinit var viewModel: TargetWeightViewModel
 
     @Before
     fun setup() {
-        viewModel = TargetWeightViewModel(FakeUserRepositoryTest(), FakeDispatcherProvider())
+        viewModel = TargetWeightViewModel(FakeUserRepositoryTest(),
+            FakeDispatcherProvider()
+        )
     }
 
     @Test

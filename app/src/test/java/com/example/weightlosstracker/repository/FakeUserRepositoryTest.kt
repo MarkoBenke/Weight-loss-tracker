@@ -1,6 +1,6 @@
 package com.example.weightlosstracker.repository
 
-import com.example.weightlosstracker.DataGenerator
+import com.example.weightlosstracker.other.DataGenerator
 import com.example.weightlosstracker.domain.User
 import com.example.weightlosstracker.repository.user.UserRepository
 import com.example.weightlosstracker.util.DataState

@@ -1,10 +1,10 @@
 package com.example.weightlosstracker.ui.main.history
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.weightlosstracker.DataGenerator
-import com.example.weightlosstracker.FakeDispatcherProvider
-import com.example.weightlosstracker.MainCoroutineRule
-import com.example.weightlosstracker.getOrAwaitValueTest
+import com.example.weightlosstracker.other.DataGenerator
+import com.example.weightlosstracker.other.FakeDispatcherProvider
+import com.example.weightlosstracker.other.MainCoroutineRule
+import com.example.weightlosstracker.other.getOrAwaitValueTest
 import com.example.weightlosstracker.repository.FakeWeightEntryRepositoryTest
 import com.example.weightlosstracker.util.DataState
 import com.example.weightlosstracker.util.getCurrentDate
@@ -21,13 +21,16 @@ class EntryHistoryViewModelTest {
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @get:Rule
-    var mainCoroutineRule = MainCoroutineRule()
+    var mainCoroutineRule =
+        MainCoroutineRule()
 
     private lateinit var viewModel: EntryHistoryViewModel
 
     @Before
     fun setup() {
-        viewModel = EntryHistoryViewModel(FakeWeightEntryRepositoryTest(), FakeDispatcherProvider())
+        viewModel = EntryHistoryViewModel(FakeWeightEntryRepositoryTest(),
+            FakeDispatcherProvider()
+        )
     }
 
     @Test

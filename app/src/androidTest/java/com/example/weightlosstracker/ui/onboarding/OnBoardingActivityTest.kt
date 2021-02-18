@@ -1,5 +1,6 @@
 package com.example.weightlosstracker.ui.onboarding
 
+import android.os.SystemClock
 import androidx.lifecycle.Lifecycle
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.pressBack
@@ -27,14 +28,17 @@ class OnBoardingActivityTest : BaseTest() {
         clickOnView(R.id.next)
 
         //screen 2
+        sleepShort()
         isTextDisplayedInView(R.id.weightDataText, R.string.weight_data_title)
         clickOnView(R.id.next)
         checkSnackbarText(R.string.mandatory_fields_error_message)
 
         fillBasicInfoData()
+        sleepShort()
         clickOnView(R.id.next)
 
         //screen 3
+        sleepShort()
         isViewVisible(R.id.idealWeight)
         clickOnView(R.id.submit)
         checkSnackbarText(R.string.target_weight_error_message)
@@ -43,6 +47,7 @@ class OnBoardingActivityTest : BaseTest() {
         clickOnView(R.id.submit)
 
         assert(onBoardingActivity.state.isAtLeast(Lifecycle.State.DESTROYED))
+        onBoardingActivity.close()
     }
 
     @Test
@@ -51,9 +56,11 @@ class OnBoardingActivityTest : BaseTest() {
 
         //screen 1
         isViewVisible(R.id.genderTitle)
+        sleepShort()
         clickOnView(R.id.next)
 
         //screen 2
+        sleepShort()
         isViewVisible(R.id.weightDataText)
         fillBasicInfoData()
         clickOnView(R.id.next)

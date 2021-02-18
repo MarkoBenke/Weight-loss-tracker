@@ -1,10 +1,10 @@
 package com.example.weightlosstracker.ui.main.home
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.weightlosstracker.DataGenerator
-import com.example.weightlosstracker.FakeDispatcherProvider
-import com.example.weightlosstracker.MainCoroutineRule
-import com.example.weightlosstracker.getOrAwaitValueTest
+import com.example.weightlosstracker.other.DataGenerator
+import com.example.weightlosstracker.other.FakeDispatcherProvider
+import com.example.weightlosstracker.other.MainCoroutineRule
+import com.example.weightlosstracker.other.getOrAwaitValueTest
 import com.example.weightlosstracker.repository.FakeQuotesRepositoryTest
 import com.example.weightlosstracker.repository.FakeWeightEntryRepositoryTest
 import com.example.weightlosstracker.util.DataState
@@ -20,14 +20,16 @@ class HomeViewModelTest {
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @get:Rule
-    var mainCoroutineRule = MainCoroutineRule()
+    var mainCoroutineRule =
+        MainCoroutineRule()
 
     private lateinit var viewModel: HomeViewModel
 
     @Test
     fun `get quote, returns success`() {
         viewModel = HomeViewModel(
-            FakeQuotesRepositoryTest(), FakeWeightEntryRepositoryTest(), FakeDispatcherProvider()
+            FakeQuotesRepositoryTest(), FakeWeightEntryRepositoryTest(),
+            FakeDispatcherProvider()
         )
 
         val value = viewModel.quoteLiveData.getOrAwaitValueTest()
@@ -51,7 +53,8 @@ class HomeViewModelTest {
     @Test
     fun `get users stats, returns success`() {
         viewModel = HomeViewModel(
-            FakeQuotesRepositoryTest(), FakeWeightEntryRepositoryTest(), FakeDispatcherProvider()
+            FakeQuotesRepositoryTest(), FakeWeightEntryRepositoryTest(),
+            FakeDispatcherProvider()
         )
 
         val value = viewModel.userStatsLiveData.getOrAwaitValueTest()

@@ -1,4 +1,4 @@
-package com.example.weightlosstracker
+package com.example.weightlosstracker.other
 
 import com.example.weightlosstracker.data.local.model.QuoteCache
 import com.example.weightlosstracker.data.local.model.UserCache

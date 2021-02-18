@@ -3,7 +3,7 @@ package com.example.weightlosstracker.repository
 import com.example.weightlosstracker.domain.Quote
 import com.example.weightlosstracker.repository.quotes.QuotesRepository
 import com.example.weightlosstracker.util.DataState
-import com.example.weightlosstracker.DataGenerator
+import com.example.weightlosstracker.other.DataGenerator
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject

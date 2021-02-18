@@ -1,8 +1,8 @@
 package com.example.weightlosstracker.ui.onboarding
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.weightlosstracker.MainCoroutineRule
-import com.example.weightlosstracker.getOrAwaitValueTest
+import com.example.weightlosstracker.other.MainCoroutineRule
+import com.example.weightlosstracker.other.getOrAwaitValueTest
 import com.example.weightlosstracker.util.DataState
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -23,7 +23,8 @@ class BasicInfoViewModelTest {
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @get:Rule
-    var mainCoroutineRule = MainCoroutineRule()
+    var mainCoroutineRule =
+        MainCoroutineRule()
 
     private lateinit var viewModel: BasicInfoViewModel
 

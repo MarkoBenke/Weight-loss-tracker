@@ -1,4 +1,4 @@
-package com.example.weightlosstracker
+package com.example.weightlosstracker.other
 
 /*
  * Copyright (C) 2019 The Android Open Source Project

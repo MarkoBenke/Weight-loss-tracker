@@ -1,10 +1,10 @@
 package com.example.weightlosstracker.ui.main.add
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.weightlosstracker.DataGenerator
-import com.example.weightlosstracker.FakeDispatcherProvider
-import com.example.weightlosstracker.MainCoroutineRule
-import com.example.weightlosstracker.getOrAwaitValueTest
+import com.example.weightlosstracker.other.DataGenerator
+import com.example.weightlosstracker.other.FakeDispatcherProvider
+import com.example.weightlosstracker.other.MainCoroutineRule
+import com.example.weightlosstracker.other.getOrAwaitValueTest
 import com.example.weightlosstracker.repository.FakeUserRepositoryTest
 import com.example.weightlosstracker.repository.FakeWeightEntryRepositoryTest
 import com.example.weightlosstracker.util.DataState
@@ -21,7 +21,8 @@ class AddEntryViewModelTest {
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @get:Rule
-    var mainCoroutineRule = MainCoroutineRule()
+    var mainCoroutineRule =
+        MainCoroutineRule()
 
     lateinit var viewModel: AddEntryViewModel
 

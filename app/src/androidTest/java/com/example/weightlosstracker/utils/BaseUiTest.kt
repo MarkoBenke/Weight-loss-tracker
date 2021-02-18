@@ -1,6 +1,7 @@
 package com.example.weightlosstracker.utils
 
 import android.app.Activity
+import android.os.SystemClock
 import android.view.View
 import android.widget.DatePicker
 import android.widget.EditText
@@ -18,6 +19,18 @@ import org.hamcrest.CoreMatchers.*
 import org.hamcrest.core.StringContains
 
 abstract class BaseUiTest {
+
+    fun sleepShort() {
+        SystemClock.sleep(500)
+    }
+
+    fun sleepMedium() {
+        SystemClock.sleep(1000)
+    }
+
+    fun sleepLong() {
+        SystemClock.sleep(2000)
+    }
 
     fun checkSnackbarText(stringResId: Int) {
         onView(withId(com.google.android.material.R.id.snackbar_text))
