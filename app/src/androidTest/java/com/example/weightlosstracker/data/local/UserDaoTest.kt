@@ -45,7 +45,7 @@ class UserDaoTest {
 
     @Test
     fun insertAndGetUser() = runBlockingTest {
-        val user = DataGenerator.user
+        val user = DataGenerator.userCache
         dao.insertUserGoal(user)
 
         val dbUser = dao.getUser()

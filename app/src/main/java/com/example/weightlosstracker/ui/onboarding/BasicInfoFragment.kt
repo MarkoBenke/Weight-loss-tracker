@@ -44,39 +44,35 @@ class BasicInfoFragment : Fragment(R.layout.fragment_basic_info) {
 
     private fun subscribeToObservers() {
         user = requireArguments().getParcelable(OnBoardingActivity.USER_KEY)
-        //TODO not working
         viewModel.validateLiveData.observe(viewLifecycleOwner, Observer { event ->
-            event.getContentIfNotHandled()?.let { result -> {
-                    when (result) {
-                        is DataState.Success -> {
-                            user?.apply {
-                                height = binding.height.editText?.text.toString().toFloat()
-                                age = binding.age.editText?.text.toString().toInt()
-                                currentWeight =
-                                    binding.currentWeight.editText?.text.toString().toFloat()
-                                startWaistSize =
-                                    binding.waistSize.editText?.text.toString().toIntOrNull() ?: 0
-                                startWeight = currentWeight
-                                startDate = binding.setDateText.text.toString()
-                            }
-                            val bundle = bundleOf(
-                                OnBoardingActivity.USER_KEY to user
-                            )
-                            findNavController().navigate(
-                                R.id.action_basicInfoFragment_to_targetWeightFragment,
-                                bundle
-                            )
-                        }
-                        is DataState.Error -> {
-                            Snackbar.make(
-                                requireView(), getString(R.string.mandatory_fields_error_message),
-                                Snackbar.LENGTH_LONG
-                            ).show()
-                        }
-                        DataState.Loading -> {
-                            /* No-OP */
-                        }
+            when (event.getContentIfNotHandled()) {
+                is DataState.Success -> {
+                    user?.apply {
+                        height = binding.height.editText?.text.toString().toFloat()
+                        age = binding.age.editText?.text.toString().toInt()
+                        currentWeight =
+                            binding.currentWeight.editText?.text.toString().toFloat()
+                        startWaistSize =
+                            binding.waistSize.editText?.text.toString().toIntOrNull() ?: 0
+                        startWeight = currentWeight
+                        startDate = binding.setDateText.text.toString()
                     }
+                    val bundle = bundleOf(
+                        OnBoardingActivity.USER_KEY to user
+                    )
+                    findNavController().navigate(
+                        R.id.action_basicInfoFragment_to_targetWeightFragment,
+                        bundle
+                    )
+                }
+                is DataState.Error -> {
+                    Snackbar.make(
+                        requireView(), getString(R.string.mandatory_fields_error_message),
+                        Snackbar.LENGTH_LONG
+                    ).show()
+                }
+                DataState.Loading -> {
+                    /* No-OP */
                 }
             }
         })

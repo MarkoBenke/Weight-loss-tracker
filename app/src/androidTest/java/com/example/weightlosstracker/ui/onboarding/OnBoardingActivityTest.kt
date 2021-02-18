@@ -13,6 +13,11 @@ import org.junit.Test
 @HiltAndroidTest
 class OnBoardingActivityTest : BaseTest() {
 
+    override fun setup() {
+        hiltRule.inject()
+        super.setup()
+    }
+
     @Test
     fun walkThroughOnBoarding() {
         val onBoardingActivity = ActivityScenario.launch(OnBoardingActivity::class.java)

@@ -22,7 +22,7 @@ class EntryHistoryFragment : Fragment(R.layout.fragment_entry_history) {
         super.onViewCreated(view, savedInstanceState)
 
         entriesAdapter = EntriesAdapter(requireContext())
-        binding.goalEntriesRecView.adapter = entriesAdapter
+        binding.entriesRecView.adapter = entriesAdapter
         subscribeToObservers()
     }
 

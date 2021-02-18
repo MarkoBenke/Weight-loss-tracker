@@ -39,7 +39,7 @@ class DefaultUserRepository constructor(
         if (userCache != null) {
             emit(DataState.Success(userMapper.mapFromEntity(userCache)))
         } else {
-            emit(DataState.Success(null))
+            emit(DataState.Error())
         }
     }
 

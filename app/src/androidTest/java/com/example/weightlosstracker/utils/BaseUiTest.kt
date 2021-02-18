@@ -2,21 +2,22 @@ package com.example.weightlosstracker.utils
 
 import android.app.Activity
 import android.view.View
+import android.widget.DatePicker
 import android.widget.EditText
 import androidx.test.espresso.Espresso.closeSoftKeyboard
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.doesNotExist
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.contrib.PickerActions
 import androidx.test.espresso.matcher.RootMatchers.withDecorView
 import androidx.test.espresso.matcher.ViewMatchers.*
-import com.example.weightlosstracker.R
 import com.google.android.material.textfield.TextInputLayout
 import org.hamcrest.*
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.core.StringContains
 
-abstract class BaseUiTest  {
+abstract class BaseUiTest {
 
     fun checkSnackbarText(stringResId: Int) {
         onView(withId(com.google.android.material.R.id.snackbar_text))
@@ -31,21 +32,34 @@ abstract class BaseUiTest  {
         onView(withId(viewId)).perform(swipeRight())
     }
 
-    fun checkTextOnRecyclerViewItem(viewId: Int, itemId: Int, position: Int, text: String) {
-        onView(withRecyclerView(viewId).atPositionOnView(position, itemId))
+    fun selectDateInCalendar(day: Int, month: Int, year: Int) {
+        onView(withClassName(Matchers.equalTo(DatePicker::class.java.name)))
+            .perform(PickerActions.setDate(year, month, day))
+    }
+
+    fun clickOnCalendarOk() {
+        clickOnText("OK")
+    }
+
+    fun checkTextOnRecyclerViewItem(recViewId: Int, itemId: Int, position: Int, text: String) {
+        onView(withRecyclerView(recViewId).atPositionOnView(position, itemId))
             .check(matches(withText(containsString(text))))
     }
 
-    fun isViewDisplayedInRecyclerView(viewId: Int, itemId: Int, position: Int) {
-        onView(withRecyclerView(viewId).atPositionOnView(position, itemId))
+    fun isViewVisibleInRecyclerView(recViewId: Int, itemId: Int, position: Int) {
+        onView(withRecyclerView(recViewId).atPositionOnView(position, itemId))
             .check(matches(isDisplayed()))
     }
 
-    fun isViewNotDisplayedInRecyclerView(viewId: Int, itemId: Int, position: Int) {
+    fun isViewNotVisibleInRecyclerView(viewId: Int, itemId: Int, position: Int) {
         onView(withRecyclerView(viewId).atPositionOnView(position, itemId))
             .check(matches(not(isDisplayed())))
     }
 
+    fun checkTextColorInRecyclerView(recViewId: Int, itemId: Int, position: Int, colorRes: Int) {
+        onView(withRecyclerView(recViewId).atPositionOnView(position, itemId))
+            .check(matches(hasTextColor(colorRes)))
+    }
 
     fun checkErrorTextOnInputField(viewId: Int, errorText: String) {
         onView(withId(viewId)).check(
@@ -55,6 +69,30 @@ abstract class BaseUiTest  {
                 )
             )
         )
+    }
+
+    fun checkHintTextOnInputField(viewId: Int, hintText: String) {
+        onView(withId(viewId)).check(
+            matches(
+                checkTextInputLayoutHintText(
+                    hintText
+                )
+            )
+        )
+    }
+
+    fun checkHelperTextOnInputField(viewId: Int, helperText: String) {
+        onView(withId(viewId)).check(
+            matches(
+                checkTextInputLayoutHelperText(
+                    helperText
+                )
+            )
+        )
+    }
+
+    fun checkMaxInputLength(viewId: Int, maxChars: Int) {
+        onView(withId(viewId)).check(matches(checkMaxInputLengthInEditText(maxChars)))
     }
 
     fun checkToastMessage(activity: Activity, text: String) {
@@ -172,7 +210,7 @@ abstract class BaseUiTest  {
      * Check max characters in EditText
      * @maxChars Max chars for given view
      */
-    fun checkMaxInputLengthInOctopusEditText(maxChars: Int): TypeSafeMatcher<View> {
+    private fun checkMaxInputLengthInEditText(maxChars: Int): TypeSafeMatcher<View> {
         return object : TypeSafeMatcher<View>() {
             override fun describeTo(description: Description?) {
                 description?.appendText(description.toString())
@@ -333,8 +371,39 @@ abstract class BaseUiTest  {
         }
     }
 
+    private fun checkTextInputLayoutHintText(hintText: String): Matcher<View?>? {
+        return object : TypeSafeMatcher<View?>() {
+
+            override fun describeTo(description: Description?) {}
+
+            override fun matchesSafely(item: View?): Boolean {
+                if (item is TextInputLayout) {
+                    return item.hint?.equals(hintText)!!
+                }
+
+                return false
+            }
+        }
+    }
+
+    private fun checkTextInputLayoutHelperText(helperText: String): Matcher<View?>? {
+        return object : TypeSafeMatcher<View?>() {
+
+            override fun describeTo(description: Description?) {}
+
+            override fun matchesSafely(item: View?): Boolean {
+                if (item is TextInputLayout) {
+                    return item.helperText?.equals(helperText)!!
+                }
+
+                return false
+            }
+        }
+    }
+
     companion object {
         const val FIRST_POSITION = 0
         const val SECOND_POSITION = 1
+        const val THIRD_POSITION = 2
     }
 }

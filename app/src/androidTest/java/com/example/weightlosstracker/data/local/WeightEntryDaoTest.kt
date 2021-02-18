@@ -45,7 +45,7 @@ class WeightEntryDaoTest {
 
     @Test
     fun insertAndGetWeightEntries() = runBlockingTest {
-        val weightEntry = DataGenerator.weightEntry
+        val weightEntry = DataGenerator.weightEntryCache
         dao.insertWeightEntry(weightEntry)
 
         val allEntries = dao.getAllWeightEntries()
@@ -54,7 +54,7 @@ class WeightEntryDaoTest {
 
     @Test
     fun deleteWeightEntry() = runBlockingTest {
-        val weightEntry = DataGenerator.weightEntry
+        val weightEntry = DataGenerator.weightEntryCache
         dao.insertWeightEntry(weightEntry)
         dao.deleteWeightEntry(weightEntry)
         val allEntries = dao.getAllWeightEntries()

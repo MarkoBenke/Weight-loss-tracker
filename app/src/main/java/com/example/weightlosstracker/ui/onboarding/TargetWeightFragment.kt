@@ -35,7 +35,7 @@ class TargetWeightFragment : Fragment(R.layout.fragment_target_weight) {
             val userTargetWeight = binding.targetWeight.editText?.text.toString()
             user?.apply {
                 goalName = generateName(userTargetWeight)
-                targetWeight = userTargetWeight.toFloat()
+                targetWeight = userTargetWeight.toFloatOrNull() ?: 0f
                 startBmi = calculateBmi(currentWeight, height)
             }
 

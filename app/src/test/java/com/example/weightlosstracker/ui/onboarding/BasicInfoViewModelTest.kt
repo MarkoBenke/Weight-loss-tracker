@@ -73,7 +73,6 @@ class BasicInfoViewModelTest {
         viewModel.validate(userHeight, userAge, userWeight)
 
         val value = viewModel.validateLiveData.getOrAwaitValueTest()
-
         assertThat(value.getContentIfNotHandled()).isEqualTo(DataState.Success(Unit))
     }
 }

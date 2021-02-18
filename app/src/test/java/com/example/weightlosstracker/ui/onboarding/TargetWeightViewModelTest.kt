@@ -7,7 +7,6 @@ import com.example.weightlosstracker.MainCoroutineRule
 import com.example.weightlosstracker.getOrAwaitValueTest
 import com.example.weightlosstracker.repository.FakeUserRepositoryTest
 import com.example.weightlosstracker.util.DataState
-import com.example.weightlosstracker.util.DispatcherProvider
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Before

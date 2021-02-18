@@ -46,7 +46,7 @@ class QuoteDaoTest {
 
     @Test
     fun insertAndGetQuote() = runBlockingTest {
-        val quote = DataGenerator.quote
+        val quote = DataGenerator.quoteCache
         dao.insertQuote(quote)
 
         val allQuotes = dao.getAllQuotes()

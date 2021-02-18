@@ -21,7 +21,6 @@ class SplashScreenActivity : AppCompatActivity() {
 
     private val binding by viewBinding(ActivitySplashScreenBinding::inflate)
     private val viewModel: SplashScreenViewModel by viewModels()
-    private val SPLASH_TIME_OUT: Long = 2500
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,22 +44,30 @@ class SplashScreenActivity : AppCompatActivity() {
                                     Intent(this@SplashScreenActivity, MainActivity::class.java)
                                 intent.putExtra(OnBoardingActivity.USER_KEY, dataState.data)
                                 startActivity(intent)
-                            } else {
-                                startActivity(
-                                    Intent(
-                                        this@SplashScreenActivity,
-                                        LaunchActivity::class.java
-                                    )
-                                )
+                                finish()
                             }
-                            finish()
                         }
                     }
                 }
                 is DataState.Error -> {
-
+                    lifecycleScope.launchWhenStarted {
+                        delay(SPLASH_TIME_OUT)
+                        withContext(Dispatchers.Main) {
+                            startActivity(
+                                Intent(
+                                    this@SplashScreenActivity,
+                                    LaunchActivity::class.java
+                                )
+                            )
+                            finish()
+                        }
+                    }
                 }
             }
         })
+    }
+
+    companion object {
+        const val SPLASH_TIME_OUT: Long = 2500
     }
 }

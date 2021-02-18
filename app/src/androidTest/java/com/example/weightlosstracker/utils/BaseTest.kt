@@ -1,8 +1,10 @@
 package com.example.weightlosstracker.utils
 
-import com.example.weightlosstracker.repository.FakeQuotesRepository
+import android.content.Context
+import androidx.test.platform.app.InstrumentationRegistry
+import com.example.weightlosstracker.repository.FakeQuotesRepositoryAndroidTest
 import com.example.weightlosstracker.repository.FakeUserRepositoryAndroidTest
-import com.example.weightlosstracker.repository.FakeWeightEntryRepository
+import com.example.weightlosstracker.repository.FakeWeightEntryRepositoryAndroidTest
 import dagger.hilt.android.testing.HiltAndroidRule
 import org.junit.Before
 import org.junit.Rule
@@ -14,16 +16,18 @@ abstract class BaseTest: BaseUiTest() {
     var hiltRule = HiltAndroidRule(this)
 
     @Inject
-    lateinit var weightEntryRepository: FakeWeightEntryRepository
+    lateinit var weightEntryRepository: FakeWeightEntryRepositoryAndroidTest
 
     @Inject
     lateinit var userRepository: FakeUserRepositoryAndroidTest
 
     @Inject
-    lateinit var quotesRepository: FakeQuotesRepository
+    lateinit var quotesRepository: FakeQuotesRepositoryAndroidTest
+
+    lateinit var context: Context
 
     @Before
-    fun setup() {
-        hiltRule.inject()
+    open fun setup() {
+        context = InstrumentationRegistry.getInstrumentation().targetContext
     }
 }

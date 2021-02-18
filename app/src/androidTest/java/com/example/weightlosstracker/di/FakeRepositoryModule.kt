@@ -1,8 +1,8 @@
 package com.example.weightlosstracker.di
 
-import com.example.weightlosstracker.repository.FakeQuotesRepository
+import com.example.weightlosstracker.repository.FakeQuotesRepositoryAndroidTest
 import com.example.weightlosstracker.repository.FakeUserRepositoryAndroidTest
-import com.example.weightlosstracker.repository.FakeWeightEntryRepository
+import com.example.weightlosstracker.repository.FakeWeightEntryRepositoryAndroidTest
 import com.example.weightlosstracker.repository.quotes.QuotesRepository
 import com.example.weightlosstracker.repository.user.UserRepository
 import com.example.weightlosstracker.repository.weightentry.WeightEntryRepository
@@ -19,15 +19,24 @@ import javax.inject.Singleton
 )
 object FakeRepositoryModule {
 
-    @Singleton
-    @Provides
-    fun provideQuotesRepository(): QuotesRepository = FakeQuotesRepository()
+    var shouldReturnError: Boolean = false
 
     @Singleton
     @Provides
-    fun provideUserRepository(): UserRepository = FakeUserRepositoryAndroidTest()
+    fun provideErrorBoolean(): Boolean {
+        return shouldReturnError
+    }
 
     @Singleton
     @Provides
-    fun provideWeightEntryRepository(): WeightEntryRepository = FakeWeightEntryRepository()
+    fun provideQuotesRepository(): QuotesRepository = FakeQuotesRepositoryAndroidTest()
+
+    @Singleton
+    @Provides
+    fun provideUserRepository(shouldReturnError: Boolean): UserRepository =
+        FakeUserRepositoryAndroidTest(shouldReturnError)
+
+    @Singleton
+    @Provides
+    fun provideWeightEntryRepository(): WeightEntryRepository = FakeWeightEntryRepositoryAndroidTest()
 }

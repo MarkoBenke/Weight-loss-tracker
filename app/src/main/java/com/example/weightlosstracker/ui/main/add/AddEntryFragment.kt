@@ -23,6 +23,7 @@ class AddEntryFragment : Fragment(R.layout.fragment_add_entry) {
     private val binding by viewBinding(FragmentAddEntryBinding::bind)
     private val viewModel: AddEntryViewModel by viewModels()
     private var calendar = Calendar.getInstance()
+    private lateinit var datePickerDialog: DatePickerDialog
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -37,7 +38,7 @@ class AddEntryFragment : Fragment(R.layout.fragment_add_entry) {
             viewModel.insertNewEntry(
                 newWeight,
                 WeightEntry(
-                    currentWeight = newWeight.toFloat(),
+                    currentWeight = newWeight.toFloatOrNull() ?: 0f,
                     waistSize = binding.waistSize.editText?.text.toString().toIntOrNull() ?: 0,
                     date = binding.setDateText.text.toString(),
                     description = binding.description.editText?.text.toString(),
@@ -55,6 +56,7 @@ class AddEntryFragment : Fragment(R.layout.fragment_add_entry) {
             event.getContentIfNotHandled()?.let { result ->
                 when(result) {
                     is DataState.Success -> {
+                        clearFields()
                         Snackbar.make(
                             requireView(),
                             getString(R.string.entry_success),
@@ -76,6 +78,16 @@ class AddEntryFragment : Fragment(R.layout.fragment_add_entry) {
         })
     }
 
+    private fun clearFields() {
+        with(binding) {
+            newWeight.editText?.text?.clear()
+            description.editText?.text?.clear()
+            waistSize.editText?.text?.clear()
+            setDateText.text = getCurrentDate()
+        }
+        //TODO update date picker dialog to current date
+    }
+
     private fun initDateCalendar(startDateInMillis: Long) {
         binding.setDateText.text = getCurrentDate()
         val dateSetListener =
@@ -86,15 +98,15 @@ class AddEntryFragment : Fragment(R.layout.fragment_add_entry) {
                 binding.setDateText.text = parseSelectedDate(calendar.time)
             }
 
+        datePickerDialog = DatePickerDialog(
+            requireActivity(), dateSetListener,
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
+        )
+        datePickerDialog.datePicker.maxDate = System.currentTimeMillis()
+        datePickerDialog.datePicker.minDate = startDateInMillis
         binding.setDate.setOnClickListener {
-            val datePickerDialog = DatePickerDialog(
-                requireActivity(), dateSetListener,
-                calendar.get(Calendar.YEAR),
-                calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH)
-            )
-            datePickerDialog.datePicker.maxDate = System.currentTimeMillis()
-            datePickerDialog.datePicker.minDate = startDateInMillis
             datePickerDialog.show()
         }
     }
