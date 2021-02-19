@@ -21,9 +21,5 @@ jobs:
 
       # Execute Gradle commands in GitHub Actions workflows
       # => https://github.com/marketplace/actions/gradle-command
-      - uses: eskatos/gradle-command-action@v1
-        with:
-          arguments: runOnGitHub
-          wrapper-cache-enabled: true
-          dependencies-cache-enabled: true
-          configuration-cache-enabled: true
+      - name: Run Tests
+        run: ./gradlew runOnGitHub
