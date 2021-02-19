@@ -32,7 +32,7 @@ class SplashScreenViewModelTest {
 
         val value = viewModel.userLiveData.getOrAwaitValueTest()
 
-        assertThat(value).isEqualTo(DataState.Success(DataGenerator.quote))
+        assertThat(value).isEqualTo(DataState.Success(DataGenerator.user))
     }
 
     @Test
