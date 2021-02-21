@@ -9,8 +9,12 @@ import com.example.weightlosstracker.data.local.model.QuoteCache
 import com.example.weightlosstracker.data.local.model.UserCache
 import com.example.weightlosstracker.data.local.model.WeightEntryCache
 
-@Database(entities = [QuoteCache::class, UserCache::class, WeightEntryCache::class], version = 1)
-abstract class WeightLossDatabase: RoomDatabase() {
+@Database(
+    entities = [QuoteCache::class, UserCache::class, WeightEntryCache::class],
+    version = 1,
+    exportSchema = false
+)
+abstract class WeightLossDatabase : RoomDatabase() {
 
     abstract fun quoteDao(): QuoteDao
     abstract fun userDao(): UserDao

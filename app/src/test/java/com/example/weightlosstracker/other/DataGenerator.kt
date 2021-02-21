@@ -28,23 +28,25 @@ object DataGenerator {
         goalName = "Journey to 25kg"
     )
 
-    val stats = Stats(15f, 15f, 95f, 85f,
+    val stats = Stats(
+        15f, 15f, 95f, 85f,
         75f, "30.01.1991.", "30.01.2002.",
-        20f, 15f)
+        20f, 15f, 12, 2, 120f, 2f
+    )
 
     val weightEntryCache = WeightEntryCache(
-        uuid = 1,
+        uuid = "1",
         currentWeight = 85f, waistSize = 95, date = "30.01.2021", description = "Description"
     )
 
     val weightEntry = WeightEntry(
-        uuid = 1,
+        uuid = "3",
         currentWeight = 85f, waistSize = 95, date = getCurrentDate(), description = "Description"
     )
 
     val listOfEntries = arrayListOf<WeightEntry>().apply {
-        add(WeightEntry(2, 90f, 100, "30.01.2020", ""))
-        add(WeightEntry(3, 95f, 105, "30.01.2019", ""))
+        add(WeightEntry("2", 90f, 100, "30.01.2020", ""))
+        add(WeightEntry("1", 95f, 105, "30.01.2019", ""))
         add(weightEntry)
     }
 }
