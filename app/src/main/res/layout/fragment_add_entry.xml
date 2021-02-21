@@ -8,16 +8,16 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginHorizontal="@dimen/large_margin"
-        android:layout_marginVertical="24dp"
         app:cardCornerRadius="8dp"
-        app:cardElevation="3dp">
+        app:cardElevation="3dp"
+        app:cardUseCompatPadding="true">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <LinearLayout
+                android:id="@+id/dataLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/large_margin"
@@ -29,7 +29,7 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="@dimen/medium_margin"
                     android:hint="@string/goal_details_current_weight"
                     app:errorEnabled="true"
                     app:helperText="@string/mandatory_field">
@@ -38,6 +38,7 @@
                         android:id="@+id/newWeightEditText"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:fontFamily="@font/roboto_medium"
                         android:inputType="numberDecimal"
                         android:maxLength="@integer/weight_entry_max_length" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -56,6 +57,7 @@
                         android:id="@+id/waistSizeEditText"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:fontFamily="@font/roboto_medium"
                         android:inputType="number"
                         android:maxLength="@integer/waist_size_max_length" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -73,6 +75,7 @@
                         android:id="@+id/descriptionEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_medium"
                         android:gravity="top"
                         android:inputType="textMultiLine|textCapSentences"
                         android:maxLength="@integer/description_max_length"
@@ -84,15 +87,17 @@
                     android:id="@+id/dateLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp">
+                    android:layout_marginTop="@dimen/medium_margin">
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/setDate"
                         style="@style/Widget.MaterialComponents.Button.TextButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_medium"
                         android:text="@string/set_date"
-                        android:textColor="@color/primaryTextColor" />
+                        android:textColor="@color/primaryTextColor"
+                        android:textSize="16sp" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/setDateText"
@@ -100,18 +105,32 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
-                        android:textSize="14sp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:textSize="16sp"
                         tools:ignore="RelativeOverlap"
                         tools:text="30.01.1991" />
                 </RelativeLayout>
             </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@id/submitBtn"
+                android:layout_below="@id/dataLayout"
+                android:layout_marginHorizontal="@dimen/large_margin"
+                android:layout_marginTop="-16dp"
+                android:alpha="0.55"
+                android:src="@drawable/ic_track_and_field"
+                tools:ignore="ContentDescription" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/submitBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_margin="@dimen/large_margin"
+                android:layout_marginHorizontal="@dimen/large_margin"
+                android:layout_marginBottom="@dimen/large_margin"
+                android:fontFamily="@font/roboto_medium"
                 android:text="@string/submit_button_text"
                 android:textSize="16sp" />
 

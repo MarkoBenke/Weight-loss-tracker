@@ -78,7 +78,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 Segment(
                     Constants.UNDERWEIGHT_START,
                     context?.getString(R.string.bmi_type_underweight),
-                    ContextCompat.getColor(requireContext(), R.color.card_color3)
+                    ContextCompat.getColor(requireContext(), R.color.segment_one)
                 )
             )
             add(
@@ -86,7 +86,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     Constants.NORMAL_START,
                     Constants.NORMAL_END,
                     context?.getString(R.string.bmi_type_normal),
-                    ContextCompat.getColor(requireContext(), R.color.card_color2)
+                    ContextCompat.getColor(requireContext(), R.color.segment_two)
                 )
             )
             add(
@@ -94,14 +94,14 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     Constants.NORMAL_END,
                     Constants.OVERWEIGHT,
                     context?.getString(R.string.bmi_type_overweight),
-                    ContextCompat.getColor(requireContext(), R.color.card_color1old)
+                    ContextCompat.getColor(requireContext(), R.color.segment_three)
                 )
             )
             add(
                 Segment(
                     Constants.OBESE_END,
                     context?.getString(R.string.bmi_type_obese),
-                    ContextCompat.getColor(requireContext(), R.color.card_color7)
+                    ContextCompat.getColor(requireContext(), R.color.segment_four)
                 )
             )
         }

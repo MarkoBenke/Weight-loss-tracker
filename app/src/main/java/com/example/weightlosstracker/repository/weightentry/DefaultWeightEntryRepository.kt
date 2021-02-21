@@ -5,6 +5,7 @@ import com.example.weightlosstracker.data.local.dao.WeightEntryDao
 import com.example.weightlosstracker.data.local.mappers.WeightEntryMapper
 import com.example.weightlosstracker.domain.Stats
 import com.example.weightlosstracker.domain.WeightEntry
+import com.example.weightlosstracker.util.Constants
 import com.example.weightlosstracker.util.DataState
 import com.example.weightlosstracker.util.calculateBmi
 import com.example.weightlosstracker.util.parseDate
@@ -49,22 +50,43 @@ class DefaultWeightEntryRepository constructor(
                 parseDate(it.date)
             }
             val lastEntry = sortedList.first()
+            val waistSizeLoss = if (lastEntry.waistSize == 0 || userData!!.startWaistSize == 0)
+                0 else lastEntry.waistSize - userData.startWaistSize
+            val totalLoss = userData!!.startWeight - lastEntry.currentWeight
+            val caloriesBurned = totalLoss * Constants.CALORIES_IN_KG
             val stats = Stats(
-                bmi = calculateBmi(lastEntry.currentWeight, userData!!.height),
+                bmi = calculateBmi(lastEntry.currentWeight, userData.height),
                 startBmi = calculateBmi(userData.startWeight, userData.height),
                 startWeight = userData.startWeight,
                 currentWeight = lastEntry.currentWeight,
                 targetWeight = userData.targetWeight,
                 startDate = userData.startDate,
                 lastEntryDate = lastEntry.date,
-                totalLoss = userData.startWeight - lastEntry.currentWeight,
-                remaining = lastEntry.currentWeight - userData.targetWeight
+                totalLoss = totalLoss,
+                remaining = lastEntry.currentWeight - userData.targetWeight,
+                currentWaistSize = lastEntry.waistSize,
+                waistSizeLoss = waistSizeLoss,
+                caloriesBurned = caloriesBurned,
+                cheeseburgersBurned = caloriesBurned / Constants.CALORIES_IN_CHEESEBURGER
             )
             emit(stats)
         }
     }
 
     override suspend fun insertWeight(weightEntry: WeightEntry) {
+        val user = userDao.getUser()
+        //if user modifies his first entry, change user object as well
+        if (user?.startDate == weightEntry.date) {
+            user.apply {
+                startWeight = weightEntry.currentWeight
+                if (weightEntry.waistSize != 0) {
+                    startWaistSize = weightEntry.waistSize
+                }
+                startBmi = calculateBmi(weightEntry.currentWeight, height)
+            }
+            weightEntry.description = user.goalName
+            userDao.updateUser(user)
+        }
         weightEntryDao.insertWeightEntry(mapper.mapToEntity(weightEntry))
     }
 }

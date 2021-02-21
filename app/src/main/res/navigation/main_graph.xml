@@ -9,7 +9,10 @@
         android:label="HomeFragment" >
         <action
             android:id="@+id/action_homeFragment_to_addEntryFragment"
-            app:destination="@id/addEntry" />
+            app:destination="@id/addEntry"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/addEntry"
@@ -17,7 +20,10 @@
         android:label="AddEntryFragment" >
         <action
             android:id="@+id/action_addEntryFragment_to_statsFragment"
-            app:destination="@id/stats" />
+            app:destination="@id/stats"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/entryHistory"
@@ -29,6 +35,8 @@
         android:label="StatsFragment" >
         <action
             android:id="@+id/action_statsFragment_to_entryHistoryFragment"
-            app:destination="@id/entryHistory" />
+            app:destination="@id/entryHistory"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out" />
     </fragment>
 </navigation>

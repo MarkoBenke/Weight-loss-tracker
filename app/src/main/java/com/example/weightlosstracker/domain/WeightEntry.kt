@@ -1,9 +1,9 @@
 package com.example.weightlosstracker.domain
 
 data class WeightEntry(
-    var uuid: Int = 0,
+    var uuid: String,
     val currentWeight: Float,
     val waistSize: Int,
     val date: String,
-    val description: String
+    var description: String
 )

@@ -7,7 +7,10 @@ import com.example.weightlosstracker.data.local.model.UserCache
 interface UserDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertUserGoal(userData: UserCache)
+    suspend fun insertUser(userData: UserCache)
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun updateUser(userData: UserCache)
 
     @Query("SELECT * FROM user_table WHERE uuid = 0")
     suspend fun getUser(): UserCache?

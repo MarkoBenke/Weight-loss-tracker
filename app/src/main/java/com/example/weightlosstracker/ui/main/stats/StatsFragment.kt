@@ -3,6 +3,7 @@ package com.example.weightlosstracker.ui.main.stats
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -58,9 +59,22 @@ class StatsFragment : Fragment(R.layout.fragment_stats), OnChartValueSelectedLis
             binding.currentWeight.text = getString(R.string.kg, it.currentWeight.toString().makeShort())
             binding.targetWeight.text = getString(R.string.kg, it.targetWeight.toString().makeShort())
             binding.totalLoss.text = getString(R.string.kg, it.totalLoss.toString().makeShort())
-            binding.remainig.text = getString(R.string.kg, it.remaining.toString().makeShort())
+            binding.remaining.text = getString(R.string.kg, it.remaining.toString().makeShort())
             binding.bmiCategory.text = getBmiCategory(it.bmi)
-
+            binding.caloriesBurned.text = getString(R.string.kCal, it.caloriesBurned.toString().makeShort())
+            binding.cheeseburgersBurned.text = it.cheeseburgersBurned.toString().makeShort()
+            if (it.waistSizeLoss != 0) {
+                binding.totalWaistSizeLayout.isVisible = true
+                binding.totalWaistSizeLoss.text = getString(R.string.cm, it.waistSizeLoss.toString().makeShort())
+            } else {
+                binding.totalWaistSizeLayout.isVisible = false
+            }
+            if (it.currentWaistSize != 0) {
+                binding.waistSizeLayout.isVisible = true
+                binding.currentWaistSize.text = getString(R.string.cm, it.currentWaistSize.toString().makeShort())
+            } else {
+                binding.waistSizeLayout.isVisible = false
+            }
         }
         binding.totalEntries.text = viewModel.getTotalEntries()
         binding.worstRecord.text = getString(R.string.kg, viewModel.getWorstRecord())

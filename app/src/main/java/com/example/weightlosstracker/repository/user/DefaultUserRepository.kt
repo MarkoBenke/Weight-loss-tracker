@@ -19,12 +19,13 @@ class DefaultUserRepository constructor(
 ) : UserRepository {
 
     override suspend fun insertUser(user: User) {
-        userDao.insertUserGoal(userMapper.mapToEntity(user))
+        userDao.insertUser(userMapper.mapToEntity(user))
         settingsManager.saveStartDate(
             parseDate(user.startDate)!!.time
         )
         weightEntryDao.insertWeightEntry(
             WeightEntryCache(
+                uuid = user.startDate.replace(".", ""),
                 currentWeight = user.currentWeight,
                 waistSize = user.startWaistSize,
                 date = user.startDate,

@@ -9,7 +9,11 @@ data class Stats(
     val startDate: String,
     val lastEntryDate: String,
     val totalLoss: Float,
-    val remaining: Float
+    val remaining: Float,
+    val currentWaistSize: Int,
+    val waistSizeLoss: Int,
+    val caloriesBurned: Float,
+    val cheeseburgersBurned: Float
 //    val gramsPerDay: String,
 //    val daysPast: Int,
 )
