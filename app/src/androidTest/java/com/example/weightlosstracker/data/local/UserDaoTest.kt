@@ -46,9 +46,23 @@ class UserDaoTest {
     @Test
     fun insertAndGetUser() = runBlockingTest {
         val user = DataGenerator.userCache
-        dao.insertUserGoal(user)
+        dao.insertUser(user)
 
         val dbUser = dao.getUser()
         assertThat(dbUser).isEqualTo(user)
+    }
+
+    @Test
+    fun updateUser() = runBlockingTest {
+        val user = DataGenerator.userCache
+        dao.insertUser(user)
+
+        val insertedUser = dao.getUser()
+        assertThat(insertedUser).isEqualTo(user)
+        insertedUser?.startWeight = 999f
+        dao.updateUser(insertedUser!!)
+
+        val updatedUser = dao.getUser()
+        assertThat(insertedUser).isEqualTo(updatedUser)
     }
 }

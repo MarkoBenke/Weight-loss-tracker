@@ -9,7 +9,7 @@
     <View
         android:id="@+id/progress"
         android:layout_width="match_parent"
-        android:layout_height="15dp"
+        android:layout_height="@dimen/on_boarding_progress_height"
         android:background="@color/on_board_progress_color" />
 
     <LinearLayout
@@ -17,16 +17,17 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/progress"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="@dimen/large_padding">
 
         <TextView
             android:id="@+id/idealWeight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/mouse_memoirs"
             android:gravity="center"
-            android:textColor="@android:color/black"
-            android:textSize="20sp"
-            android:textStyle="bold"
+            android:letterSpacing="0.03"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="30sp"
             tools:text="Your ideal weight is around: 75kg-80kg" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -34,7 +35,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/medium_margin"
             android:hint="@string/desired_weight"
             app:errorEnabled="true"
             app:helperText="@string/mandatory_field">
@@ -43,10 +44,30 @@
                 android:id="@+id/targetWeightEditText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:fontFamily="@font/roboto_medium"
                 android:inputType="numberDecimal"
                 android:maxLength="@integer/weight_entry_max_length" />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_marginTop="@dimen/medium_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_medium"
+            android:lineSpacingMultiplier="1.2"
+            android:text="@string/target_weight_description"
+            android:textSize="14sp"
+            tools:ignore="RelativeOverlap" />
     </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="380dp"
+        android:layout_marginHorizontal="@dimen/large_margin"
+        android:layout_centerInParent="true"
+        android:alpha="0.7"
+        android:src="@drawable/ic_healthy_habit"
+        tools:ignore="ContentDescription" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/submit"
@@ -54,7 +75,8 @@
         android:layout_height="@dimen/basic_dialog_button_height"
         android:layout_alignParentBottom="true"
         android:layout_marginHorizontal="@dimen/large_margin"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="@dimen/extra_large_margin"
+        android:fontFamily="@font/roboto_medium"
         android:text="@string/submit_button_text"
         android:textAllCaps="false"
         android:textSize="18sp" />

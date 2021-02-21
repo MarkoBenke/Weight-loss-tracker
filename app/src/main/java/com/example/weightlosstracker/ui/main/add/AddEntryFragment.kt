@@ -38,6 +38,7 @@ class AddEntryFragment : Fragment(R.layout.fragment_add_entry) {
             viewModel.insertNewEntry(
                 newWeight,
                 WeightEntry(
+                    uuid = binding.setDateText.text.toString().replace(".", ""),
                     currentWeight = newWeight.toFloatOrNull() ?: 0f,
                     waistSize = binding.waistSize.editText?.text.toString().toIntOrNull() ?: 0,
                     date = binding.setDateText.text.toString(),
@@ -107,6 +108,9 @@ class AddEntryFragment : Fragment(R.layout.fragment_add_entry) {
         datePickerDialog.datePicker.maxDate = System.currentTimeMillis()
         datePickerDialog.datePicker.minDate = startDateInMillis
         binding.setDate.setOnClickListener {
+            datePickerDialog.show()
+        }
+        binding.setDateText.setOnClickListener {
             datePickerDialog.show()
         }
     }

@@ -1,6 +1,5 @@
 package com.example.weightlosstracker.ui.onboarding
 
-import android.os.SystemClock
 import androidx.lifecycle.Lifecycle
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.pressBack
@@ -24,7 +23,7 @@ class OnBoardingActivityTest : BaseTest() {
         val onBoardingActivity = ActivityScenario.launch(OnBoardingActivity::class.java)
 
         //screen 1
-        isTextDisplayedInView(R.id.genderTitle, R.string.select_gender_title)
+        isTextDisplayedInView(R.id.genderTitle, R.string.choose_gender_title)
         clickOnView(R.id.next)
 
         //screen 2

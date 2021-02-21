@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="basic_dialog_button_height">56dp</dimen>
+    <dimen name="huge_margin">32dp</dimen>
+    <dimen name="extra_large_margin">24dp</dimen>
     <dimen name="large_margin">16dp</dimen>
+    <dimen name="medium_margin">8dp</dimen>
+    <dimen name="small_margin">4dp</dimen>
+
     <dimen name="large_padding">16dp</dimen>
+    <dimen name="medium_padding">16dp</dimen>
+
+    <dimen name="basic_dialog_button_height">56dp</dimen>
+    <dimen name="on_boarding_progress_height">25dp</dimen>
+    <dimen name="chart_height">300dp</dimen>
 </resources>

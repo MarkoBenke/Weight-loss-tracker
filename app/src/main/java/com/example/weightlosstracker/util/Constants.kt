@@ -15,4 +15,7 @@ object Constants {
     const val OVERWEIGHT = 30f
     const val OBESE_I = 35f
     const val OBESE_II = 40f
+
+    const val CALORIES_IN_KG = 7716.17f
+    const val CALORIES_IN_CHEESEBURGER = 303.1f
 }

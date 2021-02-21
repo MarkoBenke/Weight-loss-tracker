@@ -3,16 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginHorizontal="@dimen/large_margin">
+    android:layout_height="match_parent">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/chartCard"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginVertical="@dimen/large_margin"
         app:cardCornerRadius="8dp"
-        app:cardElevation="4dp">
+        app:cardElevation="4dp"
+        app:cardUseCompatPadding="true">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -23,16 +22,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="6dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:layout_marginBottom="@dimen/small_margin"
+                android:letterSpacing="0.03"
                 android:maxLines="1"
                 android:shadowColor="@color/grey"
                 android:shadowRadius="4"
                 android:text="@string/chart_title"
                 android:textColor="@color/primaryTextColor"
-                android:textSize="20sp"
+                android:textSize="24sp"
                 android:textStyle="bold"
+                app:fontFamily="@font/mouse_memoirs"
                 tools:ignore="RelativeOverlap" />
 
             <ImageView
@@ -40,7 +40,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/medium_margin"
                 android:layout_marginEnd="12dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/ic_full_screen"
@@ -51,15 +51,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_below="@id/chartTitle"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginHorizontal="@dimen/medium_margin"
+                android:layout_marginBottom="@dimen/medium_margin"
                 android:background="@color/dividerColor" />
 
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/lineChart"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="@dimen/chart_height"
                 android:layout_below="@id/divider"
                 android:padding="6dp" />
 
@@ -67,52 +66,51 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/lineChart"
+                android:layout_marginTop="12dp"
                 android:scrollbars="none">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:paddingBottom="8dp">
+                    android:paddingBottom="@dimen/medium_padding">
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/progressTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginBottom="5dp"
+                        android:layout_marginBottom="@dimen/small_margin"
                         android:gravity="center"
+                        android:letterSpacing="0.03"
                         android:maxLines="1"
                         android:shadowColor="@color/grey"
                         android:shadowRadius="4"
                         android:text="@string/progress_title"
                         android:textColor="@color/primaryTextColor"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        app:fontFamily="@font/mouse_memoirs" />
 
                     <View
                         android:id="@+id/dividerProgress"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="8dp"
+                        android:layout_marginHorizontal="@dimen/medium_margin"
+                        android:layout_marginBottom="@dimen/medium_margin"
                         android:background="@color/dividerColor" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="12dp">
+                        android:layout_marginHorizontal="12dp"
+                        android:layout_marginTop="@dimen/medium_margin">
 
                         <com.google.android.material.textview.MaterialTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Current weight:"
-                            android:textSize="14sp" />
+                            android:text="@string/current_weight_stats"
+                            android:textSize="14sp"
+                            app:fontFamily="@font/roboto_medium" />
 
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/currentWeight"
@@ -121,6 +119,7 @@
                             android:layout_alignParentEnd="true"
                             android:textSize="14sp"
                             android:textStyle="bold"
+                            app:fontFamily="@font/roboto_medium"
                             tools:ignore="RelativeOverlap"
                             tools:text="98kg" />
                     </RelativeLayout>
@@ -128,15 +127,15 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="12dp">
+                        android:layout_marginHorizontal="12dp"
+                        android:layout_marginTop="@dimen/medium_margin">
 
                         <com.google.android.material.textview.MaterialTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Target weight:"
-                            android:textSize="14sp" />
+                            android:text="@string/target_weight_stats"
+                            android:textSize="14sp"
+                            app:fontFamily="@font/roboto_medium" />
 
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/targetWeight"
@@ -145,6 +144,7 @@
                             android:layout_alignParentEnd="true"
                             android:textSize="14sp"
                             android:textStyle="bold"
+                            app:fontFamily="@font/roboto_medium"
                             tools:ignore="RelativeOverlap"
                             tools:text="80kg" />
                     </RelativeLayout>
@@ -152,15 +152,15 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="12dp">
+                        android:layout_marginHorizontal="12dp"
+                        android:layout_marginTop="@dimen/medium_margin">
 
                         <com.google.android.material.textview.MaterialTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Total loss:"
-                            android:textSize="14sp" />
+                            android:text="@string/total_loss_stats"
+                            android:textSize="14sp"
+                            app:fontFamily="@font/roboto_medium" />
 
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/totalLoss"
@@ -169,6 +169,7 @@
                             android:layout_alignParentEnd="true"
                             android:textSize="14sp"
                             android:textStyle="bold"
+                            app:fontFamily="@font/roboto_medium"
                             tools:ignore="RelativeOverlap"
                             tools:text="2kg" />
                     </RelativeLayout>
@@ -176,23 +177,24 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="12dp">
+                        android:layout_marginHorizontal="12dp"
+                        android:layout_marginTop="@dimen/medium_margin">
 
                         <com.google.android.material.textview.MaterialTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Remaining:"
-                            android:textSize="14sp" />
+                            android:text="@string/remaining_stats"
+                            android:textSize="14sp"
+                            app:fontFamily="@font/roboto_medium" />
 
                         <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/remainig"
+                            android:id="@+id/remaining"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
                             android:textSize="14sp"
                             android:textStyle="bold"
+                            app:fontFamily="@font/roboto_medium"
                             tools:ignore="RelativeOverlap"
                             tools:text="18kg" />
                     </RelativeLayout>
@@ -200,15 +202,15 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="12dp">
+                        android:layout_marginHorizontal="12dp"
+                        android:layout_marginTop="@dimen/medium_margin">
 
                         <com.google.android.material.textview.MaterialTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/bmi_category_label"
-                            android:textSize="14sp" />
+                            android:textSize="14sp"
+                            app:fontFamily="@font/roboto_medium" />
 
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/bmiCategory"
@@ -217,30 +219,59 @@
                             android:layout_alignParentEnd="true"
                             android:textSize="14sp"
                             android:textStyle="bold"
+                            app:fontFamily="@font/roboto_medium"
                             tools:ignore="RelativeOverlap"
                             tools:text="Obese class I" />
                     </RelativeLayout>
 
                     <RelativeLayout
+                        android:id="@+id/waistSizeLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginEnd="12dp">
+                        android:layout_marginHorizontal="12dp"
+                        android:layout_marginTop="@dimen/medium_margin">
 
                         <com.google.android.material.textview.MaterialTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/total_entries_label"
-                            android:textSize="14sp" />
+                            android:text="@string/current_waist_size_stats"
+                            android:textSize="14sp"
+                            app:fontFamily="@font/roboto_medium" />
 
                         <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/totalEntries"
+                            android:id="@+id/currentWaistSize"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
                             android:textSize="14sp"
                             android:textStyle="bold"
+                            app:fontFamily="@font/roboto_medium"
+                            tools:ignore="RelativeOverlap"
+                            tools:text="12" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/totalWaistSizeLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="12dp"
+                        android:layout_marginTop="@dimen/medium_margin">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/total_waist_size_loss_stats"
+                            android:textSize="14sp"
+                            app:fontFamily="@font/roboto_medium" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/totalWaistSizeLoss"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            app:fontFamily="@font/roboto_medium"
                             tools:ignore="RelativeOverlap"
                             tools:text="12" />
                     </RelativeLayout>
@@ -248,15 +279,65 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginEnd="12dp">
+                        android:layout_marginHorizontal="12dp"
+                        android:layout_marginTop="@dimen/medium_margin">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/total_calories_burned_stats"
+                            android:textSize="14sp"
+                            app:fontFamily="@font/roboto_medium" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/caloriesBurned"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            app:fontFamily="@font/roboto_medium"
+                            tools:ignore="RelativeOverlap"
+                            tools:text="12" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="12dp"
+                        android:layout_marginTop="@dimen/medium_margin">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/cheeseburgers_burned_stats"
+                            android:textSize="14sp"
+                            app:fontFamily="@font/roboto_medium" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/cheeseburgersBurned"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            app:fontFamily="@font/roboto_medium"
+                            tools:ignore="RelativeOverlap"
+                            tools:text="12" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="12dp"
+                        android:layout_marginTop="@dimen/medium_margin">
 
                         <com.google.android.material.textview.MaterialTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/best_record_label"
-                            android:textSize="14sp" />
+                            android:textSize="14sp"
+                            app:fontFamily="@font/roboto_medium" />
 
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/bestRecord"
@@ -265,6 +346,7 @@
                             android:layout_alignParentEnd="true"
                             android:textSize="14sp"
                             android:textStyle="bold"
+                            app:fontFamily="@font/roboto_medium"
                             tools:ignore="RelativeOverlap"
                             tools:text="85kg" />
                     </RelativeLayout>
@@ -272,15 +354,15 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginEnd="12dp">
+                        android:layout_marginHorizontal="12dp"
+                        android:layout_marginTop="@dimen/medium_margin">
 
                         <com.google.android.material.textview.MaterialTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/worst_record_label"
-                            android:textSize="14sp" />
+                            android:textSize="14sp"
+                            app:fontFamily="@font/roboto_medium" />
 
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/worstRecord"
@@ -289,13 +371,37 @@
                             android:layout_alignParentEnd="true"
                             android:textSize="14sp"
                             android:textStyle="bold"
+                            app:fontFamily="@font/roboto_medium"
                             tools:ignore="RelativeOverlap"
                             tools:text="105kg" />
                     </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="12dp"
+                        android:layout_marginTop="@dimen/medium_margin">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/total_entries_label"
+                            android:textSize="14sp"
+                            app:fontFamily="@font/roboto_medium" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/totalEntries"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            app:fontFamily="@font/roboto_medium"
+                            tools:ignore="RelativeOverlap"
+                            tools:text="12" />
+                    </RelativeLayout>
                 </LinearLayout>
-
             </ScrollView>
-
         </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>
 </RelativeLayout>

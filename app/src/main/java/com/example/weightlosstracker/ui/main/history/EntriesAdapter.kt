@@ -33,7 +33,7 @@ class EntriesAdapter(private val context: Context) :
             context.getString(R.string.kg, weightEntry.currentWeight.toString())
         holder.binding.date.text = weightEntry.date
 
-        if (weightEntry.uuid == 1) {
+        if (position == itemCount - 1) {
             holder.binding.weightDifference.isVisible = false
             holder.binding.flagIcon.isVisible = true
         } else {
@@ -57,7 +57,8 @@ class EntriesAdapter(private val context: Context) :
 
         if (weightEntry.waistSize != 0) {
             holder.binding.waistSize.isVisible = true
-            holder.binding.waistSize.text = context.getString(R.string.cm, weightEntry.waistSize)
+            holder.binding.waistSize.text =
+                context.getString(R.string.cm_decimal, weightEntry.waistSize)
         } else {
             holder.binding.waistSize.isVisible = false
         }

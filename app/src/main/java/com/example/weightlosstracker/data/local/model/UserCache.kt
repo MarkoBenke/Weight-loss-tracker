@@ -7,11 +7,11 @@ import androidx.room.PrimaryKey
 data class UserCache(
     @PrimaryKey
     val uuid: Int = 0,
-    val startWeight: Float,
+    var startWeight: Float,
     val currentWeight: Float,
     val targetWeight: Float,
-    val startWaistSize: Int,
-    val startBmi: Float,
+    var startWaistSize: Int,
+    var startBmi: Float,
     val height: Float,
     val startDate: String,
     val age: Int,

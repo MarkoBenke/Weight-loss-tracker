@@ -10,7 +10,10 @@
         android:label="GenderFragment">
         <action
             android:id="@+id/action_genderFragment_to_basicInfoFragment"
-            app:destination="@id/basicInfoFragment" />
+            app:destination="@id/basicInfoFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/basicInfoFragment"
@@ -18,7 +21,10 @@
         android:label="BasicInfoFragment">
         <action
             android:id="@+id/action_basicInfoFragment_to_targetWeightFragment"
-            app:destination="@id/targetWeightFragment" />
+            app:destination="@id/targetWeightFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popExitAnim="@android:anim/fade_out" />
         <argument
             android:name="user"
             app:argType="com.example.weightlosstracker.domain.User" />

@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WeightLossTracker">
-        <activity android:name=".ui.launch.SplashScreenActivity">
+        <activity android:name=".ui.launch.SplashScreenActivity"
+            android:theme="@style/Theme.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,6 +23,10 @@
         <activity android:name=".ui.launch.LaunchActivity" />
         <activity android:name=".ui.onboarding.OnBoardingActivity" />
         <activity android:name=".ui.main.MainActivity" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

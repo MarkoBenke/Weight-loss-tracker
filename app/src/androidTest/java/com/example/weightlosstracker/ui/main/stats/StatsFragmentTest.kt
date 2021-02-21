@@ -38,7 +38,7 @@ class StatsFragmentTest: BaseTest() {
         isTextDisplayedInView(R.id.currentWeight, context.resources.getString(R.string.kg, stats.currentWeight.toString().makeShort()))
         isTextDisplayedInView(R.id.targetWeight, context.resources.getString(R.string.kg, stats.targetWeight.toString().makeShort()))
         isTextDisplayedInView(R.id.totalLoss, context.resources.getString(R.string.kg, stats.totalLoss.toString().makeShort()))
-        isTextDisplayedInView(R.id.remainig, context.resources.getString(R.string.kg, stats.remaining.toString().makeShort()))
+        isTextDisplayedInView(R.id.remaining, context.resources.getString(R.string.kg, stats.remaining.toString().makeShort()))
         isTextDisplayedInView(R.id.bmiCategory, context.resources.getString(R.string.bmi_underweight))
         isTextDisplayedInView(R.id.totalEntries, "${listOfEntries.size}")
         isTextDisplayedInView(R.id.worstRecord, context.resources.getString(R.string.kg, maxEntry?.currentWeight.toString()))
