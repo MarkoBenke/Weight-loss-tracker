@@ -1,15 +1,11 @@
 package com.example.weightlosstracker.ui.main.stats
 
-import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import com.example.weightlosstracker.R
 import com.example.weightlosstracker.databinding.FragmentStatsBinding
 import com.example.weightlosstracker.domain.Stats
+import com.example.weightlosstracker.util.BaseFragment
 import com.example.weightlosstracker.util.Constants
 import com.example.weightlosstracker.util.makeShort
 import com.example.weightlosstracker.util.viewBinding
@@ -23,15 +19,21 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class StatsFragment : Fragment(R.layout.fragment_stats), OnChartValueSelectedListener {
+class StatsFragment : BaseFragment<StatsViewModel, StatsWeightEntryViewData>(
+    R.layout.fragment_stats,
+    StatsViewModel::class.java
+), OnChartValueSelectedListener {
 
     private val binding by viewBinding(FragmentStatsBinding::bind)
-    private val viewModel: StatsViewModel by viewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        subscribeToObservers()
+    override fun updateUi(model: StatsWeightEntryViewData) {
+        if (model.success) {
+            initChart(model)
+            initChartLimitLines(model.stats)
+            initStatsUi(model.stats)
+        } else {
+            //TODO handle error
+        }
     }
 
     override fun onValueSelected(e: Entry?, h: Highlight?) {
@@ -42,36 +44,29 @@ class StatsFragment : Fragment(R.layout.fragment_stats), OnChartValueSelectedLis
 
     override fun onNothingSelected() {}
 
-    private fun subscribeToObservers() {
-        viewModel.userStatsLiveData.observe(viewLifecycleOwner, Observer {
-            if (it.success) {
-                initChart(it)
-                initChartLimitLines(it.stats)
-                initStatsUi(it.stats)
-            } else {
-                //TODO handle error
-            }
-        })
-    }
-
     private fun initStatsUi(stats: Stats?) {
         stats?.let {
-            binding.currentWeight.text = getString(R.string.kg, it.currentWeight.toString().makeShort())
-            binding.targetWeight.text = getString(R.string.kg, it.targetWeight.toString().makeShort())
+            binding.currentWeight.text =
+                getString(R.string.kg, it.currentWeight.toString().makeShort())
+            binding.targetWeight.text =
+                getString(R.string.kg, it.targetWeight.toString().makeShort())
             binding.totalLoss.text = getString(R.string.kg, it.totalLoss.toString().makeShort())
             binding.remaining.text = getString(R.string.kg, it.remaining.toString().makeShort())
             binding.bmiCategory.text = getBmiCategory(it.bmi)
-            binding.caloriesBurned.text = getString(R.string.kCal, it.caloriesBurned.toString().makeShort())
+            binding.caloriesBurned.text =
+                getString(R.string.kCal, it.caloriesBurned.toString().makeShort())
             binding.cheeseburgersBurned.text = it.cheeseburgersBurned.toString().makeShort()
             if (it.waistSizeLoss != 0) {
                 binding.totalWaistSizeLayout.isVisible = true
-                binding.totalWaistSizeLoss.text = getString(R.string.cm, it.waistSizeLoss.toString().makeShort())
+                binding.totalWaistSizeLoss.text =
+                    getString(R.string.cm, it.waistSizeLoss.toString().makeShort())
             } else {
                 binding.totalWaistSizeLayout.isVisible = false
             }
             if (it.currentWaistSize != 0) {
                 binding.waistSizeLayout.isVisible = true
-                binding.currentWaistSize.text = getString(R.string.cm, it.currentWaistSize.toString().makeShort())
+                binding.currentWaistSize.text =
+                    getString(R.string.cm, it.currentWaistSize.toString().makeShort())
             } else {
                 binding.waistSizeLayout.isVisible = false
             }

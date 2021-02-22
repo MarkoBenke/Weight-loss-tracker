@@ -1,10 +1,9 @@
 package com.example.weightlosstracker.ui.main.history
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weightlosstracker.domain.WeightEntry
 import com.example.weightlosstracker.repository.weightentry.WeightEntryRepository
+import com.example.weightlosstracker.util.BaseViewModel
 import com.example.weightlosstracker.util.DataState
 import com.example.weightlosstracker.util.DispatcherProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,18 +15,16 @@ import javax.inject.Inject
 class EntryHistoryViewModel @Inject constructor(
     private val weightEntryRepository: WeightEntryRepository,
     private val dispatcherProvider: DispatcherProvider
-): ViewModel() {
+): BaseViewModel<DataState<List<WeightEntry>>>() {
 
-    val weightEntriesLiveData = MutableLiveData<DataState<List<WeightEntry>>>()
-
-    init {
+    override fun fetchInitialData() {
         getAllWeightEntries()
     }
 
     private fun getAllWeightEntries() {
         viewModelScope.launch(dispatcherProvider.io) {
             weightEntryRepository.getAllEntries().collect {
-                weightEntriesLiveData.postValue(it)
+                modelLiveData.postValue(it)
             }
         }
     }

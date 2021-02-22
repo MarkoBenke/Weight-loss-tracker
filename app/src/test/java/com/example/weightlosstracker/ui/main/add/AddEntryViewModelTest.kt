@@ -21,8 +21,7 @@ class AddEntryViewModelTest {
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @get:Rule
-    var mainCoroutineRule =
-        MainCoroutineRule()
+    var mainCoroutineRule = MainCoroutineRule()
 
     lateinit var viewModel: AddEntryViewModel
 

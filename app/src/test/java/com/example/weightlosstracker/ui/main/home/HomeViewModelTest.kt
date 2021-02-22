@@ -20,8 +20,7 @@ class HomeViewModelTest {
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @get:Rule
-    var mainCoroutineRule =
-        MainCoroutineRule()
+    var mainCoroutineRule = MainCoroutineRule()
 
     private lateinit var viewModel: HomeViewModel
 
@@ -31,7 +30,7 @@ class HomeViewModelTest {
             FakeQuotesRepositoryTest(), FakeWeightEntryRepositoryTest(),
             FakeDispatcherProvider()
         )
-
+        viewModel.fetchInitialData()
         val value = viewModel.quoteLiveData.getOrAwaitValueTest()
 
         assertThat(value).isEqualTo(DataState.Success(DataGenerator.quote))
@@ -44,7 +43,7 @@ class HomeViewModelTest {
             FakeWeightEntryRepositoryTest(),
             FakeDispatcherProvider()
         )
-
+        viewModel.fetchInitialData()
         val value = viewModel.quoteLiveData.getOrAwaitValueTest()
 
         assertThat(value).isEqualTo(DataState.Error("An unknown error occurred"))
@@ -56,8 +55,8 @@ class HomeViewModelTest {
             FakeQuotesRepositoryTest(), FakeWeightEntryRepositoryTest(),
             FakeDispatcherProvider()
         )
-
-        val value = viewModel.userStatsLiveData.getOrAwaitValueTest()
+        viewModel.fetchInitialData()
+        val value = viewModel.modelLiveData.getOrAwaitValueTest()
 
         assertThat(value).isEqualTo(DataGenerator.stats)
     }

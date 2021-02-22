@@ -3,25 +3,22 @@ package com.example.weightlosstracker.ui.main.add
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.weightlosstracker.R
 import com.example.weightlosstracker.databinding.FragmentAddEntryBinding
 import com.example.weightlosstracker.domain.WeightEntry
-import com.example.weightlosstracker.util.DataState
-import com.example.weightlosstracker.util.getCurrentDate
-import com.example.weightlosstracker.util.parseSelectedDate
-import com.example.weightlosstracker.util.viewBinding
+import com.example.weightlosstracker.util.*
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
 @AndroidEntryPoint
-class AddEntryFragment : Fragment(R.layout.fragment_add_entry) {
+class AddEntryFragment : BaseFragment<AddEntryViewModel, Long>(
+    R.layout.fragment_add_entry,
+    AddEntryViewModel::class.java
+) {
 
     private val binding by viewBinding(FragmentAddEntryBinding::bind)
-    private val viewModel: AddEntryViewModel by viewModels()
     private var calendar = Calendar.getInstance()
     private lateinit var datePickerDialog: DatePickerDialog
 
@@ -29,12 +26,16 @@ class AddEntryFragment : Fragment(R.layout.fragment_add_entry) {
         super.onViewCreated(view, savedInstanceState)
 
         initSubmit()
-        subscribeToObservers()
+        subscribeToInsertWeightEntryObserver()
+    }
+
+    override fun updateUi(model: Long) {
+        initDateCalendar(model)
     }
 
     private fun initSubmit() {
         binding.submitBtn.setOnClickListener {
-            val newWeight =  binding.newWeight.editText?.text.toString()
+            val newWeight = binding.newWeight.editText?.text.toString()
             viewModel.insertNewEntry(
                 newWeight,
                 WeightEntry(
@@ -48,14 +49,10 @@ class AddEntryFragment : Fragment(R.layout.fragment_add_entry) {
         }
     }
 
-    private fun subscribeToObservers() {
-        viewModel.startDateLiveData.observe(viewLifecycleOwner, Observer { startDateInMillis ->
-            initDateCalendar(startDateInMillis)
-        })
-
+    private fun subscribeToInsertWeightEntryObserver() {
         viewModel.insertWeightLiveData.observe(viewLifecycleOwner, Observer { event ->
             event.getContentIfNotHandled()?.let { result ->
-                when(result) {
+                when (result) {
                     is DataState.Success -> {
                         clearFields()
                         Snackbar.make(

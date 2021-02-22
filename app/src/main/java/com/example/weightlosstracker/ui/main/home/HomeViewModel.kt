@@ -7,9 +7,11 @@ import com.example.weightlosstracker.domain.Quote
 import com.example.weightlosstracker.domain.Stats
 import com.example.weightlosstracker.repository.quotes.QuotesRepository
 import com.example.weightlosstracker.repository.weightentry.WeightEntryRepository
+import com.example.weightlosstracker.util.BaseViewModel
 import com.example.weightlosstracker.util.DataState
 import com.example.weightlosstracker.util.DispatcherProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -19,12 +21,11 @@ class HomeViewModel @Inject constructor(
     private val quotesRepository: QuotesRepository,
     private val weightEntryRepository: WeightEntryRepository,
     private val dispatcherProvider: DispatcherProvider
-): ViewModel() {
+): BaseViewModel<Stats>() {
 
     val quoteLiveData = MutableLiveData<DataState<Quote>>()
-    val userStatsLiveData = MutableLiveData<Stats>()
 
-    init {
+    override fun fetchInitialData() {
         getQuote()
         getUserStats()
     }
@@ -32,7 +33,7 @@ class HomeViewModel @Inject constructor(
     private fun getUserStats() {
         viewModelScope.launch(dispatcherProvider.io) {
             weightEntryRepository.getUserStats().collect {
-                userStatsLiveData.postValue(it)
+                modelLiveData.postValue(it)
             }
         }
     }

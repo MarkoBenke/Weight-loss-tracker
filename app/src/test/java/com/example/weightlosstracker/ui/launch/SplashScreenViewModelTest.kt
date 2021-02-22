@@ -19,16 +19,13 @@ class SplashScreenViewModelTest {
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @get:Rule
-    var mainCoroutineRule =
-        MainCoroutineRule()
+    var mainCoroutineRule = MainCoroutineRule()
 
     private lateinit var viewModel: SplashScreenViewModel
 
     @Test
     fun `get user, returns success`() {
-        viewModel = SplashScreenViewModel(FakeUserRepositoryTest(),
-            FakeDispatcherProvider()
-        )
+        viewModel = SplashScreenViewModel(FakeUserRepositoryTest(), FakeDispatcherProvider())
 
         val value = viewModel.userLiveData.getOrAwaitValueTest()
 

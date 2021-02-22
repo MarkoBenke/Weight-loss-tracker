@@ -23,8 +23,7 @@ class BasicInfoViewModelTest {
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @get:Rule
-    var mainCoroutineRule =
-        MainCoroutineRule()
+    var mainCoroutineRule = MainCoroutineRule()
 
     private lateinit var viewModel: BasicInfoViewModel
 

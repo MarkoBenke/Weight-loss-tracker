@@ -21,28 +21,27 @@ class EntryHistoryViewModelTest {
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @get:Rule
-    var mainCoroutineRule =
-        MainCoroutineRule()
+    var mainCoroutineRule = MainCoroutineRule()
 
     private lateinit var viewModel: EntryHistoryViewModel
 
     @Before
     fun setup() {
-        viewModel = EntryHistoryViewModel(FakeWeightEntryRepositoryTest(),
-            FakeDispatcherProvider()
-        )
+        viewModel = EntryHistoryViewModel(FakeWeightEntryRepositoryTest(), FakeDispatcherProvider())
     }
 
     @Test
     fun `check item count, return success`() {
-        val value = viewModel.weightEntriesLiveData.getOrAwaitValueTest() as DataState.Success
+        viewModel.fetchInitialData()
+        val value = viewModel.modelLiveData.getOrAwaitValueTest() as DataState.Success
 
         assertThat(value.data).hasSize(3)
     }
 
     @Test
     fun `check item sorting, return success`() {
-        val value = viewModel.weightEntriesLiveData.getOrAwaitValueTest() as DataState.Success
+        viewModel.fetchInitialData()
+        val value = viewModel.modelLiveData.getOrAwaitValueTest() as DataState.Success
         val entries = DataGenerator.listOfEntries
         val resultEntries = value.data
 
