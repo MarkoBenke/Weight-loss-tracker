@@ -1,12 +1,11 @@
 package com.example.weightlosstracker.ui.main.stats
 
 import android.graphics.Color
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weightlosstracker.domain.Stats
 import com.example.weightlosstracker.domain.WeightEntry
 import com.example.weightlosstracker.repository.weightentry.WeightEntryRepository
+import com.example.weightlosstracker.util.BaseViewModel
 import com.example.weightlosstracker.util.DataState
 import com.example.weightlosstracker.util.DispatcherProvider
 import com.example.weightlosstracker.util.parseNoYearDate
@@ -24,24 +23,22 @@ import javax.inject.Inject
 class StatsViewModel @Inject constructor(
     private val weightEntryRepository: WeightEntryRepository,
     private val dispatcherProvider: DispatcherProvider
-) : ViewModel() {
+) : BaseViewModel<StatsWeightEntryViewData>() {
 
-    val userStatsLiveData = MutableLiveData<StatsWeightEntryViewData>()
-
-    init {
+    override fun fetchInitialData() {
         getUserStats()
     }
 
     fun getTotalEntries(): String {
-        return userStatsLiveData.value?.yData?.entryCount.toString()
+        return modelLiveData.value?.yData?.entryCount.toString()
     }
 
     fun getBestRecord(): String {
-        return userStatsLiveData.value?.yData?.yMin.toString()
+        return modelLiveData.value?.yData?.yMin.toString()
     }
 
     fun getWorstRecord(): String {
-        return userStatsLiveData.value?.yData?.yMax.toString()
+        return modelLiveData.value?.yData?.yMax.toString()
     }
 
     fun createLimitLine(label: String, limit: Float): LimitLine {
@@ -65,7 +62,7 @@ class StatsViewModel @Inject constructor(
             weightEntryRepository.getAllEntries().collect {
                 when (it) {
                     is DataState.Success -> {
-                        userStatsLiveData.postValue(
+                        modelLiveData.postValue(
                             StatsWeightEntryViewData(
                                 mapYData(it.data.reversed()),
                                 mapXData(it.data.reversed()),
@@ -75,7 +72,7 @@ class StatsViewModel @Inject constructor(
                         )
                     }
                     is DataState.Error -> {
-                        userStatsLiveData.postValue(
+                        modelLiveData.postValue(
                             StatsWeightEntryViewData(null, null, null, false)
                         )
                     }

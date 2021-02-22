@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.weightlosstracker.R
 import com.example.weightlosstracker.databinding.FragmentHomeBinding
@@ -15,23 +13,29 @@ import dagger.hilt.android.AndroidEntryPoint
 import mobi.gspd.segmentedbarview.Segment
 
 @AndroidEntryPoint
-class HomeFragment : Fragment(R.layout.fragment_home) {
+class HomeFragment : BaseFragment<HomeViewModel, Stats>(
+    R.layout.fragment_home,
+    HomeViewModel::class.java
+) {
 
-    private val viewModel: HomeViewModel by viewModels()
     private val binding by viewBinding(FragmentHomeBinding::bind)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        subscribeToObservers()
+        subscribeToQuoteObserver()
     }
 
-    private fun subscribeToObservers() {
+    override fun updateUi(model: Stats) {
+        initUi(model)
+    }
+
+    private fun subscribeToQuoteObserver() {
         viewModel.quoteLiveData.observe(viewLifecycleOwner, Observer {
             when (it) {
                 is DataState.Success -> {
-                    binding.progressBar.isVisible = false
                     binding.quoteText.text = it.data.quote
                     binding.quoteAuthor.text = it.data.author
+                    binding.progressBar.isVisible = false
                 }
                 is DataState.Error -> {
                     binding.progressBar.isVisible = false
@@ -40,10 +44,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     binding.progressBar.isVisible = true
                 }
             }
-        })
-
-        viewModel.userStatsLiveData.observe(viewLifecycleOwner, Observer {
-            initUi(it)
         })
     }
 

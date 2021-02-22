@@ -1,11 +1,11 @@
 package com.example.weightlosstracker.ui.main.add
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weightlosstracker.domain.WeightEntry
 import com.example.weightlosstracker.repository.user.UserRepository
 import com.example.weightlosstracker.repository.weightentry.WeightEntryRepository
+import com.example.weightlosstracker.util.BaseViewModel
 import com.example.weightlosstracker.util.DataState
 import com.example.weightlosstracker.util.DispatcherProvider
 import com.example.weightlosstracker.util.Event
@@ -19,19 +19,18 @@ class AddEntryViewModel @Inject constructor(
     private val weightEntryRepository: WeightEntryRepository,
     private val userRepository: UserRepository,
     private val dispatcherProvider: DispatcherProvider
-) : ViewModel() {
+) : BaseViewModel<Long>() {
 
     val insertWeightLiveData = MutableLiveData<Event<DataState<Unit>>>()
-    val startDateLiveData = MutableLiveData<Long>()
 
-    init {
+    override fun fetchInitialData() {
         getStartDate()
     }
 
     private fun getStartDate() {
         viewModelScope.launch(dispatcherProvider.io) {
             userRepository.getUsersStartDate().collect { startDateInMillis ->
-                startDateLiveData.postValue(startDateInMillis)
+                modelLiveData.postValue(startDateInMillis)
             }
         }
     }
