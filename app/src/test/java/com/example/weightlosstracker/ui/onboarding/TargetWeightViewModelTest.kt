@@ -20,16 +20,13 @@ class TargetWeightViewModelTest {
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @get:Rule
-    var mainCoroutineRule =
-        MainCoroutineRule()
+    var mainCoroutineRule = MainCoroutineRule()
 
     private lateinit var viewModel: TargetWeightViewModel
 
     @Before
     fun setup() {
-        viewModel = TargetWeightViewModel(FakeUserRepositoryTest(),
-            FakeDispatcherProvider()
-        )
+        viewModel = TargetWeightViewModel(FakeUserRepositoryTest(), FakeDispatcherProvider())
     }
 
     @Test
