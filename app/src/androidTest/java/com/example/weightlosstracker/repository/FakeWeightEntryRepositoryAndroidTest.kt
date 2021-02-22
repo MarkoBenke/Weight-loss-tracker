@@ -12,8 +12,14 @@ import javax.inject.Inject
 
 class FakeWeightEntryRepositoryAndroidTest @Inject constructor() : WeightEntryRepository {
 
+    private var entries = mutableListOf<WeightEntry>()
+
+    init {
+        entries = DataGenerator.listOfEntries.toMutableList()
+    }
+
     override suspend fun getAllEntries(): Flow<DataState<List<WeightEntry>>> = flow {
-        val sortedList = DataGenerator.listOfEntries.sortedByDescending {
+        val sortedList = entries.sortedByDescending {
             parseDate(it.date)
         }
         emit(DataState.Success(sortedList))
@@ -28,6 +34,24 @@ class FakeWeightEntryRepositoryAndroidTest @Inject constructor() : WeightEntryRe
     }
 
     override suspend fun insertWeight(weightEntry: WeightEntry) {
-
+        entries.add(weightEntry)
     }
+
+    override suspend fun deleteWeightEntry(weightEntry: WeightEntry): Flow<DataState<List<WeightEntry>>> =
+        flow {
+            entries.remove(weightEntry)
+            val sortedList = entries.sortedByDescending {
+                parseDate(it.date)
+            }
+            emit(DataState.Success(sortedList))
+        }
+
+    override suspend fun reverseDeletionOfWeightEntry(weightEntry: WeightEntry): Flow<DataState<List<WeightEntry>>> =
+        flow {
+            entries.add(weightEntry)
+            val sortedList = entries.sortedByDescending {
+                parseDate(it.date)
+            }
+            emit(DataState.Success(sortedList))
+        }
 }

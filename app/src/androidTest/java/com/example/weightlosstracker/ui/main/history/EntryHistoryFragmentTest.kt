@@ -51,4 +51,25 @@ class EntryHistoryFragmentTest : BaseTest() {
         isViewNotVisibleInRecyclerView(R.id.entriesRecView, R.id.description, THIRD_POSITION)
         isViewNotVisibleInRecyclerView(R.id.entriesRecView, R.id.waistSize, SECOND_POSITION)
     }
+
+    @Test
+    fun swipeToDelete() {
+        checkRecyclerViewItemCount(R.id.entriesRecView, 3)
+        sleepLong()
+        swipeItemInRecyclerView(R.id.entriesRecView, FIRST_POSITION)
+        sleepMedium()
+        checkRecyclerViewItemCount(R.id.entriesRecView, 2)
+        checkSnackbarText(R.string.successfully_deleted_entry)
+    }
+
+    @Test
+    fun swipeToDeleteAndUndo() {
+        checkRecyclerViewItemCount(R.id.entriesRecView, 3)
+        sleepLong()
+        swipeItemInRecyclerView(R.id.entriesRecView, FIRST_POSITION)
+        checkRecyclerViewItemCount(R.id.entriesRecView, 2)
+        clickOnText(R.string.undo)
+        sleepMedium()
+        checkRecyclerViewItemCount(R.id.entriesRecView, 3)
+    }
 }

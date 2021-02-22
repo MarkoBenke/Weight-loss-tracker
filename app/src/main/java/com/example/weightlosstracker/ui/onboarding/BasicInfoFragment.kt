@@ -88,14 +88,18 @@ class BasicInfoFragment : Fragment(R.layout.fragment_basic_info) {
                 binding.setDateText.text = parseSelectedDate(calendar.time)
             }
 
+        val datePickerDialog = DatePickerDialog(
+            requireActivity(), dateSetListener,
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
+        )
+        datePickerDialog.datePicker.maxDate = System.currentTimeMillis()
         binding.setDate.setOnClickListener {
-            val datePickerDialog = DatePickerDialog(
-                requireActivity(), dateSetListener,
-                calendar.get(Calendar.YEAR),
-                calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH)
-            )
-            datePickerDialog.datePicker.maxDate = System.currentTimeMillis()
+            datePickerDialog.show()
+        }
+
+        binding.setDateText.setOnClickListener {
             datePickerDialog.show()
         }
     }

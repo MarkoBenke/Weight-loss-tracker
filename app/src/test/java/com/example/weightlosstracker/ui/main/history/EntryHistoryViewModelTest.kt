@@ -39,6 +39,27 @@ class EntryHistoryViewModelTest {
     }
 
     @Test
+    fun `delete item, check count`() {
+        viewModel.fetchInitialData()
+        viewModel.deleteEntry(DataGenerator.weightEntry)
+
+        val value = viewModel.modelLiveData.getOrAwaitValueTest() as DataState.Success
+
+        assertThat(value.data).hasSize(2)
+    }
+
+    @Test
+    fun `delete and undo item, check count`() {
+        viewModel.fetchInitialData()
+        viewModel.deleteEntry(DataGenerator.weightEntry)
+        viewModel.reverseDeletion(DataGenerator.weightEntry)
+
+        val value = viewModel.modelLiveData.getOrAwaitValueTest() as DataState.Success
+
+        assertThat(value.data).hasSize(3)
+    }
+
+    @Test
     fun `check item sorting, return success`() {
         viewModel.fetchInitialData()
         val value = viewModel.modelLiveData.getOrAwaitValueTest() as DataState.Success

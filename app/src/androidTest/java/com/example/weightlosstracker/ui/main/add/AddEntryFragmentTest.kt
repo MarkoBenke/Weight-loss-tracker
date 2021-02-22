@@ -1,6 +1,7 @@
 package com.example.weightlosstracker.ui.main.add
 
 import com.example.weightlosstracker.R
+import com.example.weightlosstracker.ui.main.MainActivity
 import com.example.weightlosstracker.util.getCurrentDate
 import com.example.weightlosstracker.utils.BaseTest
 import com.example.weightlosstracker.utils.launchFragmentInHiltContainer
@@ -80,7 +81,7 @@ class AddEntryFragmentTest: BaseTest() {
         typeTextOnInputLayout(R.id.description, largeNumber)
 
         clickOnView(R.id.submitBtn)
-        checkSnackbarText(R.string.current_weight_error_message)
+        checkErrorTextOnInputField(R.id.newWeight, context.getString(R.string.mandatory_field))
     }
 
     @Test
@@ -90,6 +91,9 @@ class AddEntryFragmentTest: BaseTest() {
         typeTextOnInputLayout(R.id.description, largeNumber)
 
         clickOnView(R.id.submitBtn)
-        checkSnackbarText(R.string.entry_success)
+
+        isTextDisplayedInView(R.id.newWeightEditText, "")
+        isTextDisplayedInView(R.id.waistSizeEditText, "")
+        isTextDisplayedInView(R.id.descriptionEditText, "")
     }
 }

@@ -3,12 +3,13 @@ package com.example.weightlosstracker.ui.main.add
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
+import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.Observer
 import com.example.weightlosstracker.R
 import com.example.weightlosstracker.databinding.FragmentAddEntryBinding
 import com.example.weightlosstracker.domain.WeightEntry
 import com.example.weightlosstracker.util.*
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
@@ -25,7 +26,7 @@ class AddEntryFragment : BaseFragment<AddEntryViewModel, Long>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initSubmit()
+        initListeners()
         subscribeToInsertWeightEntryObserver()
     }
 
@@ -33,7 +34,11 @@ class AddEntryFragment : BaseFragment<AddEntryViewModel, Long>(
         initDateCalendar(model)
     }
 
-    private fun initSubmit() {
+    private fun initListeners() {
+        binding.newWeight.editText?.doOnTextChanged { _, _, _, _ ->
+            binding.newWeight.error = ""
+        }
+
         binding.submitBtn.setOnClickListener {
             val newWeight = binding.newWeight.editText?.text.toString()
             viewModel.insertNewEntry(
@@ -55,18 +60,11 @@ class AddEntryFragment : BaseFragment<AddEntryViewModel, Long>(
                 when (result) {
                     is DataState.Success -> {
                         clearFields()
-                        Snackbar.make(
-                            requireView(),
-                            getString(R.string.entry_success),
-                            Snackbar.LENGTH_LONG
-                        ).show()
+                        Toast.makeText(requireContext(), R.string.entry_success, Toast.LENGTH_LONG)
+                            .show()
                     }
                     is DataState.Error -> {
-                        Snackbar.make(
-                            requireView(),
-                            getString(R.string.current_weight_error_message),
-                            Snackbar.LENGTH_LONG
-                        ).show()
+                        binding.newWeight.error = getString(R.string.mandatory_field)
                     }
                     DataState.Loading -> {
                         /* NO-OP */

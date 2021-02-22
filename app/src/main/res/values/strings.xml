@@ -13,9 +13,7 @@
     <string name="submit_button_text">Submit</string>
     <string name="desired_weight">Target weight(kg)</string>
     <string name="ideal_weight_text">Your ideal weight is around \n%1s</string>
-    <string name="mandatory_fields_error_message">All fields are mandatory!</string>
-    <string name="target_weight_error_message">Target weight is mandatory field!</string>
-    <string name="current_weight_error_message">Current weight is mandatory field!</string>
+    <string name="mandatory_fields_error_message">Please fill in mandatory fields!</string>
     <string name="goal_name">Journey to %1skg</string>
     <string name="start_button_text">Start</string>
     <string name="welcome_setup_message">Please click on start button, and setup your lose weight goal.</string>
@@ -68,5 +66,7 @@
     <string name="start_date_description">Note: Start date cannot be changed later on, and new weight entries cannot be before the initial start date.</string>
     <string name="splash_screen_text">Designed by Marko Benke</string>
     <string name="weight_loss_tracker_title">WEIGHT LOSS TRACKER</string>
-    <string name="target_weight_description">Note: Set your target weight. Weight goal you aspire to achieve.</string>
+    <string name="target_weight_description">Note: Set your target weight. Weight goal you want to achieve.</string>
+    <string name="successfully_deleted_entry">Successfully deleted entry</string>
+    <string name="undo">Undo</string>
 </resources>

@@ -5,14 +5,21 @@ import android.os.SystemClock
 import android.view.View
 import android.widget.DatePicker
 import android.widget.EditText
+import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.closeSoftKeyboard
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.GeneralLocation
+import androidx.test.espresso.action.GeneralSwipeAction
+import androidx.test.espresso.action.Press
+import androidx.test.espresso.action.Swipe
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.doesNotExist
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.PickerActions
+import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.RootMatchers.withDecorView
 import androidx.test.espresso.matcher.ViewMatchers.*
+import com.example.weightlosstracker.R
 import com.google.android.material.textfield.TextInputLayout
 import org.hamcrest.*
 import org.hamcrest.CoreMatchers.*
@@ -31,6 +38,17 @@ abstract class BaseUiTest {
     fun sleepLong() {
         SystemClock.sleep(2000)
     }
+
+   fun swipeItemInRecyclerView(recViewId: Int, itemPosition: Int) {
+       onView(withId(recViewId)).perform(
+           RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
+               itemPosition, GeneralSwipeAction(
+                   Swipe.FAST, GeneralLocation.BOTTOM_RIGHT, GeneralLocation.BOTTOM_LEFT,
+                   Press.FINGER
+               )
+           )
+       )
+   }
 
     fun checkSnackbarText(stringResId: Int) {
         onView(withId(com.google.android.material.R.id.snackbar_text))
