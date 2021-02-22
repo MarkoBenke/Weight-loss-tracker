@@ -40,7 +40,7 @@ class OnBoardingActivityTest : BaseTest() {
         sleepShort()
         isViewVisible(R.id.idealWeight)
         clickOnView(R.id.submit)
-        checkSnackbarText(R.string.target_weight_error_message)
+        checkErrorTextOnInputField(R.id.targetWeight, context.getString(R.string.mandatory_field))
 
         typeTextOnInputLayout(R.id.targetWeight, "70")
         clickOnView(R.id.submit)

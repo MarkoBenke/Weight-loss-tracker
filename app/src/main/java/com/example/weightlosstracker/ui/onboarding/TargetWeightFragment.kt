@@ -3,6 +3,7 @@ package com.example.weightlosstracker.ui.onboarding
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -26,10 +27,16 @@ class TargetWeightFragment : Fragment(R.layout.fragment_target_weight) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initUi()
+        subscribeToObservers()
+    }
+
+    private fun initUi() {
         user = requireArguments().getParcelable(OnBoardingActivity.USER_KEY)
         binding.idealWeight.text = getString(
             R.string.ideal_weight_text,
-            viewModel.generateIdealWeight(user))
+            viewModel.generateIdealWeight(user)
+        )
 
         binding.submit.setOnClickListener {
             val userTargetWeight = binding.targetWeight.editText?.text.toString()
@@ -42,7 +49,9 @@ class TargetWeightFragment : Fragment(R.layout.fragment_target_weight) {
             viewModel.insertUserToDb(userTargetWeight, user)
         }
 
-        subscribeToObservers()
+        binding.targetWeight.editText?.doOnTextChanged { _, _, _, _ ->
+            binding.targetWeight.error = ""
+        }
     }
 
     private fun subscribeToObservers() {
@@ -58,10 +67,7 @@ class TargetWeightFragment : Fragment(R.layout.fragment_target_weight) {
                         requireActivity().finish()
                     }
                     is DataState.Error -> {
-                        Snackbar.make(
-                            requireView(), getString(R.string.target_weight_error_message),
-                            Snackbar.LENGTH_LONG
-                        ).show()
+                        binding.targetWeight.error = getString(R.string.mandatory_field)
                     }
                     DataState.Loading -> {
                         /* NO-OP */

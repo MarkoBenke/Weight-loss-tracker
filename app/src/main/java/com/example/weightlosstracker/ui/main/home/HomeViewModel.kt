@@ -14,6 +14,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -41,7 +42,9 @@ class HomeViewModel @Inject constructor(
     private fun getQuote() {
         viewModelScope.launch(dispatcherProvider.io) {
             quotesRepository.getQuote().collect {
-                quoteLiveData.postValue(it)
+                withContext(dispatcherProvider.main) {
+                    quoteLiveData.postValue(it)
+                }
             }
         }
     }

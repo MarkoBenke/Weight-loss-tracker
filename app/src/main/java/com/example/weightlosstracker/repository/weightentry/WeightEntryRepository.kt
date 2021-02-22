@@ -11,4 +11,6 @@ interface WeightEntryRepository {
     suspend fun getLastEntry(): Flow<DataState<WeightEntry>>
     suspend fun getUserStats(): Flow<Stats>
     suspend fun insertWeight(weightEntry: WeightEntry)
+    suspend fun deleteWeightEntry(weightEntry: WeightEntry): Flow<DataState<List<WeightEntry>>>
+    suspend fun reverseDeletionOfWeightEntry(weightEntry: WeightEntry): Flow<DataState<List<WeightEntry>>>
 }

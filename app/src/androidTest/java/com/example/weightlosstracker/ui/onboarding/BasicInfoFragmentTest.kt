@@ -45,10 +45,21 @@ class BasicInfoFragmentTest : BaseTest() {
     }
 
     @Test
-    fun checkCalendarUpdates() {
+    fun checkCalendarUpdatesFromButton() {
         isTextDisplayedInView(R.id.setDateText, getCurrentDate())
 
         clickOnView(R.id.setDate)
+        selectDateInCalendar(5, 10,2020)
+        clickOnCalendarOk()
+
+        isTextDisplayedInView(R.id.setDateText, "05.10.2020")
+    }
+
+    @Test
+    fun checkCalendarUpdatesFromText() {
+        isTextDisplayedInView(R.id.setDateText, getCurrentDate())
+
+        clickOnView(R.id.setDateText)
         selectDateInCalendar(5, 10,2020)
         clickOnCalendarOk()
 

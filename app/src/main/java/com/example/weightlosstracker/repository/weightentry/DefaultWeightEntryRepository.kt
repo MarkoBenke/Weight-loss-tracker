@@ -89,4 +89,28 @@ class DefaultWeightEntryRepository constructor(
         }
         weightEntryDao.insertWeightEntry(mapper.mapToEntity(weightEntry))
     }
+
+    override suspend fun deleteWeightEntry(weightEntry: WeightEntry): Flow<DataState<List<WeightEntry>>> =
+        flow {
+            emit(DataState.Loading)
+            weightEntryDao.deleteWeightEntry(mapper.mapToEntity(weightEntry))
+
+            val entries = weightEntryDao.getAllWeightEntries()
+            val sortedList = entries.sortedByDescending {
+                parseDate(it.date)
+            }
+            emit(DataState.Success(mapper.mapFromEntityList(sortedList)))
+        }
+
+    override suspend fun reverseDeletionOfWeightEntry(weightEntry: WeightEntry): Flow<DataState<List<WeightEntry>>> =
+        flow {
+            emit(DataState.Loading)
+            weightEntryDao.insertWeightEntry(mapper.mapToEntity(weightEntry))
+
+            val entries = weightEntryDao.getAllWeightEntries()
+            val sortedList = entries.sortedByDescending {
+                parseDate(it.date)
+            }
+            emit(DataState.Success(mapper.mapFromEntityList(sortedList)))
+        }
 }

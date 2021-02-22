@@ -5,15 +5,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weightlosstracker.R
 import com.example.weightlosstracker.databinding.EntryListItemBinding
 import com.example.weightlosstracker.domain.WeightEntry
 
 class EntriesAdapter(private val context: Context) :
-    ListAdapter<WeightEntry, EntriesAdapter.EntriesViewHolder>(EntriesDiffCallback()) {
+    RecyclerView.Adapter<EntriesAdapter.EntriesViewHolder>() {
+
+    private var entries = mutableListOf<WeightEntry>()
 
     inner class EntriesViewHolder(val binding: EntryListItemBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -70,14 +70,14 @@ class EntriesAdapter(private val context: Context) :
             holder.binding.description.isVisible = false
         }
     }
-}
 
-class EntriesDiffCallback : DiffUtil.ItemCallback<WeightEntry>() {
-    override fun areItemsTheSame(oldItem: WeightEntry, newItem: WeightEntry): Boolean {
-        return oldItem.uuid == newItem.uuid
+    override fun getItemCount(): Int = entries.count()
+
+    fun submitList(entries: MutableList<WeightEntry>) {
+        this.entries.clear()
+        this.entries = entries
+        notifyDataSetChanged()
     }
 
-    override fun areContentsTheSame(oldItem: WeightEntry, newItem: WeightEntry): Boolean {
-        return oldItem == newItem
-    }
+    fun getItem(position: Int): WeightEntry = entries[position]
 }
