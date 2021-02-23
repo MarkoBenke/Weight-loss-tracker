@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.weightlosstracker.R
 import com.example.weightlosstracker.databinding.EntryListItemBinding
 import com.example.weightlosstracker.domain.WeightEntry
+import com.example.weightlosstracker.util.roundUp
 
 class EntriesAdapter(private val context: Context) :
     RecyclerView.Adapter<EntriesAdapter.EntriesViewHolder>() {
@@ -52,7 +53,7 @@ class EntriesAdapter(private val context: Context) :
                 )
             )
             holder.binding.weightDifference.text =
-                context.getString(R.string.kg, weightDiff.toString())
+                context.getString(R.string.kg, weightDiff.roundUp().toString())
         }
 
         if (weightEntry.waistSize != 0) {

@@ -12,7 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WeightLossTracker">
-        <activity android:name=".ui.launch.SplashScreenActivity"
+        <activity
+            android:name=".ui.main.stats.StatsFullScreenActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.launch.SplashScreenActivity"
             android:theme="@style/Theme.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
