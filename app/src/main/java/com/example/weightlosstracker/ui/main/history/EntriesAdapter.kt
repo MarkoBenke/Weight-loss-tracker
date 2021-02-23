@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.weightlosstracker.R
 import com.example.weightlosstracker.databinding.EntryListItemBinding
 import com.example.weightlosstracker.domain.WeightEntry
-import com.example.weightlosstracker.util.makeShort
 import com.example.weightlosstracker.util.roundUp
 
 class EntriesAdapter(private val context: Context) :

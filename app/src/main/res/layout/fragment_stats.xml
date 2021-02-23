@@ -81,7 +81,7 @@
             </com.google.android.material.button.MaterialButtonToggleGroup>
 
             <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/weightChart"
+                android:id="@+id/chart"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/chart_height"
                 android:layout_below="@id/toggle"
@@ -90,7 +90,7 @@
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/weightChart"
+                android:layout_below="@id/chart"
                 android:layout_marginTop="12dp"
                 android:scrollbars="none">
 

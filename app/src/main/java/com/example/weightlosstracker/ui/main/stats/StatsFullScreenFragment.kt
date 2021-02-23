@@ -53,16 +53,16 @@ class StatsFullScreenFragment : BaseFragment<StatsViewModel, StatsWeightEntryVie
                 when (checkedId) {
                     R.id.weightButton -> {
                         val data = viewModel.modelLiveData.value
-                        binding.weightChart.data = data?.weightsYData
+                        binding.chart.data = data?.weightsYData
                         initChartLimitLines(data?.stats)
-                        binding.weightChart.invalidate()
-                        binding.weightChart.animateX(StatsFragment.ANIMATE_DURATION)
+                        binding.chart.invalidate()
+                        binding.chart.animateX(StatsFragment.ANIMATE_DURATION)
                     }
                     R.id.waistButton -> {
-                        binding.weightChart.data = viewModel.modelLiveData.value?.waistSizeYData
-                        binding.weightChart.axisLeft.removeAllLimitLines()
-                        binding.weightChart.invalidate()
-                        binding.weightChart.animateX(StatsFragment.ANIMATE_DURATION)
+                        binding.chart.data = viewModel.modelLiveData.value?.waistSizeYData
+                        binding.chart.axisLeft.removeAllLimitLines()
+                        binding.chart.invalidate()
+                        binding.chart.animateX(StatsFragment.ANIMATE_DURATION)
                     }
                 }
             }
@@ -73,14 +73,14 @@ class StatsFullScreenFragment : BaseFragment<StatsViewModel, StatsWeightEntryVie
         val description = Description()
         description.text = ""
         with(binding) {
-            weightChart.animateX(StatsFragment.ANIMATE_DURATION)
-            weightChart.data = it.weightsYData
-            weightChart.xAxis?.position = XAxis.XAxisPosition.BOTTOM
-            weightChart.xAxis?.valueFormatter = IndexAxisValueFormatter(it.xData)
-            weightChart.xAxis?.isGranularityEnabled = true
-            weightChart.setOnChartValueSelectedListener(this@StatsFullScreenFragment)
-            weightChart.setPinchZoom(true)
-            weightChart.description = description
+            chart.animateX(StatsFragment.ANIMATE_DURATION)
+            chart.data = it.weightsYData
+            chart.xAxis?.position = XAxis.XAxisPosition.BOTTOM
+            chart.xAxis?.valueFormatter = IndexAxisValueFormatter(it.xData)
+            chart.xAxis?.isGranularityEnabled = true
+            chart.setOnChartValueSelectedListener(this@StatsFullScreenFragment)
+            chart.setPinchZoom(true)
+            chart.description = description
         }
     }
 
@@ -96,7 +96,7 @@ class StatsFullScreenFragment : BaseFragment<StatsViewModel, StatsWeightEntryVie
                 it.targetWeight
             )
             targetWeightLine.labelPosition = LimitLine.LimitLabelPosition.LEFT_BOTTOM
-            val yAxis = binding.weightChart.axisLeft
+            val yAxis = binding.chart.axisLeft
 
             yAxis?.setDrawLimitLinesBehindData(true)
             yAxis?.addLimitLine(startWeightLine)

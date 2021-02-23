@@ -34,7 +34,7 @@ class StatsFragment : BaseFragment<StatsViewModel, StatsWeightEntryViewData>(
 
     override fun updateUi(model: StatsWeightEntryViewData) {
         if (model.success) {
-            initWeightsChart(model)
+            initChart(model)
             initChartLimitLines(model.stats)
             initStatsUi(model.stats)
         } else {
@@ -63,16 +63,16 @@ class StatsFragment : BaseFragment<StatsViewModel, StatsWeightEntryViewData>(
                 when (checkedId) {
                     R.id.weightButton -> {
                         val data = viewModel.modelLiveData.value
-                        binding.weightChart.data = data?.weightsYData
+                        binding.chart.data = data?.weightsYData
                         initChartLimitLines(data?.stats)
-                        binding.weightChart.invalidate()
-                        binding.weightChart.animateX(ANIMATE_DURATION)
+                        binding.chart.invalidate()
+                        binding.chart.animateX(ANIMATE_DURATION)
                     }
                     R.id.waistButton -> {
-                        binding.weightChart.data = viewModel.modelLiveData.value?.waistSizeYData
-                        binding.weightChart.axisLeft.removeAllLimitLines()
-                        binding.weightChart.invalidate()
-                        binding.weightChart.animateX(ANIMATE_DURATION)
+                        binding.chart.data = viewModel.modelLiveData.value?.waistSizeYData
+                        binding.chart.axisLeft.removeAllLimitLines()
+                        binding.chart.invalidate()
+                        binding.chart.animateX(ANIMATE_DURATION)
                     }
                 }
             }
@@ -112,18 +112,18 @@ class StatsFragment : BaseFragment<StatsViewModel, StatsWeightEntryViewData>(
         binding.bestRecord.text = getString(R.string.kg, viewModel.getBestRecord())
     }
 
-    private fun initWeightsChart(it: StatsWeightEntryViewData) {
+    private fun initChart(it: StatsWeightEntryViewData) {
         val description = Description()
         description.text = ""
         with(binding) {
-            weightChart.animateX(ANIMATE_DURATION)
-            weightChart.data = it.weightsYData
-            weightChart.xAxis?.position = XAxis.XAxisPosition.BOTTOM
-            weightChart.xAxis?.valueFormatter = IndexAxisValueFormatter(it.xData)
-            weightChart.xAxis?.isGranularityEnabled = true
-            weightChart.setOnChartValueSelectedListener(this@StatsFragment)
-            weightChart.setPinchZoom(true)
-            weightChart.description = description
+            chart.animateX(ANIMATE_DURATION)
+            chart.data = it.weightsYData
+            chart.xAxis?.position = XAxis.XAxisPosition.BOTTOM
+            chart.xAxis?.valueFormatter = IndexAxisValueFormatter(it.xData)
+            chart.xAxis?.isGranularityEnabled = true
+            chart.setOnChartValueSelectedListener(this@StatsFragment)
+            chart.setPinchZoom(true)
+            chart.description = description
         }
     }
 
@@ -139,7 +139,7 @@ class StatsFragment : BaseFragment<StatsViewModel, StatsWeightEntryViewData>(
                 it.targetWeight
             )
             targetWeightLine.labelPosition = LimitLine.LimitLabelPosition.LEFT_BOTTOM
-            val yAxis = binding.weightChart.axisLeft
+            val yAxis = binding.chart.axisLeft
 
             yAxis?.setDrawLimitLinesBehindData(true)
             yAxis?.addLimitLine(startWeightLine)
