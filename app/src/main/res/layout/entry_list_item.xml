@@ -63,6 +63,7 @@
                 android:layout_marginBottom="@dimen/medium_margin"
                 android:fontFamily="@font/roboto_medium"
                 android:textColor="@color/primaryTextColor"
+                android:textIsSelectable="true"
                 android:textSize="14sp"
                 tools:text="This is description of the entry" />
         </LinearLayout>

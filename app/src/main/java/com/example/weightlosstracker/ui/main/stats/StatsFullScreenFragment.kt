@@ -1,14 +1,13 @@
 package com.example.weightlosstracker.ui.main.stats
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.core.view.isVisible
 import com.example.weightlosstracker.R
-import com.example.weightlosstracker.databinding.FragmentStatsBinding
+import com.example.weightlosstracker.databinding.FragmentStatsFullScreenBinding
 import com.example.weightlosstracker.domain.Stats
-import com.example.weightlosstracker.util.*
+import com.example.weightlosstracker.util.BaseFragment
+import com.example.weightlosstracker.util.viewBinding
 import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.components.LimitLine
 import com.github.mikephil.charting.components.XAxis
@@ -19,24 +18,21 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class StatsFragment : BaseFragment<StatsViewModel, StatsWeightEntryViewData>(
-    R.layout.fragment_stats,
-    StatsViewModel::class.java
+class StatsFullScreenFragment : BaseFragment<StatsViewModel, StatsWeightEntryViewData>(
+    R.layout.fragment_stats_full_screen, StatsViewModel::class.java
 ), OnChartValueSelectedListener {
 
-    private val binding by viewBinding(FragmentStatsBinding::bind)
+    private val binding by viewBinding(FragmentStatsFullScreenBinding::bind)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initChartToggle()
-        initFullScreenListener()
     }
 
     override fun updateUi(model: StatsWeightEntryViewData) {
         if (model.success) {
             initWeightsChart(model)
             initChartLimitLines(model.stats)
-            initStatsUi(model.stats)
         } else {
             //TODO handle error
         }
@@ -50,12 +46,6 @@ class StatsFragment : BaseFragment<StatsViewModel, StatsWeightEntryViewData>(
 
     override fun onNothingSelected() {}
 
-    private fun initFullScreenListener() {
-        binding.fullscreen.setOnClickListener {
-            startActivity(Intent(requireActivity(), StatsFullScreenActivity::class.java))
-        }
-    }
-
     private fun initChartToggle() {
         binding.toggle.check(R.id.weightButton)
         binding.toggle.addOnButtonCheckedListener { _, checkedId, isChecked ->
@@ -66,62 +56,29 @@ class StatsFragment : BaseFragment<StatsViewModel, StatsWeightEntryViewData>(
                         binding.weightChart.data = data?.weightsYData
                         initChartLimitLines(data?.stats)
                         binding.weightChart.invalidate()
-                        binding.weightChart.animateX(ANIMATE_DURATION)
+                        binding.weightChart.animateX(StatsFragment.ANIMATE_DURATION)
                     }
                     R.id.waistButton -> {
                         binding.weightChart.data = viewModel.modelLiveData.value?.waistSizeYData
                         binding.weightChart.axisLeft.removeAllLimitLines()
                         binding.weightChart.invalidate()
-                        binding.weightChart.animateX(ANIMATE_DURATION)
+                        binding.weightChart.animateX(StatsFragment.ANIMATE_DURATION)
                     }
                 }
             }
         }
     }
 
-    private fun initStatsUi(stats: Stats?) {
-        stats?.let {
-            binding.currentWeight.text =
-                getString(R.string.kg, it.currentWeight.roundUp().toString())
-            binding.targetWeight.text =
-                getString(R.string.kg, it.targetWeight.roundUp().toString())
-            binding.totalLoss.text =
-                getString(R.string.kg, it.totalLoss.roundUp().toString())
-            binding.remaining.text = getString(R.string.kg, it.remaining.roundUp().toString())
-            binding.bmiCategory.text = getBmiCategory(it.bmi)
-            binding.caloriesBurned.text =
-                getString(R.string.kCal, it.caloriesBurned.roundUp().toString())
-            binding.cheeseburgersBurned.text = it.cheeseburgersBurned.roundUp().toString()
-            if (it.waistSizeLoss != 0) {
-                binding.totalWaistSizeLayout.isVisible = true
-                binding.totalWaistSizeLoss.text =
-                    getString(R.string.cm, it.waistSizeLoss.toString())
-            } else {
-                binding.totalWaistSizeLayout.isVisible = false
-            }
-            if (it.currentWaistSize != 0) {
-                binding.waistSizeLayout.isVisible = true
-                binding.currentWaistSize.text =
-                    getString(R.string.cm, it.currentWaistSize.toString())
-            } else {
-                binding.waistSizeLayout.isVisible = false
-            }
-        }
-        binding.totalEntries.text = viewModel.getTotalEntries()
-        binding.worstRecord.text = getString(R.string.kg, viewModel.getWorstRecord())
-        binding.bestRecord.text = getString(R.string.kg, viewModel.getBestRecord())
-    }
-
     private fun initWeightsChart(it: StatsWeightEntryViewData) {
         val description = Description()
         description.text = ""
         with(binding) {
-            weightChart.animateX(ANIMATE_DURATION)
+            weightChart.animateX(StatsFragment.ANIMATE_DURATION)
             weightChart.data = it.weightsYData
             weightChart.xAxis?.position = XAxis.XAxisPosition.BOTTOM
             weightChart.xAxis?.valueFormatter = IndexAxisValueFormatter(it.xData)
             weightChart.xAxis?.isGranularityEnabled = true
-            weightChart.setOnChartValueSelectedListener(this@StatsFragment)
+            weightChart.setOnChartValueSelectedListener(this@StatsFullScreenFragment)
             weightChart.setPinchZoom(true)
             weightChart.description = description
         }
@@ -145,25 +102,5 @@ class StatsFragment : BaseFragment<StatsViewModel, StatsWeightEntryViewData>(
             yAxis?.addLimitLine(startWeightLine)
             yAxis?.addLimitLine(targetWeightLine)
         }
-    }
-
-    private fun getBmiCategory(bmi: Float): String {
-        return if (bmi < Constants.UNDERWEIGHT) {
-            getString(R.string.bmi_underweight)
-        } else if (bmi > Constants.UNDERWEIGHT && bmi <= Constants.NORMAL_END) {
-            getString(R.string.bmi_normal)
-        } else if (bmi > Constants.NORMAL_END && bmi <= Constants.OVERWEIGHT) {
-            getString(R.string.bmi_overweight)
-        } else if (bmi > Constants.OVERWEIGHT && bmi <= Constants.OBESE_I) {
-            getString(R.string.bmi_obese_first)
-        } else if (bmi > Constants.OBESE_I && bmi <= Constants.OBESE_II) {
-            getString(R.string.bmi_obese_second)
-        } else if (bmi > Constants.OBESE_II) {
-            getString(R.string.bmi_obese_third)
-        } else ""
-    }
-
-    companion object {
-        const val ANIMATE_DURATION = 800
     }
 }

@@ -69,4 +69,6 @@
     <string name="target_weight_description">Note: Set your target weight. Weight goal you want to achieve.</string>
     <string name="successfully_deleted_entry">Successfully deleted entry</string>
     <string name="undo">Undo</string>
+    <string name="weigh_ins">Weigh-ins</string>
+    <string name="waist_sizes">Waist sizes</string>
 </resources>

@@ -30,15 +30,15 @@ class StatsViewModel @Inject constructor(
     }
 
     fun getTotalEntries(): String {
-        return modelLiveData.value?.yData?.entryCount.toString()
+        return modelLiveData.value?.weightsYData?.entryCount.toString()
     }
 
     fun getBestRecord(): String {
-        return modelLiveData.value?.yData?.yMin.toString()
+        return modelLiveData.value?.weightsYData?.yMin.toString()
     }
 
     fun getWorstRecord(): String {
-        return modelLiveData.value?.yData?.yMax.toString()
+        return modelLiveData.value?.weightsYData?.yMax.toString()
     }
 
     fun createLimitLine(label: String, limit: Float): LimitLine {
@@ -64,7 +64,8 @@ class StatsViewModel @Inject constructor(
                     is DataState.Success -> {
                         modelLiveData.postValue(
                             StatsWeightEntryViewData(
-                                mapYData(it.data.reversed()),
+                                mapWeightsYData(it.data.reversed()),
+                                mapWaistSizeYData(it.data.reversed()),
                                 mapXData(it.data.reversed()),
                                 stats,
                                 true
@@ -73,7 +74,7 @@ class StatsViewModel @Inject constructor(
                     }
                     is DataState.Error -> {
                         modelLiveData.postValue(
-                            StatsWeightEntryViewData(null, null, null, false)
+                            StatsWeightEntryViewData(null, null, null, null, false)
                         )
                     }
                     DataState.Loading -> {
@@ -83,7 +84,7 @@ class StatsViewModel @Inject constructor(
         }
     }
 
-    private fun mapYData(data: List<WeightEntry>): LineData {
+    private fun mapWeightsYData(data: List<WeightEntry>): LineData {
         if (data.isNotEmpty()) {
             val yValues: ArrayList<Entry> = arrayListOf()
             data.forEachIndexed { index, element ->
@@ -96,7 +97,32 @@ class StatsViewModel @Inject constructor(
                 )
             }
 
-            val set1 = LineDataSet(yValues, "Unosi kilaza")
+            val set1 = LineDataSet(yValues, "Weight entries")
+            set1.color = Color.RED
+            set1.lineWidth = 2f
+            set1.valueTextSize = 12f
+
+            val dataSets: ArrayList<ILineDataSet> = arrayListOf()
+            dataSets.add(set1)
+            return LineData(dataSets)
+        }
+        return LineData()
+    }
+
+    private fun mapWaistSizeYData(data: List<WeightEntry>): LineData {
+        if (data.isNotEmpty()) {
+            val yValues: ArrayList<Entry> = arrayListOf()
+            data.forEachIndexed { index, element ->
+                yValues.add(
+                    Entry(
+                        index.toFloat(),
+                        element.waistSize.toFloat(),
+                        element.date
+                    )
+                )
+            }
+
+            val set1 = LineDataSet(yValues, "Waist size entries")
             set1.color = Color.RED
             set1.lineWidth = 2f
             set1.valueTextSize = 12f

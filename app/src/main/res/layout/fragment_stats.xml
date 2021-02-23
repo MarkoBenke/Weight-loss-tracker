@@ -55,17 +55,42 @@
                 android:layout_marginBottom="@dimen/medium_margin"
                 android:background="@color/dividerColor" />
 
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/toggle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/divider"
+                android:gravity="center"
+                app:selectionRequired="true"
+                app:singleSelection="true">
+
+                <Button
+                    android:id="@+id/weightButton"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/weigh_ins" />
+
+                <Button
+                    android:id="@+id/waistButton"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/waist_sizes" />
+
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+
             <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/lineChart"
+                android:id="@+id/weightChart"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/chart_height"
-                android:layout_below="@id/divider"
+                android:layout_below="@id/toggle"
                 android:padding="6dp" />
 
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/lineChart"
+                android:layout_below="@id/weightChart"
                 android:layout_marginTop="12dp"
                 android:scrollbars="none">
 
