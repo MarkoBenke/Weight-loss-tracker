@@ -10,6 +10,8 @@ import com.example.weightlosstracker.util.DataState
 import com.example.weightlosstracker.util.getCurrentDate
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -54,6 +56,9 @@ class EntryHistoryViewModelTest {
         viewModel.deleteEntry(DataGenerator.weightEntry)
         viewModel.reverseDeletion(DataGenerator.weightEntry)
 
+        runBlocking {
+            delay(1000)
+        }
         val value = viewModel.modelLiveData.getOrAwaitValueTest() as DataState.Success
 
         assertThat(value.data).hasSize(3)
