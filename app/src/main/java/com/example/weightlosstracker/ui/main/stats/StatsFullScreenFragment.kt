@@ -34,7 +34,8 @@ class StatsFullScreenFragment : BaseFragment<StatsViewModel, StatsWeightEntryVie
             initWeightsChart(model)
             initChartLimitLines(model.stats)
         } else {
-            //TODO handle error
+            Toast.makeText(requireContext(), getString(R.string.unknown_error), Toast.LENGTH_SHORT)
+                .show()
         }
     }
 

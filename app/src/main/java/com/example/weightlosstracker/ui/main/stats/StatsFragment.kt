@@ -8,7 +8,10 @@ import androidx.core.view.isVisible
 import com.example.weightlosstracker.R
 import com.example.weightlosstracker.databinding.FragmentStatsBinding
 import com.example.weightlosstracker.domain.Stats
-import com.example.weightlosstracker.util.*
+import com.example.weightlosstracker.util.BaseFragment
+import com.example.weightlosstracker.util.Constants
+import com.example.weightlosstracker.util.roundUp
+import com.example.weightlosstracker.util.viewBinding
 import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.components.LimitLine
 import com.github.mikephil.charting.components.XAxis
@@ -38,7 +41,8 @@ class StatsFragment : BaseFragment<StatsViewModel, StatsWeightEntryViewData>(
             initChartLimitLines(model.stats)
             initStatsUi(model.stats)
         } else {
-            //TODO handle error
+            Toast.makeText(requireContext(), getString(R.string.unknown_error), Toast.LENGTH_SHORT)
+                .show()
         }
     }
 

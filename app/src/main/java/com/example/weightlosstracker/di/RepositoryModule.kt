@@ -21,7 +21,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
-//TODO maybe this should view model component and scope
 @Module
 @InstallIn(SingletonComponent::class)
 object RepositoryModule {
