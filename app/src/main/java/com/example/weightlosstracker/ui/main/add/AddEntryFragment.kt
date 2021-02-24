@@ -81,7 +81,6 @@ class AddEntryFragment : BaseFragment<AddEntryViewModel, Long>(
             waistSize.editText?.text?.clear()
             setDateText.text = getCurrentDate()
         }
-        //TODO update date picker dialog to current date
     }
 
     private fun initDateCalendar(startDateInMillis: Long) {

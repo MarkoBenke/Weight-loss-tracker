@@ -32,11 +32,11 @@
     <string name="add_tab">Add</string>
     <string name="stats_tab">Stats</string>
     <string name="history_tab">History</string>
-    <string name="kg">%1s kg</string>
-    <string name="cm">%1s cm</string>
-    <string name="cm_decimal">%1d cm</string>
-    <string name="kCal">%1s kCal</string>
-    <string name="kg_float">%1fkg</string>
+    <string name="kg" translatable="false">%1s kg</string>
+    <string name="cm" translatable="false">%1s cm</string>
+    <string name="cm_decimal" translatable="false">%1d cm</string>
+    <string name="kCal" translatable="false">%1s kCal</string>
+    <string name="kg_float" translatable="false">%1fkg</string>
     <string name="entry_success">Entry successfully submitted</string>
     <string name="bmi">Your bmi index: \n %1s</string>
     <string name="bmi_type_underweight">Underweight</string>
@@ -65,10 +65,11 @@
     <string name="total_calories_burned_stats">Total calories burned:</string>
     <string name="start_date_description">Note: Start date cannot be changed later on, and new weight entries cannot be before the initial start date.</string>
     <string name="splash_screen_text">Designed by Marko Benke</string>
-    <string name="weight_loss_tracker_title">WEIGHT LOSS TRACKER</string>
-    <string name="target_weight_description">Note: Set your target weight. Weight goal you want to achieve.</string>
+    <string name="weight_loss_tracker_title" translatable="false">WEIGHT LOSS TRACKER</string>
+    <string name="target_weight_description">Note: Set your target weight. The weight goal you want to achieve.</string>
     <string name="successfully_deleted_entry">Successfully deleted entry</string>
     <string name="undo">Undo</string>
     <string name="weigh_ins">Weigh-ins</string>
     <string name="waist_sizes">Waist sizes</string>
+    <string name="unknown_error">An unknown error occurred!</string>
 </resources>
