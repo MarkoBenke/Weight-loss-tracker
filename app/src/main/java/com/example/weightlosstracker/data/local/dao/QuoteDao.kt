@@ -13,5 +13,5 @@ interface QuoteDao {
     suspend fun insertQuote(quote: QuoteCache)
 
     @Query("SELECT * FROM quotes_table")
-    fun getAllQuotes(): List<QuoteCache>
+    suspend fun getAllQuotes(): List<QuoteCache>
 }

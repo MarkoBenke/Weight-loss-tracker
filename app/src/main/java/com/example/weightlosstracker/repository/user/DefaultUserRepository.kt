@@ -47,4 +47,8 @@ class DefaultUserRepository constructor(
     override suspend fun getUsersStartDate(): Flow<Long> {
         return settingsManager.getStartDate()
     }
+
+    override suspend fun updateUser(user: User) {
+        userDao.updateUser(userMapper.mapToEntity(user))
+    }
 }

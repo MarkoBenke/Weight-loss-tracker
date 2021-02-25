@@ -52,8 +52,13 @@ class EntriesAdapter(private val context: Context) :
                     if (weightDiff < 0) R.color.positiveTextColor else R.color.negativeTextColor
                 )
             )
-            holder.binding.weightDifference.text =
-                context.getString(R.string.kg, weightDiff.roundUp().toString())
+            if (weightDiff > 0) {
+                holder.binding.weightDifference.text =
+                    context.getString(R.string.kg_plus, weightDiff.roundUp().toString())
+            } else {
+                holder.binding.weightDifference.text =
+                    context.getString(R.string.kg, weightDiff.roundUp().toString())
+            }
         }
 
         if (weightEntry.waistSize != 0) {

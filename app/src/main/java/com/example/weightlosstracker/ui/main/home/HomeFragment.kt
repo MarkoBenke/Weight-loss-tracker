@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
-import androidx.lifecycle.Observer
 import com.example.weightlosstracker.R
 import com.example.weightlosstracker.databinding.FragmentHomeBinding
 import com.example.weightlosstracker.domain.Stats
@@ -30,7 +29,7 @@ class HomeFragment : BaseFragment<HomeViewModel, Stats>(
     }
 
     private fun subscribeToQuoteObserver() {
-        viewModel.quoteLiveData.observe(viewLifecycleOwner, Observer {
+        viewModel.quoteLiveData.observe(viewLifecycleOwner, {
             when (it) {
                 is DataState.Success -> {
                     binding.quoteText.text = it.data.quote

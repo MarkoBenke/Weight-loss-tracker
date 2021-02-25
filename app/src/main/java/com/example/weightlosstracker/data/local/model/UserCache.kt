@@ -1,10 +1,11 @@
 package com.example.weightlosstracker.data.local.model
 
+import androidx.annotation.Keep
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "user_table")
-data class UserCache(
+@Keep data class UserCache(
     @PrimaryKey
     val uuid: Int = 0,
     var startWeight: Float,

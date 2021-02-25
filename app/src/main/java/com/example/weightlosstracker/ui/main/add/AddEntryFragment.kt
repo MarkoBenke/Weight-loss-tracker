@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
-import androidx.lifecycle.Observer
 import com.example.weightlosstracker.R
 import com.example.weightlosstracker.databinding.FragmentAddEntryBinding
 import com.example.weightlosstracker.domain.WeightEntry
@@ -55,7 +54,7 @@ class AddEntryFragment : BaseFragment<AddEntryViewModel, Long>(
     }
 
     private fun subscribeToInsertWeightEntryObserver() {
-        viewModel.insertWeightLiveData.observe(viewLifecycleOwner, Observer { event ->
+        viewModel.insertWeightLiveData.observe(viewLifecycleOwner, { event ->
             event.getContentIfNotHandled()?.let { result ->
                 when (result) {
                     is DataState.Success -> {

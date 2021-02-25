@@ -1,10 +1,11 @@
 package com.example.weightlosstracker.domain
 
 import android.os.Parcelable
+import androidx.annotation.Keep
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class User(
+@Keep class User(
     val uuid: Int = 0,
     var startWeight: Float = 0f,
     var currentWeight: Float = 0f,

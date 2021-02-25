@@ -6,7 +6,6 @@ import android.view.View
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import com.example.weightlosstracker.R
 import com.example.weightlosstracker.databinding.FragmentTargetWeightBinding
 import com.example.weightlosstracker.domain.User
@@ -14,7 +13,6 @@ import com.example.weightlosstracker.ui.main.MainActivity
 import com.example.weightlosstracker.util.DataState
 import com.example.weightlosstracker.util.calculateBmi
 import com.example.weightlosstracker.util.viewBinding
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -55,7 +53,7 @@ class TargetWeightFragment : Fragment(R.layout.fragment_target_weight) {
     }
 
     private fun subscribeToObservers() {
-        viewModel.insertUserLiveData.observe(viewLifecycleOwner, Observer { event ->
+        viewModel.insertUserLiveData.observe(viewLifecycleOwner, { event ->
             event.getContentIfNotHandled()?.let { result ->
                 when (result) {
                     is DataState.Success -> {

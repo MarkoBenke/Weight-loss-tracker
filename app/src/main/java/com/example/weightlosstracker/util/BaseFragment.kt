@@ -3,7 +3,6 @@ package com.example.weightlosstracker.util
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 
 abstract class BaseFragment<T : BaseViewModel<BaseModelData>, BaseModelData>(
@@ -23,7 +22,7 @@ abstract class BaseFragment<T : BaseViewModel<BaseModelData>, BaseModelData>(
     abstract fun updateUi(model: BaseModelData)
 
     private fun subscribeToObservers() {
-        viewModel.modelLiveData.observe(viewLifecycleOwner, Observer {
+        viewModel.modelLiveData.observe(viewLifecycleOwner, {
             updateUi(it)
         })
     }

@@ -6,7 +6,6 @@ import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.weightlosstracker.R
 import com.example.weightlosstracker.databinding.FragmentBasicInfoBinding
@@ -44,7 +43,7 @@ class BasicInfoFragment : Fragment(R.layout.fragment_basic_info) {
 
     private fun subscribeToObservers() {
         user = requireArguments().getParcelable(OnBoardingActivity.USER_KEY)
-        viewModel.validateLiveData.observe(viewLifecycleOwner, Observer { event ->
+        viewModel.validateLiveData.observe(viewLifecycleOwner, { event ->
             when (event.getContentIfNotHandled()) {
                 is DataState.Success -> {
                     user?.apply {

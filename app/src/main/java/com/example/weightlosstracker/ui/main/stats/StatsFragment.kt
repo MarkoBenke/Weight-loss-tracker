@@ -20,6 +20,7 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.math.abs
 
 @AndroidEntryPoint
 class StatsFragment : BaseFragment<StatsViewModel, StatsWeightEntryViewData>(
@@ -89,17 +90,43 @@ class StatsFragment : BaseFragment<StatsViewModel, StatsWeightEntryViewData>(
                 getString(R.string.kg, it.currentWeight.roundUp().toString())
             binding.targetWeight.text =
                 getString(R.string.kg, it.targetWeight.roundUp().toString())
-            binding.totalLoss.text =
-                getString(R.string.kg, it.totalLoss.roundUp().toString())
-            binding.remaining.text = getString(R.string.kg, it.remaining.roundUp().toString())
+
+
             binding.bmiCategory.text = getBmiCategory(it.bmi)
-            binding.caloriesBurned.text =
-                getString(R.string.kCal, it.caloriesBurned.roundUp().toString())
-            binding.cheeseburgersBurned.text = it.cheeseburgersBurned.roundUp().toString()
+            if (it.remaining < 0) {
+                binding.remaining.text = getString(R.string.goal_accomplished)
+            } else {
+                binding.remaining.text = getString(R.string.kg, it.remaining.roundUp().toString())
+            }
+            if (it.totalLoss < 0) {
+                binding.totalLoss.text =
+                    getString(R.string.kg_plus, abs(it.totalLoss.roundUp()).toString())
+            } else {
+                binding.totalLoss.text =
+                    getString(R.string.kg, it.totalLoss.roundUp().toString())
+            }
+            if (it.caloriesBurned < 0) {
+                binding.caloriesBurned.text =
+                    getString(R.string.kCal_plus, abs(it.caloriesBurned.roundUp()).toString())
+            } else {
+                binding.caloriesBurned.text =
+                    getString(R.string.kCal, it.caloriesBurned.roundUp().toString())
+            }
+            if (it.cheeseburgersBurned < 0) {
+                binding.cheeseburgersBurned.text =
+                    getString(R.string.plus, abs(it.cheeseburgersBurned.roundUp()).toString())
+            } else {
+                binding.cheeseburgersBurned.text = it.cheeseburgersBurned.roundUp().toString()
+            }
             if (it.waistSizeLoss != 0) {
                 binding.totalWaistSizeLayout.isVisible = true
-                binding.totalWaistSizeLoss.text =
-                    getString(R.string.cm, it.waistSizeLoss.toString())
+                if (it.waistSizeLoss > 0) {
+                    binding.totalWaistSizeLoss.text =
+                        getString(R.string.cm_plus, it.waistSizeLoss.toString())
+                } else {
+                    binding.totalWaistSizeLoss.text =
+                        getString(R.string.cm, it.waistSizeLoss.toString())
+                }
             } else {
                 binding.totalWaistSizeLayout.isVisible = false
             }

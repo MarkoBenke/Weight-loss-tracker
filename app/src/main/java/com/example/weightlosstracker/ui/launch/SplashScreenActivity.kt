@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.Observer
 import com.example.weightlosstracker.databinding.ActivitySplashScreenBinding
 import com.example.weightlosstracker.ui.main.MainActivity
 import com.example.weightlosstracker.ui.onboarding.OnBoardingActivity
@@ -30,7 +29,7 @@ class SplashScreenActivity : AppCompatActivity() {
     }
 
     private fun subscribeToObservers() {
-        viewModel.userLiveData.observe(this, Observer { dataState ->
+        viewModel.userLiveData.observe(this, { dataState ->
             when (dataState) {
                 is DataState.Loading -> {
 
