@@ -1,6 +1,5 @@
 package com.example.weightlosstracker.repository
 
-import android.util.Log
 import com.example.weightlosstracker.domain.User
 import com.example.weightlosstracker.repository.user.UserRepository
 import com.example.weightlosstracker.util.DataState
@@ -19,7 +18,6 @@ class FakeUserRepositoryAndroidTest @Inject constructor(
     }
 
     override suspend fun getUser(): Flow<DataState<User?>> = flow {
-        Log.d("BENI2", "getUser: " + this@FakeUserRepositoryAndroidTest.hashCode().toString())
         if (shouldReturnError) {
             emit(DataState.Error("Error!"))
             return@flow
@@ -34,5 +32,9 @@ class FakeUserRepositoryAndroidTest @Inject constructor(
         }
         val startDate = DataGenerator.user.startDate
         emit(parseDate(startDate)!!.time)
+    }
+
+    override suspend fun updateUser(user: User) {
+
     }
 }

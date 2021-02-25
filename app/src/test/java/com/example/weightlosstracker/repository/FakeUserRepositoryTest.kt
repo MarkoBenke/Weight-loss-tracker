@@ -30,4 +30,8 @@ class FakeUserRepositoryTest(private val shouldReturnError: Boolean = false) : U
         val startDate = DataGenerator.user.startDate
         emit(parseDate(startDate)!!.time)
     }
+
+    override suspend fun updateUser(user: User) {
+
+    }
 }
