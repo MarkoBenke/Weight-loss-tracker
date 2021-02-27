@@ -11,18 +11,18 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.example.weightlosstracker"
+        applicationId "com.marko.weightlosstracker"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "com.example.weightlosstracker.HiltTestRunner"
+        testInstrumentationRunner "com.marko.weightlosstracker.HiltTestRunner"
     }
 
     signingConfigs {
         release {
-            storeFile file('C:\\Users\\marko.benke\\Documents\\keystores\\Weight Loss Tracker\\wl-keystore.jks')
+            storeFile file('../docs/wl-keystore.jks')
             storePassword 'mare10rooney'
             keyAlias 'weightlosstracker'
             keyPassword 'mare10rooney'

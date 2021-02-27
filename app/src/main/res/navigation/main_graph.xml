@@ -5,7 +5,7 @@
 
     <fragment
         android:id="@+id/home"
-        android:name="com.example.weightlosstracker.ui.main.home.HomeFragment"
+        android:name="com.marko.weightlosstracker.ui.main.home.HomeFragment"
         android:label="HomeFragment" >
         <action
             android:id="@+id/action_homeFragment_to_addEntryFragment"
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/addEntry"
-        android:name="com.example.weightlosstracker.ui.main.add.AddEntryFragment"
+        android:name="com.marko.weightlosstracker.ui.main.add.AddEntryFragment"
         android:label="AddEntryFragment" >
         <action
             android:id="@+id/action_addEntryFragment_to_statsFragment"
@@ -27,7 +27,7 @@
     </fragment>
     <fragment
         android:id="@+id/entryHistory"
-        android:name="com.example.weightlosstracker.ui.main.history.EntryHistoryFragment"
+        android:name="com.marko.weightlosstracker.ui.main.history.EntryHistoryFragment"
         android:label="EntryHistoryFragment" >
         <action
             android:id="@+id/action_entryHistory_to_infoFragment"
@@ -37,7 +37,7 @@
     </fragment>
     <fragment
         android:id="@+id/stats"
-        android:name="com.example.weightlosstracker.ui.main.stats.StatsFragment"
+        android:name="com.marko.weightlosstracker.ui.main.stats.StatsFragment"
         android:label="StatsFragment" >
         <action
             android:id="@+id/action_statsFragment_to_entryHistoryFragment"
@@ -47,6 +47,6 @@
     </fragment>
     <fragment
         android:id="@+id/info"
-        android:name="com.example.weightlosstracker.ui.main.info.InfoFragment"
+        android:name="com.marko.weightlosstracker.ui.main.info.InfoFragment"
         android:label="InfoFragment" />
 </navigation>

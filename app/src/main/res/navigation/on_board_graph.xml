@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/genderFragment"
-        android:name="com.example.weightlosstracker.ui.onboarding.GenderFragment"
+        android:name="com.marko.weightlosstracker.ui.onboarding.GenderFragment"
         android:label="GenderFragment">
         <action
             android:id="@+id/action_genderFragment_to_basicInfoFragment"
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/basicInfoFragment"
-        android:name="com.example.weightlosstracker.ui.onboarding.BasicInfoFragment"
+        android:name="com.marko.weightlosstracker.ui.onboarding.BasicInfoFragment"
         android:label="BasicInfoFragment">
         <action
             android:id="@+id/action_basicInfoFragment_to_targetWeightFragment"
@@ -27,14 +27,14 @@
             app:popExitAnim="@android:anim/fade_out" />
         <argument
             android:name="user"
-            app:argType="com.example.weightlosstracker.domain.User" />
+            app:argType="com.marko.weightlosstracker.domain.User" />
     </fragment>
     <fragment
         android:id="@+id/targetWeightFragment"
-        android:name="com.example.weightlosstracker.ui.onboarding.TargetWeightFragment"
+        android:name="com.marko.weightlosstracker.ui.onboarding.TargetWeightFragment"
         android:label="TargetWeightFragment">
         <argument
             android:name="user"
-            app:argType="com.example.weightlosstracker.domain.User" />
+            app:argType="com.marko.weightlosstracker.domain.User" />
     </fragment>
 </navigation>
