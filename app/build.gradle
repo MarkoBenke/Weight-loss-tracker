@@ -8,28 +8,41 @@ plugins {
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "30.0.2"
+    buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.example.weightlosstracker"
+        applicationId "com.marko.weightlosstracker"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "com.example.weightlosstracker.HiltTestRunner"
+        testInstrumentationRunner "com.marko.weightlosstracker.HiltTestRunner"
+    }
+
+    signingConfigs {
+        release {
+            storeFile file('../docs/wl-keystore.jks')
+            storePassword 'mare10rooney'
+            keyAlias 'weightlosstracker'
+            keyPassword 'mare10rooney'
+        }
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = '1.8'
     }
@@ -61,22 +74,22 @@ dependencies {
     implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hilt_viewmodels"
 
     // Activity KTX for viewModels()
-    implementation "androidx.activity:activity-ktx:1.1.0"
+    implementation "androidx.activity:activity-ktx:1.2.0"
 
     // Lifecycle
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
-    implementation "androidx.lifecycle:lifecycle-common-java8:2.2.0"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.0"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.3.0"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.3.0"
+    implementation "androidx.lifecycle:lifecycle-common-java8:2.3.0"
 
     // Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1'
 
     // Coroutine Lifecycle Scopes
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.3.0"
 
     //Data store
     implementation "androidx.datastore:datastore-preferences:1.0.0-alpha06"

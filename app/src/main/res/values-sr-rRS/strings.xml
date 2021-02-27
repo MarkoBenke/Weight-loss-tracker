@@ -67,4 +67,10 @@
     <string name="weigh_ins">Vaganja</string>
     <string name="waist_sizes">Veličine struka</string>
     <string name="unknown_error">Greška!</string>
+    <string name="goal_accomplished">Cilj je postignut!</string>
+    <string name="update_target_weight">Ažuriraj željenu kilažu</string>
+    <string name="privacy_policy">Politika privatnosti</string>
+    <string name="version">Verzija: %1s</string>
+    <string name="terms_and_conditions">Uslovi korišćenja</string>
+    <string name="target_weight_update_success">Željena kilaža je ažurirana</string>
 </resources>

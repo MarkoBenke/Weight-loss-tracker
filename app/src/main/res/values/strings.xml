@@ -33,9 +33,13 @@
     <string name="stats_tab">Stats</string>
     <string name="history_tab">History</string>
     <string name="kg" translatable="false">%1s kg</string>
+    <string name="kg_plus" translatable="false">+%1s kg</string>
     <string name="cm" translatable="false">%1s cm</string>
+    <string name="cm_plus" translatable="false">+%1s cm</string>
     <string name="cm_decimal" translatable="false">%1d cm</string>
     <string name="kCal" translatable="false">%1s kCal</string>
+    <string name="kCal_plus" translatable="false">+%1s kCal</string>
+    <string name="plus" translatable="false">+%1s</string>
     <string name="kg_float" translatable="false">%1fkg</string>
     <string name="entry_success">Entry successfully submitted</string>
     <string name="bmi">Your bmi index: \n %1s</string>
@@ -72,4 +76,11 @@
     <string name="weigh_ins">Weigh-ins</string>
     <string name="waist_sizes">Waist sizes</string>
     <string name="unknown_error">An unknown error occurred!</string>
+    <string name="goal_accomplished">Goal accomplished!</string>
+    <string name="info_tab" translatable="false">Info</string>
+    <string name="update_target_weight">Update target weight</string>
+    <string name="privacy_policy">Privacy policy</string>
+    <string name="version">Version: %1s</string>
+    <string name="terms_and_conditions">Terms and conditions</string>
+    <string name="target_weight_update_success">Target weight updated successfully</string>
 </resources>

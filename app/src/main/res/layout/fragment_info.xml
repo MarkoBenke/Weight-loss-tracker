@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        app:cardUseCompatPadding="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/dataLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/large_margin"
+                android:layout_marginVertical="@dimen/large_margin"
+                android:orientation="vertical">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/updateTargetWeight"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/medium_margin"
+                    android:hint="@string/update_target_weight"
+                    app:endIconDrawable="@drawable/ic_save"
+                    app:endIconMode="custom">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/updateTargetWeightEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/roboto_medium"
+                        android:inputType="numberDecimal"
+                        android:maxLength="@integer/weight_entry_max_length" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="@dimen/large_margin"
+                    android:background="@color/dividerColor" />
+
+                <TextView
+                    android:id="@+id/privacy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:drawablePadding="@dimen/medium_padding"
+                    android:focusable="true"
+                    android:fontFamily="@font/roboto_medium"
+                    android:gravity="center_vertical"
+                    android:paddingVertical="@dimen/large_padding"
+                    android:text="@string/privacy_policy"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="16sp"
+                    app:drawableStartCompat="@drawable/ic_privacy" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/dividerColor" />
+
+                <TextView
+                    android:id="@+id/terms"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:drawablePadding="@dimen/medium_padding"
+                    android:focusable="true"
+                    android:fontFamily="@font/roboto_medium"
+                    android:gravity="center_vertical"
+                    android:paddingVertical="@dimen/large_padding"
+                    android:text="@string/terms_and_conditions"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="16sp"
+                    app:drawableStartCompat="@drawable/ic_terms" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="@dimen/large_margin"
+                    android:background="@color/dividerColor" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/version"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="12dp"
+                android:drawablePadding="@dimen/medium_padding"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:textColor="@color/primaryTextColor"
+                tools:text="Version: 1.2" />
+
+            <ImageView
+                android:alpha="0.8"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@id/version"
+                android:layout_below="@id/dataLayout"
+                android:src="@drawable/ic_fitness"
+                tools:ignore="ContentDescription" />
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+</LinearLayout>
