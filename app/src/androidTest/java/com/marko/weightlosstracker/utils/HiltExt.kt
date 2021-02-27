@@ -10,7 +10,7 @@ import androidx.fragment.app.FragmentFactory
 import androidx.fragment.app.testing.FragmentScenario.EmptyFragmentActivity
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
-import com.marko.weightlosstracker.HiltTestActivity
+import com.example.weightlosstracker.HiltTestActivity
 import com.marko.weightlosstracker.R
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 

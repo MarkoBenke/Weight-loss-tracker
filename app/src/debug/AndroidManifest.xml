@@ -6,8 +6,7 @@
 
     <application>
         <activity
-            android:name=".HiltTestActivity"
+            android:name="com.example.weightlosstracker.HiltTestActivity"
             android:exported="false" />
     </application>
-
 </manifest>

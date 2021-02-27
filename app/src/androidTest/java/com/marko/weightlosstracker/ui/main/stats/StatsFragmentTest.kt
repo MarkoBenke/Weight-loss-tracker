@@ -32,7 +32,7 @@ class StatsFragmentTest: BaseTest() {
         }
 
         isTextDisplayedInView(R.id.chartTitle, R.string.chart_title)
-        isViewVisible(R.id.lineChart)
+        isViewVisible(R.id.chart)
         isTextDisplayedInView(R.id.progressTitle, R.string.progress_title)
 
         isTextDisplayedInView(R.id.currentWeight, context.resources.getString(R.string.kg, stats.currentWeight.toString().makeShort()))

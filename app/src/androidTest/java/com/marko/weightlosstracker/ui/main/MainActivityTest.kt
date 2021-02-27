@@ -23,6 +23,7 @@ class MainActivityTest: BaseTest() {
         isViewVisible(R.id.goalName)
 
         clickOnView(R.id.addEntry)
+        sleepMedium()
         isViewVisible(R.id.submitBtn)
 
         clickOnView(R.id.stats)
@@ -35,6 +36,7 @@ class MainActivityTest: BaseTest() {
         isViewVisible(R.id.chartTitle)
 
         clickOnView(R.id.addEntry)
+        sleepMedium()
         isViewVisible(R.id.submitBtn)
 
         clickOnView(R.id.home)
