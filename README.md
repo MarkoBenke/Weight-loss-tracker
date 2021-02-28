@@ -1,6 +1,11 @@
 # Weight Loss Tracker App
 Enter your weight loss goal, and track your progress with stats and charts.
 
+![Test Image 4](https://imgur.com/47xRUXW.png)
+
+Play Store link:
+
+
 This is a clean architecture app example built with:
 - Kotlin
 - Coroutines
