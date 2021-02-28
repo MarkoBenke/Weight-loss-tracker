@@ -23,8 +23,5 @@ This is a clean architecture app example built with:
 
 # Screenshots
 
-![Test Image 4](https://imgur.com/H7eSMKh.png)
-![Test Image 4](https://imgur.com/eYK0O8A.png)
-![Test Image 4](https://imgur.com/80M9Jl2.png)
-![Test Image 4](https://imgur.com/Py0P9ld.png)
+![Test Image 4](https://imgur.com/BLxBHv2.png)
 
