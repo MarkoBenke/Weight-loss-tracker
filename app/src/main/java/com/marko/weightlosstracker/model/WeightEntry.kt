@@ -1,4 +1,4 @@
-package com.marko.weightlosstracker.domain
+package com.marko.weightlosstracker.model
 
 data class WeightEntry(
     var uuid: String,

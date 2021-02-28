@@ -6,7 +6,6 @@ object Constants {
     const val DATABASE_NAME = "weights_db"
     const val BASE_URL = "https://my-quotes-api.herokuapp.com/"
 
-
     const val UNDERWEIGHT_START = "<18.5"
     const val OBESE_END = ">30"
     const val UNDERWEIGHT = 18.5f

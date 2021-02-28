@@ -1,7 +1,7 @@
 package com.marko.weightlosstracker.ui.main.stats
 
 import com.marko.weightlosstracker.R
-import com.marko.weightlosstracker.domain.WeightEntry
+import com.marko.weightlosstracker.model.WeightEntry
 import com.marko.weightlosstracker.util.makeShort
 import com.marko.weightlosstracker.utils.BaseTest
 import com.marko.weightlosstracker.utils.DataGenerator

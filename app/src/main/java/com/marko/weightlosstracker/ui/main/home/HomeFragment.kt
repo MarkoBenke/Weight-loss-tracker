@@ -6,7 +6,9 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.marko.weightlosstracker.R
 import com.marko.weightlosstracker.databinding.FragmentHomeBinding
-import com.marko.weightlosstracker.domain.Stats
+import com.marko.weightlosstracker.model.Stats
+import com.marko.weightlosstracker.ui.core.BaseFragment
+import com.marko.weightlosstracker.ui.core.viewBinding
 import com.marko.weightlosstracker.util.*
 import dagger.hilt.android.AndroidEntryPoint
 import mobi.gspd.segmentedbarview.Segment

@@ -7,11 +7,11 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.marko.weightlosstracker.R
 import com.marko.weightlosstracker.databinding.FragmentEntryHistoryBinding
-import com.marko.weightlosstracker.domain.WeightEntry
-import com.marko.weightlosstracker.util.BaseFragment
+import com.marko.weightlosstracker.model.WeightEntry
+import com.marko.weightlosstracker.ui.core.BaseFragment
 import com.marko.weightlosstracker.util.DataState
-import com.marko.weightlosstracker.util.viewBinding
 import com.google.android.material.snackbar.Snackbar
+import com.marko.weightlosstracker.ui.core.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

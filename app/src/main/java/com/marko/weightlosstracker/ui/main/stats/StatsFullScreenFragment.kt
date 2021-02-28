@@ -3,11 +3,6 @@ package com.marko.weightlosstracker.ui.main.stats
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import com.marko.weightlosstracker.R
-import com.marko.weightlosstracker.databinding.FragmentStatsFullScreenBinding
-import com.marko.weightlosstracker.domain.Stats
-import com.marko.weightlosstracker.util.BaseFragment
-import com.marko.weightlosstracker.util.viewBinding
 import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.components.LimitLine
 import com.github.mikephil.charting.components.XAxis
@@ -15,6 +10,11 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
+import com.marko.weightlosstracker.R
+import com.marko.weightlosstracker.databinding.FragmentStatsFullScreenBinding
+import com.marko.weightlosstracker.model.Stats
+import com.marko.weightlosstracker.ui.core.BaseFragment
+import com.marko.weightlosstracker.ui.core.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

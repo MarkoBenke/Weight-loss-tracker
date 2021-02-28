@@ -7,9 +7,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.marko.weightlosstracker.R
 import com.marko.weightlosstracker.databinding.FragmentGenderBinding
-import com.marko.weightlosstracker.domain.Gender
-import com.marko.weightlosstracker.domain.User
-import com.marko.weightlosstracker.util.viewBinding
+import com.marko.weightlosstracker.model.Gender
+import com.marko.weightlosstracker.model.User
+import com.marko.weightlosstracker.ui.core.viewBinding
 import io.ghyeok.stickyswitch.widget.StickySwitch
 
 class GenderFragment: Fragment(R.layout.fragment_gender) {

@@ -8,7 +8,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.marko.weightlosstracker.R
 import com.marko.weightlosstracker.databinding.EntryListItemBinding
-import com.marko.weightlosstracker.domain.WeightEntry
+import com.marko.weightlosstracker.model.WeightEntry
 import com.marko.weightlosstracker.util.roundUp
 
 class EntriesAdapter(private val context: Context) :

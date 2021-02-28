@@ -1,4 +1,4 @@
-package com.marko.weightlosstracker.domain
+package com.marko.weightlosstracker.model
 
 import android.os.Parcelable
 import androidx.annotation.Keep

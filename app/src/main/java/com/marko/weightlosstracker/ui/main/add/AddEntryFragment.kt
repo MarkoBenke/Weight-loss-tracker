@@ -7,7 +7,9 @@ import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
 import com.marko.weightlosstracker.R
 import com.marko.weightlosstracker.databinding.FragmentAddEntryBinding
-import com.marko.weightlosstracker.domain.WeightEntry
+import com.marko.weightlosstracker.model.WeightEntry
+import com.marko.weightlosstracker.ui.core.BaseFragment
+import com.marko.weightlosstracker.ui.core.viewBinding
 import com.marko.weightlosstracker.util.*
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*

@@ -1,7 +1,7 @@
 package com.marko.weightlosstracker.data.remote
 
 import com.marko.weightlosstracker.data.remote.response.QuoteResponse
-import com.marko.weightlosstracker.domain.Quote
+import com.marko.weightlosstracker.model.Quote
 import com.marko.weightlosstracker.util.EntityMapper
 import javax.inject.Inject
 

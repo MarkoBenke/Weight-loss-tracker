@@ -9,12 +9,12 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.marko.weightlosstracker.R
 import com.marko.weightlosstracker.databinding.FragmentBasicInfoBinding
-import com.marko.weightlosstracker.domain.User
+import com.marko.weightlosstracker.model.User
 import com.marko.weightlosstracker.util.DataState
 import com.marko.weightlosstracker.util.getCurrentDate
 import com.marko.weightlosstracker.util.parseSelectedDate
-import com.marko.weightlosstracker.util.viewBinding
 import com.google.android.material.snackbar.Snackbar
+import com.marko.weightlosstracker.ui.core.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
