@@ -3,11 +3,11 @@ package com.marko.weightlosstracker.ui.onboarding
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.marko.weightlosstracker.domain.Gender
-import com.marko.weightlosstracker.domain.User
+import com.marko.weightlosstracker.model.Gender
+import com.marko.weightlosstracker.model.User
 import com.marko.weightlosstracker.repository.user.UserRepository
 import com.marko.weightlosstracker.util.DataState
-import com.marko.weightlosstracker.util.DispatcherProvider
+import com.marko.weightlosstracker.ui.core.DispatcherProvider
 import com.marko.weightlosstracker.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

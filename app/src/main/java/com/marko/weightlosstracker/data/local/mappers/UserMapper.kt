@@ -1,8 +1,8 @@
 package com.marko.weightlosstracker.data.local.mappers
 
 import com.marko.weightlosstracker.data.local.model.UserCache
-import com.marko.weightlosstracker.domain.Gender
-import com.marko.weightlosstracker.domain.User
+import com.marko.weightlosstracker.model.Gender
+import com.marko.weightlosstracker.model.User
 import com.marko.weightlosstracker.util.EntityMapper
 import javax.inject.Inject
 

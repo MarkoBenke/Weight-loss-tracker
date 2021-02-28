@@ -7,11 +7,10 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import com.marko.weightlosstracker.R
 import com.marko.weightlosstracker.databinding.FragmentStatsBinding
-import com.marko.weightlosstracker.domain.Stats
-import com.marko.weightlosstracker.util.BaseFragment
+import com.marko.weightlosstracker.model.Stats
+import com.marko.weightlosstracker.ui.core.BaseFragment
 import com.marko.weightlosstracker.util.Constants
 import com.marko.weightlosstracker.util.roundUp
-import com.marko.weightlosstracker.util.viewBinding
 import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.components.LimitLine
 import com.github.mikephil.charting.components.XAxis
@@ -19,6 +18,7 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
+import com.marko.weightlosstracker.ui.core.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.abs
 
@@ -86,37 +86,31 @@ class StatsFragment : BaseFragment<StatsViewModel, StatsWeightEntryViewData>(
 
     private fun initStatsUi(stats: Stats?) {
         stats?.let {
-            binding.currentWeight.text =
-                getString(R.string.kg, it.currentWeight.roundUp().toString())
-            binding.targetWeight.text =
-                getString(R.string.kg, it.targetWeight.roundUp().toString())
-
-
+            binding.currentWeight.text = getString(R.string.kg, it.getCurrentWeightString())
+            binding.targetWeight.text = getString(R.string.kg, it.getTargetWeightString())
             binding.bmiCategory.text = getBmiCategory(it.bmi)
             if (it.remaining < 0) {
                 binding.remaining.text = getString(R.string.goal_accomplished)
             } else {
-                binding.remaining.text = getString(R.string.kg, it.remaining.roundUp().toString())
+                binding.remaining.text = getString(R.string.kg, it.getRemainingString())
             }
             if (it.totalLoss < 0) {
                 binding.totalLoss.text =
                     getString(R.string.kg_plus, abs(it.totalLoss.roundUp()).toString())
             } else {
-                binding.totalLoss.text =
-                    getString(R.string.kg, it.totalLoss.roundUp().toString())
+                binding.totalLoss.text = getString(R.string.kg, it.getTotalLossString())
             }
             if (it.caloriesBurned < 0) {
                 binding.caloriesBurned.text =
                     getString(R.string.kCal_plus, abs(it.caloriesBurned.roundUp()).toString())
             } else {
-                binding.caloriesBurned.text =
-                    getString(R.string.kCal, it.caloriesBurned.roundUp().toString())
+                binding.caloriesBurned.text = getString(R.string.kCal, it.getCaloriesBurnedString())
             }
             if (it.cheeseburgersBurned < 0) {
                 binding.cheeseburgersBurned.text =
                     getString(R.string.plus, abs(it.cheeseburgersBurned.roundUp()).toString())
             } else {
-                binding.cheeseburgersBurned.text = it.cheeseburgersBurned.roundUp().toString()
+                binding.cheeseburgersBurned.text = it.getCheeseburgersBurnedString()
             }
             if (it.waistSizeLoss != 0) {
                 binding.totalWaistSizeLayout.isVisible = true

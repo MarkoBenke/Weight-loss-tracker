@@ -27,7 +27,7 @@
             app:popExitAnim="@android:anim/fade_out" />
         <argument
             android:name="user"
-            app:argType="com.marko.weightlosstracker.domain.User" />
+            app:argType="com.marko.weightlosstracker.model.User" />
     </fragment>
     <fragment
         android:id="@+id/targetWeightFragment"
@@ -35,6 +35,6 @@
         android:label="TargetWeightFragment">
         <argument
             android:name="user"
-            app:argType="com.marko.weightlosstracker.domain.User" />
+            app:argType="com.marko.weightlosstracker.model.User" />
     </fragment>
 </navigation>

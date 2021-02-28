@@ -1,11 +1,11 @@
 package com.marko.weightlosstracker.ui.main.history
 
 import androidx.lifecycle.viewModelScope
-import com.marko.weightlosstracker.domain.WeightEntry
+import com.marko.weightlosstracker.model.WeightEntry
 import com.marko.weightlosstracker.repository.weightentry.WeightEntryRepository
-import com.marko.weightlosstracker.util.BaseViewModel
+import com.marko.weightlosstracker.ui.core.BaseViewModel
 import com.marko.weightlosstracker.util.DataState
-import com.marko.weightlosstracker.util.DispatcherProvider
+import com.marko.weightlosstracker.ui.core.DispatcherProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch

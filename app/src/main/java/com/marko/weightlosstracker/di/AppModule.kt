@@ -6,7 +6,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.marko.weightlosstracker.R
 import com.marko.weightlosstracker.data.local.DefaultSettingsManager
 import com.marko.weightlosstracker.data.local.SettingsManager
-import com.marko.weightlosstracker.util.DispatcherProvider
+import com.marko.weightlosstracker.ui.core.DispatcherProvider
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

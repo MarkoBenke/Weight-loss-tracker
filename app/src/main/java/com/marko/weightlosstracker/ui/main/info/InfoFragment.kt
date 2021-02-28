@@ -8,10 +8,10 @@ import android.widget.Toast
 import com.marko.weightlosstracker.BuildConfig
 import com.marko.weightlosstracker.R
 import com.marko.weightlosstracker.databinding.FragmentInfoBinding
-import com.marko.weightlosstracker.domain.User
-import com.marko.weightlosstracker.util.BaseFragment
+import com.marko.weightlosstracker.model.User
+import com.marko.weightlosstracker.ui.core.BaseFragment
+import com.marko.weightlosstracker.ui.core.viewBinding
 import com.marko.weightlosstracker.util.DataState
-import com.marko.weightlosstracker.util.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

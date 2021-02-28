@@ -3,8 +3,8 @@ package com.marko.weightlosstracker.repository.weightentry
 import com.marko.weightlosstracker.data.local.dao.UserDao
 import com.marko.weightlosstracker.data.local.dao.WeightEntryDao
 import com.marko.weightlosstracker.data.local.mappers.WeightEntryMapper
-import com.marko.weightlosstracker.domain.Stats
-import com.marko.weightlosstracker.domain.WeightEntry
+import com.marko.weightlosstracker.model.Stats
+import com.marko.weightlosstracker.model.WeightEntry
 import com.marko.weightlosstracker.util.Constants
 import com.marko.weightlosstracker.util.DataState
 import com.marko.weightlosstracker.util.calculateBmi

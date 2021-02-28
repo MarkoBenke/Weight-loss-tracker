@@ -1,7 +1,7 @@
 package com.marko.weightlosstracker.repository
 
 import com.marko.weightlosstracker.other.DataGenerator
-import com.marko.weightlosstracker.domain.User
+import com.marko.weightlosstracker.model.User
 import com.marko.weightlosstracker.repository.user.UserRepository
 import com.marko.weightlosstracker.util.DataState
 import com.marko.weightlosstracker.util.parseDate

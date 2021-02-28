@@ -1,6 +1,6 @@
 package com.marko.weightlosstracker.other
 
-import com.marko.weightlosstracker.util.DispatcherProvider
+import com.marko.weightlosstracker.ui.core.DispatcherProvider
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 

@@ -1,6 +1,6 @@
 package com.marko.weightlosstracker.di
 
-import com.marko.weightlosstracker.data.remote.QuotesRetrofitApi
+import com.marko.weightlosstracker.data.remote.QuotesService
 import com.marko.weightlosstracker.util.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -16,10 +16,10 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideQuotesApi(): QuotesRetrofitApi {
+    fun provideQuotesApi(): QuotesService {
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create()).baseUrl(BASE_URL)
             .build()
-            .create(QuotesRetrofitApi::class.java)
+            .create(QuotesService::class.java)
     }
 }

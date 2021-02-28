@@ -2,13 +2,13 @@ package com.marko.weightlosstracker.ui.main.home
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.marko.weightlosstracker.domain.Quote
-import com.marko.weightlosstracker.domain.Stats
+import com.marko.weightlosstracker.model.Quote
+import com.marko.weightlosstracker.model.Stats
 import com.marko.weightlosstracker.repository.quotes.QuotesRepository
 import com.marko.weightlosstracker.repository.weightentry.WeightEntryRepository
-import com.marko.weightlosstracker.util.BaseViewModel
+import com.marko.weightlosstracker.ui.core.BaseViewModel
 import com.marko.weightlosstracker.util.DataState
-import com.marko.weightlosstracker.util.DispatcherProvider
+import com.marko.weightlosstracker.ui.core.DispatcherProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -39,7 +39,7 @@ class HomeViewModel @Inject constructor(
 
     private fun getQuote() {
         viewModelScope.launch(dispatcherProvider.io) {
-            quotesRepository.getQuote().collect {
+            quotesRepository.fetchQuote().collect {
                 withContext(dispatcherProvider.main) {
                     quoteLiveData.postValue(it)
                 }

@@ -5,7 +5,7 @@ import com.marko.weightlosstracker.data.local.dao.UserDao
 import com.marko.weightlosstracker.data.local.dao.WeightEntryDao
 import com.marko.weightlosstracker.data.local.mappers.UserMapper
 import com.marko.weightlosstracker.data.local.model.WeightEntryCache
-import com.marko.weightlosstracker.domain.User
+import com.marko.weightlosstracker.model.User
 import com.marko.weightlosstracker.util.DataState
 import com.marko.weightlosstracker.util.parseDate
 import kotlinx.coroutines.flow.Flow

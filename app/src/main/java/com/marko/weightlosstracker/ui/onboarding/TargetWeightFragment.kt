@@ -8,11 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.marko.weightlosstracker.R
 import com.marko.weightlosstracker.databinding.FragmentTargetWeightBinding
-import com.marko.weightlosstracker.domain.User
+import com.marko.weightlosstracker.model.User
+import com.marko.weightlosstracker.ui.core.viewBinding
 import com.marko.weightlosstracker.ui.main.MainActivity
 import com.marko.weightlosstracker.util.DataState
 import com.marko.weightlosstracker.util.calculateBmi
-import com.marko.weightlosstracker.util.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

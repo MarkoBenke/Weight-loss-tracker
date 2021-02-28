@@ -32,7 +32,7 @@ class SplashScreenActivity : AppCompatActivity() {
         viewModel.userLiveData.observe(this, { dataState ->
             when (dataState) {
                 is DataState.Loading -> {
-
+                    /* NO-OP */
                 }
                 is DataState.Success -> {
                     lifecycleScope.launchWhenStarted {

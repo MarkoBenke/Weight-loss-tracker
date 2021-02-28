@@ -1,6 +1,6 @@
 package com.marko.weightlosstracker.ui.main.stats
 
-import com.marko.weightlosstracker.domain.Stats
+import com.marko.weightlosstracker.model.Stats
 import com.github.mikephil.charting.data.LineData
 
 data class StatsWeightEntryViewData(

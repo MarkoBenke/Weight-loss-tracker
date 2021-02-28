@@ -3,7 +3,7 @@ package com.marko.weightlosstracker.utils
 import com.marko.weightlosstracker.data.local.model.QuoteCache
 import com.marko.weightlosstracker.data.local.model.UserCache
 import com.marko.weightlosstracker.data.local.model.WeightEntryCache
-import com.marko.weightlosstracker.domain.*
+import com.marko.weightlosstracker.model.*
 
 object DataGenerator {
 

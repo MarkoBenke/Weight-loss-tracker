@@ -1,7 +1,7 @@
 package com.marko.weightlosstracker.data.local.mappers
 
 import com.marko.weightlosstracker.data.local.model.QuoteCache
-import com.marko.weightlosstracker.domain.Quote
+import com.marko.weightlosstracker.model.Quote
 import com.marko.weightlosstracker.util.EntityMapper
 import javax.inject.Inject
 

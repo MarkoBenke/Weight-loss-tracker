@@ -1,7 +1,7 @@
 package com.marko.weightlosstracker.data.local.mappers
 
 import com.marko.weightlosstracker.data.local.model.WeightEntryCache
-import com.marko.weightlosstracker.domain.WeightEntry
+import com.marko.weightlosstracker.model.WeightEntry
 import com.marko.weightlosstracker.util.EntityMapper
 import javax.inject.Inject
 

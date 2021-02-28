@@ -1,7 +1,7 @@
 package com.marko.weightlosstracker.repository
 
-import com.marko.weightlosstracker.domain.Stats
-import com.marko.weightlosstracker.domain.WeightEntry
+import com.marko.weightlosstracker.model.Stats
+import com.marko.weightlosstracker.model.WeightEntry
 import com.marko.weightlosstracker.repository.weightentry.WeightEntryRepository
 import com.marko.weightlosstracker.util.DataState
 import com.marko.weightlosstracker.util.parseDate
