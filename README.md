@@ -1,6 +1,7 @@
 # Weight Loss Tracker App
-This is a clean architecture app example built with:
+Enter your weight loss goal, and track your progress with stats and charts.
 
+This is a clean architecture app example built with:
 - Kotlin
 - Coroutines
 - MVVM
@@ -24,4 +25,6 @@ This is a clean architecture app example built with:
 # Screenshots
 
 ![Test Image 4](https://imgur.com/BLxBHv2.png)
-
+![Test Image 4](https://imgur.com/39WFyeG.png)
+![Test Image 4](https://imgur.com/ktir101.png)
+![Test Image 4](https://imgur.com/Bk3LHD5.png)
