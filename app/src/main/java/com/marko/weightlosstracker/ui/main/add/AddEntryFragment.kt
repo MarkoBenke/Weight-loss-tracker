@@ -67,9 +67,7 @@ class AddEntryFragment : BaseFragment<AddEntryViewModel, Long>(
                     is DataState.Error -> {
                         binding.newWeight.error = getString(R.string.mandatory_field)
                     }
-                    DataState.Loading -> {
-                        /* NO-OP */
-                    }
+                    DataState.Loading -> Unit
                 }
             }
         })

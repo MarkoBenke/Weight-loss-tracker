@@ -70,9 +70,7 @@ class BasicInfoFragment : Fragment(R.layout.fragment_basic_info) {
                         Snackbar.LENGTH_LONG
                     ).show()
                 }
-                DataState.Loading -> {
-                    /* No-OP */
-                }
+                DataState.Loading -> Unit
             }
         })
     }
