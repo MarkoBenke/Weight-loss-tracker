@@ -29,10 +29,11 @@ https://play.google.com/store/apps/details?id=com.marko.weightlosstracker
   - Lifecycle - dispose of observing data when lifecycle state changes.
   - ViewModel - UI related data holder, lifecycle aware.
   - Room Persistence - construct a database using the abstract layer.
+  - ViewBinding - works with your existing XML, and will generate a binding object for each layout in a module.
 - Retrofit
-- ViewBinding
 - Material-Components
 - Glide
+- MPAndroidChart
 - UI & Unit tests
 - Lottie Animations
 - Extension Functions
