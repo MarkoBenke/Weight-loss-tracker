@@ -31,9 +31,7 @@ class SplashScreenActivity : AppCompatActivity() {
     private fun subscribeToObservers() {
         viewModel.userLiveData.observe(this, { dataState ->
             when (dataState) {
-                is DataState.Loading -> {
-                    /* NO-OP */
-                }
+                is DataState.Loading -> Unit
                 is DataState.Success -> {
                     lifecycleScope.launchWhenStarted {
                         delay(SPLASH_TIME_OUT)

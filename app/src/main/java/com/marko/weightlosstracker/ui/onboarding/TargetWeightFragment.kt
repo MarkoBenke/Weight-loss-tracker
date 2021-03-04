@@ -67,9 +67,7 @@ class TargetWeightFragment : Fragment(R.layout.fragment_target_weight) {
                     is DataState.Error -> {
                         binding.targetWeight.error = getString(R.string.mandatory_field)
                     }
-                    DataState.Loading -> {
-                        /* NO-OP */
-                    }
+                    DataState.Loading -> Unit
                 }
             }
         })

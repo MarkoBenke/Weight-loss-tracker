@@ -1,13 +1,14 @@
 package com.marko.weightlosstracker.ui.main.add
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.marko.weightlosstracker.model.WeightEntry
 import com.marko.weightlosstracker.repository.user.UserRepository
 import com.marko.weightlosstracker.repository.weightentry.WeightEntryRepository
 import com.marko.weightlosstracker.ui.core.BaseViewModel
-import com.marko.weightlosstracker.util.DataState
 import com.marko.weightlosstracker.ui.core.DispatcherProvider
+import com.marko.weightlosstracker.util.DataState
 import com.marko.weightlosstracker.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
@@ -21,7 +22,8 @@ class AddEntryViewModel @Inject constructor(
     private val dispatcherProvider: DispatcherProvider
 ) : BaseViewModel<Long>() {
 
-    val insertWeightLiveData = MutableLiveData<Event<DataState<Unit>>>()
+    private val _insertWeightLiveData = MutableLiveData<Event<DataState<Unit>>>()
+    val insertWeightLiveData: LiveData<Event<DataState<Unit>>> = _insertWeightLiveData
 
     override fun fetchInitialData() {
         getStartDate()
@@ -37,11 +39,11 @@ class AddEntryViewModel @Inject constructor(
 
     fun insertNewEntry(newWeight: String, weightEntry: WeightEntry) {
         if (newWeight.isEmpty()) {
-            insertWeightLiveData.postValue(Event(DataState.Error()))
+            _insertWeightLiveData.postValue(Event(DataState.Error()))
         } else {
             viewModelScope.launch(dispatcherProvider.io) {
                 weightEntryRepository.insertWeight(weightEntry)
-                insertWeightLiveData.postValue(Event(DataState.Success(Unit)))
+                _insertWeightLiveData.postValue(Event(DataState.Success(Unit)))
             }
         }
     }

@@ -1,13 +1,14 @@
 package com.marko.weightlosstracker.ui.onboarding
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.marko.weightlosstracker.model.Gender
 import com.marko.weightlosstracker.model.User
 import com.marko.weightlosstracker.repository.user.UserRepository
-import com.marko.weightlosstracker.util.DataState
 import com.marko.weightlosstracker.ui.core.DispatcherProvider
+import com.marko.weightlosstracker.util.DataState
 import com.marko.weightlosstracker.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -20,17 +21,18 @@ class TargetWeightViewModel @Inject constructor(
     private val dispatchers: DispatcherProvider
 ) : ViewModel() {
 
-    val insertUserLiveData = MutableLiveData<Event<DataState<Unit>>>()
+    private val _insertUserLiveData = MutableLiveData<Event<DataState<Unit>>>()
+    val insertUserLiveData: LiveData<Event<DataState<Unit>>> = _insertUserLiveData
 
     fun insertUserToDb(targetWeight: String, user: User?) {
         if (targetWeight.isEmpty()) {
-            insertUserLiveData.postValue(Event(DataState.Error()))
+            _insertUserLiveData.postValue(Event(DataState.Error()))
         } else {
             user?.let {
                 viewModelScope.launch(dispatchers.io) {
                     userRepository.insertUser(it)
                     withContext(dispatchers.main) {
-                        insertUserLiveData.postValue(Event(DataState.Success(Unit)))
+                        _insertUserLiveData.postValue(Event(DataState.Success(Unit)))
                     }
                 }
             }

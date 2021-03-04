@@ -35,9 +35,7 @@ class InfoFragment : BaseFragment<InfoViewModel, DataState<User?>>(
             is DataState.Error -> {
                 binding.updateTargetWeight.editText?.setText(getString(R.string.unknown_error))
             }
-            is DataState.Loading -> {
-                /* NO-OP */
-            }
+            is DataState.Loading -> Unit
             is DataState.Success -> {
                 binding.updateTargetWeight.editText?.setText(model.data?.targetWeight.toString())
             }
