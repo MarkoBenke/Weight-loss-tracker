@@ -13,7 +13,7 @@ Weight Loss Tracker is a small application based on modern Android application t
 ![Test Image 4](https://imgur.com/47xRUXW.png)
 
 ## Play Store link:
-//link to play store.com
+https://play.google.com/store/apps/details?id=com.marko.weightlosstracker
 
 ## Tech stack & Open-source libraries
 - Minimum SDK level 21
