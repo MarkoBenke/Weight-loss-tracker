@@ -83,4 +83,6 @@
     <string name="version">Version: %1s</string>
     <string name="terms_and_conditions">Terms and conditions</string>
     <string name="target_weight_update_success">Target weight updated successfully</string>
+    <string name="submit">Submit</string>
+    <string name="delete">Delete</string>
 </resources>

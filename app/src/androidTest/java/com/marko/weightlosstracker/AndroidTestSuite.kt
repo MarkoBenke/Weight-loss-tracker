@@ -3,6 +3,7 @@ package com.marko.weightlosstracker
 import com.marko.weightlosstracker.ui.launch.SplashScreenActivityTest
 import com.marko.weightlosstracker.ui.main.MainActivityTest
 import com.marko.weightlosstracker.ui.main.add.AddEntryFragmentTest
+import com.marko.weightlosstracker.ui.main.details.EntryDetailsFragmentTest
 import com.marko.weightlosstracker.ui.main.history.EntryHistoryFragmentTest
 import com.marko.weightlosstracker.ui.main.home.HomeFragmentTest
 import com.marko.weightlosstracker.ui.main.stats.StatsFragmentTest
@@ -24,6 +25,7 @@ import org.junit.runners.Suite
     HomeFragmentTest::class,
     StatsFragmentTest::class,
     BasicInfoFragmentTest::class,
-    TargetWeightFragmentTest::class
+    TargetWeightFragmentTest::class,
+    EntryDetailsFragmentTest::class
 )
 class AndroidTestSuite

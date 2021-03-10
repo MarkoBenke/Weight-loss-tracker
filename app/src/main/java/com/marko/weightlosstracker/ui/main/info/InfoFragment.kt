@@ -5,12 +5,14 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.widget.doOnTextChanged
 import com.marko.weightlosstracker.BuildConfig
 import com.marko.weightlosstracker.R
 import com.marko.weightlosstracker.databinding.FragmentInfoBinding
 import com.marko.weightlosstracker.model.User
 import com.marko.weightlosstracker.ui.core.BaseFragment
 import com.marko.weightlosstracker.ui.core.viewBinding
+import com.marko.weightlosstracker.util.Constants
 import com.marko.weightlosstracker.util.DataState
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,8 +21,6 @@ class InfoFragment : BaseFragment<InfoViewModel, DataState<User?>>(
     R.layout.fragment_info, InfoViewModel::class.java
 ) {
 
-    private val privacyPolicy = "https://sites.google.com/view/weightlotracker/home"
-    private val terms = "https://sites.google.com/view/weightlotracker/terms?authuser=0"
     private val binding by viewBinding(FragmentInfoBinding::bind)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,16 +46,20 @@ class InfoFragment : BaseFragment<InfoViewModel, DataState<User?>>(
         binding.version.text = getString(R.string.version, BuildConfig.VERSION_NAME)
 
         binding.updateTargetWeight.setEndIconOnClickListener {
-            val updatedTargetWeight = binding.updateTargetWeightEditText.text.toString().toFloat()
+            val updatedTargetWeight = binding.updateTargetWeightEditText.text.toString()
             viewModel.updateUser(updatedTargetWeight)
         }
 
         binding.privacy.setOnClickListener {
-            openUrl(privacyPolicy)
+            openUrl(Constants.PRIVACY_POLICY)
         }
 
         binding.terms.setOnClickListener {
-            openUrl(terms)
+            openUrl(Constants.TERMS)
+        }
+
+        binding.updateTargetWeight.editText?.doOnTextChanged { _, _, _, _ ->
+            binding.updateTargetWeight.error = ""
         }
     }
 
@@ -65,13 +69,18 @@ class InfoFragment : BaseFragment<InfoViewModel, DataState<User?>>(
     }
 
     private fun subscribeToUserStatusObserver() {
-        viewModel.updateUserLiveData.observe(viewLifecycleOwner, {
-            if (it) {
-                Toast.makeText(
-                    requireContext(),
-                    getString(R.string.target_weight_update_success),
-                    Toast.LENGTH_SHORT
-                ).show()
+        viewModel.updateUserLiveData.observe(viewLifecycleOwner, { result ->
+            when (result) {
+                is DataState.Error -> binding.updateTargetWeight.error =
+                    getString(R.string.mandatory_field)
+                is DataState.Success -> {
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.target_weight_update_success),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else -> Unit
             }
         })
     }

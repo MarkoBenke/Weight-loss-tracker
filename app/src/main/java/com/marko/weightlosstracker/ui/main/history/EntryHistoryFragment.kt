@@ -2,16 +2,19 @@ package com.marko.weightlosstracker.ui.main.history
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.marko.weightlosstracker.R
 import com.marko.weightlosstracker.databinding.FragmentEntryHistoryBinding
 import com.marko.weightlosstracker.model.WeightEntry
 import com.marko.weightlosstracker.ui.core.BaseFragment
-import com.marko.weightlosstracker.util.DataState
-import com.google.android.material.snackbar.Snackbar
 import com.marko.weightlosstracker.ui.core.viewBinding
+import com.marko.weightlosstracker.ui.main.MainActivity
+import com.marko.weightlosstracker.util.DataState
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -31,6 +34,13 @@ class EntryHistoryFragment : BaseFragment<EntryHistoryViewModel,
         binding.entriesRecView.apply {
             adapter = entriesAdapter
             ItemTouchHelper(itemTouchCallback).attachToRecyclerView(this)
+        }
+
+        entriesAdapter.setItemClickListener {
+            val bundle = bundleOf(
+                MainActivity.WEIGHT_ENTRY_KEY to it
+            )
+            findNavController().navigate(R.id.action_entryHistory_to_entryDetailsFragment, bundle)
         }
     }
 

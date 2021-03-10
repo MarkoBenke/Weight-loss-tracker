@@ -7,16 +7,21 @@ import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
 import com.marko.weightlosstracker.di.FakeRepositoryModule
 import com.marko.weightlosstracker.ui.main.MainActivity
 import com.marko.weightlosstracker.utils.BaseTest
+import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import org.junit.After
+import org.junit.Rule
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
 @HiltAndroidTest
 class SplashScreenActivityTest: BaseTest() {
+
+    @get:Rule
+    var hiltRule = HiltAndroidRule(this)
 
     override fun setup() {
         super.setup()

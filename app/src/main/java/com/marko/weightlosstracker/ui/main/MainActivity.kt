@@ -2,8 +2,9 @@ package com.marko.weightlosstracker.ui.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupWithNavController
 import com.marko.weightlosstracker.R
 import com.marko.weightlosstracker.databinding.ActivityMainBinding
 import com.marko.weightlosstracker.util.viewBinding
@@ -22,11 +23,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupNavigation() {
-        val navHostFragment = supportFragmentManager
-            .findFragmentById(R.id.navHostFragment) as NavHostFragment?
-        NavigationUI.setupWithNavController(
-            binding.bottomNav,
-            navHostFragment!!.navController
-        )
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
+        binding.bottomNav.setupWithNavController(navHostFragment.navController)
+
+        navHostFragment.navController.addOnDestinationChangedListener { _, destination, _ ->
+            when(destination.id) {
+                R.id.entryDetailsFragment -> binding.bottomNav.isVisible = false
+                else -> binding.bottomNav.isVisible = true
+            }
+        }
+    }
+
+    companion object {
+        const val WEIGHT_ENTRY_KEY = "weightEntry"
     }
 }

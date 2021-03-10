@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.flow
 class DefaultWeightEntryRepository constructor(
     private val weightEntryDao: WeightEntryDao,
     private val userDao: UserDao,
-    private val mapper: WeightEntryMapper
+    private val weightEntryMapper: WeightEntryMapper
 ) : WeightEntryRepository {
 
     override suspend fun getAllEntries(): Flow<DataState<List<WeightEntry>>> = flow {
@@ -25,21 +25,7 @@ class DefaultWeightEntryRepository constructor(
         val sortedList = entries.sortedByDescending {
             parseDate(it.date)
         }
-        emit(DataState.Success(mapper.mapFromEntityList(sortedList)))
-    }
-
-    override suspend fun getLastEntry(): Flow<DataState<WeightEntry>> = flow {
-        emit(DataState.Loading)
-
-        val entries = weightEntryDao.getAllWeightEntries()
-        if (entries.isEmpty()) {
-            emit(DataState.Error("No data found"))
-        } else {
-            val sortedList = entries.sortedByDescending {
-                parseDate(it.date)
-            }
-            emit(DataState.Success(mapper.mapFromEntity(sortedList.first())))
-        }
+        emit(DataState.Success(weightEntryMapper.mapFromEntityList(sortedList)))
     }
 
     override suspend fun getUserStats(): Flow<Stats> = flow {
@@ -87,30 +73,48 @@ class DefaultWeightEntryRepository constructor(
             weightEntry.description = user.goalName
             userDao.updateUser(user)
         }
-        weightEntryDao.insertWeightEntry(mapper.mapToEntity(weightEntry))
+        weightEntryDao.insertWeightEntry(weightEntryMapper.mapToEntity(weightEntry))
     }
 
-    override suspend fun deleteWeightEntry(weightEntry: WeightEntry): Flow<DataState<List<WeightEntry>>> =
+    override suspend fun deleteWeightEntryFromList(weightEntry: WeightEntry): Flow<DataState<List<WeightEntry>>> =
         flow {
             emit(DataState.Loading)
-            weightEntryDao.deleteWeightEntry(mapper.mapToEntity(weightEntry))
+            weightEntryDao.deleteWeightEntry(weightEntryMapper.mapToEntity(weightEntry))
 
             val entries = weightEntryDao.getAllWeightEntries()
             val sortedList = entries.sortedByDescending {
                 parseDate(it.date)
             }
-            emit(DataState.Success(mapper.mapFromEntityList(sortedList)))
+            emit(DataState.Success(weightEntryMapper.mapFromEntityList(sortedList)))
         }
+
+    override suspend fun deleteWeightEntry(weightEntry: WeightEntry): Flow<Boolean> = flow {
+        weightEntryDao.deleteWeightEntry(weightEntryMapper.mapToEntity(weightEntry))
+        emit(true)
+    }
+
+    override suspend fun updateWeightEntry(weightEntry: WeightEntry): Flow<Boolean> = flow {
+        if (weightEntry.isInitialEntry) {
+            val user = userDao.getUser()
+            user?.let {
+                it.startWeight = weightEntry.currentWeight
+                it.startWaistSize = weightEntry.waistSize
+                userDao.updateUser(it)
+            }
+        }
+        weightEntryDao.updateWeightEntry(weightEntryMapper.mapToEntity(weightEntry))
+        emit(true)
+    }
 
     override suspend fun reverseDeletionOfWeightEntry(weightEntry: WeightEntry): Flow<DataState<List<WeightEntry>>> =
         flow {
             emit(DataState.Loading)
-            weightEntryDao.insertWeightEntry(mapper.mapToEntity(weightEntry))
+            weightEntryDao.insertWeightEntry(weightEntryMapper.mapToEntity(weightEntry))
 
             val entries = weightEntryDao.getAllWeightEntries()
             val sortedList = entries.sortedByDescending {
                 parseDate(it.date)
             }
-            emit(DataState.Success(mapper.mapFromEntityList(sortedList)))
+            emit(DataState.Success(weightEntryMapper.mapFromEntityList(sortedList)))
         }
 }

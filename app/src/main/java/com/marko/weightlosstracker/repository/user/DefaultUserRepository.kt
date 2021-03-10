@@ -20,9 +20,7 @@ class DefaultUserRepository constructor(
 
     override suspend fun insertUser(user: User) {
         userDao.insertUser(userMapper.mapToEntity(user))
-        settingsManager.saveStartDate(
-            parseDate(user.startDate)!!.time
-        )
+        settingsManager.saveStartDate(parseDate(user.startDate)!!.time)
         weightEntryDao.insertWeightEntry(
             WeightEntryCache(
                 uuid = user.startDate.replace(".", ""),

@@ -49,7 +49,22 @@ class WeightEntryDaoTest {
         dao.insertWeightEntry(weightEntry)
 
         val allEntries = dao.getAllWeightEntries()
-        assertThat(allEntries).contains(weightEntry)
+        assertThat(allEntries).hasSize(1)
+    }
+
+    @Test
+    fun updateWeightEntry() = runBlockingTest {
+        val weightEntry = DataGenerator.weightEntryCache
+        dao.insertWeightEntry(weightEntry)
+
+        weightEntry.currentWeight = 75f
+        dao.updateWeightEntry(weightEntry)
+        val allEntries = dao.getAllWeightEntries()
+        allEntries.forEach {
+            if (it.uuid == weightEntry.uuid) {
+                assertThat(it.currentWeight).isEqualTo(weightEntry.currentWeight)
+            }
+        }
     }
 
     @Test

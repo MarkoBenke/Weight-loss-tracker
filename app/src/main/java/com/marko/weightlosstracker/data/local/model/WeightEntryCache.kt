@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 @Keep class WeightEntryCache(
     @PrimaryKey(autoGenerate = false)
     var uuid: String,
-    val currentWeight: Float,
+    var currentWeight: Float,
     val waistSize: Int,
     val date: String,
     val description: String = ""

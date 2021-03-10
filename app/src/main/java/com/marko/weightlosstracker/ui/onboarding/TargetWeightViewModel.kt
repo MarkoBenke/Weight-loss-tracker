@@ -47,7 +47,7 @@ class TargetWeightViewModel @Inject constructor(
                 minWeight = it.height - 103
                 maxWeight = it.height - 97
             } else {
-                minWeight = it.height - 106
+                minWeight = it.height - 110
                 maxWeight = it.height - 102
             }
 

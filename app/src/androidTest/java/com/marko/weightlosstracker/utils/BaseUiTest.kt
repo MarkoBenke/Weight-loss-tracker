@@ -148,6 +148,16 @@ abstract class BaseUiTest {
         closeSoftKeyboard()
     }
 
+    fun replaceTextOnInputLayout(viewId: Int, text: String) {
+        onView(
+            allOf(
+                isDescendantOfA(withId(viewId)),
+                isAssignableFrom(EditText::class.java)
+            )
+        ).perform(replaceText(text))
+        closeSoftKeyboard()
+    }
+
     /**
      * Check is view visible
      * @id id of view
@@ -283,6 +293,8 @@ abstract class BaseUiTest {
      */
     fun isButtonEnabled(viewId: Int) = onView(withId(viewId)).check(matches(isEnabled()))
 
+    fun isButtonDisabled(viewId: Int) = onView(withId(viewId)).check(matches(not(isEnabled())))
+
     fun scrollToAndReplaceText(viewId: Int, text: String) =
         onView(withId(viewId)).perform(scrollTo(), replaceText(text))
 
@@ -360,15 +372,6 @@ abstract class BaseUiTest {
         onView(withId(id)).perform(click())
     }
 
-    fun replaceTextOnInputLayout(viewId: Int, text: String) {
-        onView(
-            CoreMatchers.allOf(
-                isDescendantOfA(withId(viewId)),
-                isAssignableFrom(EditText::class.java)
-            )
-        ).perform(typeText(text))
-    }
-
     protected fun clickOnRecyclerViewItem(
         recyclerViewId: Int, recyclerViewItemId: Int, position: Int
     ) {
@@ -386,14 +389,15 @@ abstract class BaseUiTest {
         return RecyclerViewMatcher(recyclerViewId)
     }
 
-    private fun hasTextInputLayoutErrorText(errorText: String): Matcher<View?>? {
+    private fun hasTextInputLayoutErrorText(errorText: String): Matcher<View?> {
         return object : TypeSafeMatcher<View?>() {
 
             override fun describeTo(description: Description?) {}
 
             override fun matchesSafely(item: View?): Boolean {
                 if (item is TextInputLayout) {
-                    return item.error?.equals(errorText)!!
+                    return if (item.error == null && errorText == "") true
+                    else item.error?.equals(errorText)!!
                 }
 
                 return false
