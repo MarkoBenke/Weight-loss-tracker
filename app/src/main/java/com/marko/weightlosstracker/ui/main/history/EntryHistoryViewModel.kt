@@ -23,7 +23,7 @@ class EntryHistoryViewModel @Inject constructor(
 
     fun deleteEntry(weightEntry: WeightEntry) {
         viewModelScope.launch(dispatcherProvider.io) {
-            weightEntryRepository.deleteWeightEntry(weightEntry).collect {
+            weightEntryRepository.deleteWeightEntryFromList(weightEntry).collect {
                 modelLiveData.postValue(it)
             }
         }

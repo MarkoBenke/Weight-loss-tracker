@@ -4,13 +4,18 @@ import com.marko.weightlosstracker.R
 import com.marko.weightlosstracker.util.getCurrentDate
 import com.marko.weightlosstracker.utils.BaseTest
 import com.marko.weightlosstracker.utils.launchFragmentInHiltContainer
+import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import org.junit.Rule
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
 @HiltAndroidTest
 class AddEntryFragmentTest: BaseTest() {
+
+    @get:Rule
+    var hiltRule = HiltAndroidRule(this)
 
     private val largeNumber = "123456"
 

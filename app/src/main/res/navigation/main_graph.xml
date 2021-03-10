@@ -34,6 +34,12 @@
             app:destination="@id/info"
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@android:anim/fade_out" />
+        <action
+            android:id="@+id/action_entryHistory_to_entryDetailsFragment"
+            app:destination="@id/entryDetailsFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/stats"
@@ -43,10 +49,23 @@
             android:id="@+id/action_statsFragment_to_entryHistoryFragment"
             app:destination="@id/entryHistory"
             app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out" />
+            app:exitAnim="@android:anim/fade_out"
+            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/info"
         android:name="com.marko.weightlosstracker.ui.main.info.InfoFragment"
         android:label="InfoFragment" />
+    <fragment
+        android:id="@+id/entryDetailsFragment"
+        android:name="com.marko.weightlosstracker.ui.main.details.EntryDetailsFragment"
+        android:label="EntryDetailsFragment" >
+        <argument
+            android:name="WeightEntry"
+            app:argType="com.marko.weightlosstracker.model.WeightEntry" />
+        <argument
+            android:name="IsInitialEntry"
+            app:argType="boolean"
+            android:defaultValue="false" />
+    </fragment>
 </navigation>

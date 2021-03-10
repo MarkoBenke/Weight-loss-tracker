@@ -5,7 +5,8 @@ import androidx.annotation.Keep
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-@Keep class User(
+@Keep
+class User(
     val uuid: Int = 0,
     var startWeight: Float = 0f,
     var currentWeight: Float = 0f,

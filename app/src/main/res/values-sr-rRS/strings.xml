@@ -73,4 +73,6 @@
     <string name="version">Verzija: %1s</string>
     <string name="terms_and_conditions">Uslovi korišćenja</string>
     <string name="target_weight_update_success">Željena kilaža je ažurirana</string>
+    <string name="submit">Potvrdi</string>
+    <string name="delete">Obriši</string>
 </resources>

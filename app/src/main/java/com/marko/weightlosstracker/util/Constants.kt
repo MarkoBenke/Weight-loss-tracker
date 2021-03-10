@@ -17,4 +17,7 @@ object Constants {
 
     const val CALORIES_IN_KG = 7716.17f
     const val CALORIES_IN_CHEESEBURGER = 303.1f
+
+    const val PRIVACY_POLICY = "https://sites.google.com/view/weightlotracker/home"
+    const val TERMS = "https://sites.google.com/view/weightlotracker/terms?authuser=0"
 }

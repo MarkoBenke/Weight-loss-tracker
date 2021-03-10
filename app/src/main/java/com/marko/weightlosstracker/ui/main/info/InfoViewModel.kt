@@ -20,8 +20,8 @@ class InfoViewModel @Inject constructor(
     private val dispatcherProvider: DispatcherProvider
 ) : BaseViewModel<DataState<User?>>() {
 
-    private val _updateUserLiveData = MutableLiveData<Boolean>()
-    val updateUserLiveData: LiveData<Boolean> = _updateUserLiveData
+    private val _updateUserLiveData = MutableLiveData<DataState<Unit>>()
+    val updateUserLiveData: LiveData<DataState<Unit>> = _updateUserLiveData
 
     override fun fetchInitialData() {
         viewModelScope.launch(dispatcherProvider.io) {
@@ -31,13 +31,17 @@ class InfoViewModel @Inject constructor(
         }
     }
 
-    fun updateUser(updatedTargetWeight: Float) {
-        val value = modelLiveData.value as DataState.Success
-        value.data?.targetWeight = updatedTargetWeight
-        viewModelScope.launch(dispatcherProvider.io) {
-            userRepository.updateUser(value.data!!)
-            withContext(dispatcherProvider.main) {
-                _updateUserLiveData.postValue(true)
+    fun updateUser(updatedTargetWeight: String) {
+        if (updatedTargetWeight.isEmpty()) {
+            _updateUserLiveData.postValue(DataState.Error())
+        } else {
+            val value = modelLiveData.value as DataState.Success?
+            value?.data?.targetWeight = updatedTargetWeight.toFloat()
+            viewModelScope.launch(dispatcherProvider.io) {
+                userRepository.updateUser(value?.data!!)
+                withContext(dispatcherProvider.main) {
+                    _updateUserLiveData.postValue(DataState.Success(Unit))
+                }
             }
         }
     }

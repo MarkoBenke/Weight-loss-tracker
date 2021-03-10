@@ -10,6 +10,9 @@ interface WeightEntryDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertWeightEntry(weightEntry: WeightEntryCache)
 
+    @Update()
+    suspend fun updateWeightEntry(weightEntry: WeightEntryCache)
+
     @Delete
     suspend fun deleteWeightEntry(weightEntry: WeightEntryCache)
 

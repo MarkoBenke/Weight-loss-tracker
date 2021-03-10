@@ -25,10 +25,6 @@ class FakeWeightEntryRepositoryAndroidTest @Inject constructor() : WeightEntryRe
         emit(DataState.Success(sortedList))
     }
 
-    override suspend fun getLastEntry(): Flow<DataState<WeightEntry>> = flow {
-        emit(DataState.Success(DataGenerator.weightEntry))
-    }
-
     override suspend fun getUserStats(): Flow<Stats> = flow {
         emit(DataGenerator.stats)
     }
@@ -37,7 +33,7 @@ class FakeWeightEntryRepositoryAndroidTest @Inject constructor() : WeightEntryRe
         entries.add(weightEntry)
     }
 
-    override suspend fun deleteWeightEntry(weightEntry: WeightEntry): Flow<DataState<List<WeightEntry>>> =
+    override suspend fun deleteWeightEntryFromList(weightEntry: WeightEntry): Flow<DataState<List<WeightEntry>>> =
         flow {
             entries.remove(weightEntry)
             val sortedList = entries.sortedByDescending {
@@ -45,6 +41,22 @@ class FakeWeightEntryRepositoryAndroidTest @Inject constructor() : WeightEntryRe
             }
             emit(DataState.Success(sortedList))
         }
+
+    override suspend fun deleteWeightEntry(weightEntry: WeightEntry): Flow<Boolean> = flow {
+        entries.remove(weightEntry)
+        emit(true)
+    }
+
+    override suspend fun updateWeightEntry(weightEntry: WeightEntry): Flow<Boolean> = flow {
+        entries.forEach { value ->
+            if (value.uuid == weightEntry.uuid) {
+                value.description = weightEntry.description
+                value.waistSize = weightEntry.waistSize
+                value.currentWeight = weightEntry.currentWeight
+            }
+        }
+        emit(true)
+    }
 
     override suspend fun reverseDeletionOfWeightEntry(weightEntry: WeightEntry): Flow<DataState<List<WeightEntry>>> =
         flow {

@@ -75,6 +75,19 @@ class EntriesAdapter(private val context: Context) :
         } else {
             holder.binding.description.isVisible = false
         }
+
+        holder.itemView.setOnClickListener {
+            onItemClickListener?.let { click ->
+                if (position == itemCount - 1) weightEntry.isInitialEntry = true
+                click(weightEntry)
+            }
+        }
+    }
+
+    var onItemClickListener: ((WeightEntry) -> Unit)? = null
+
+    fun setItemClickListener(listener: ((WeightEntry) -> Unit)?) {
+        onItemClickListener = listener
     }
 
     override fun getItemCount(): Int = entries.count()
