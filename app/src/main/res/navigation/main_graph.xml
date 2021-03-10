@@ -63,9 +63,5 @@
         <argument
             android:name="WeightEntry"
             app:argType="com.marko.weightlosstracker.model.WeightEntry" />
-        <argument
-            android:name="IsInitialEntry"
-            app:argType="boolean"
-            android:defaultValue="false" />
     </fragment>
 </navigation>
