@@ -58,23 +58,32 @@ class EntryHistoryFragmentTest : BaseTest() {
     }
 
     @Test
-    fun swipeToDelete() {
+    fun swipeToDeleteConfirm() {
         checkRecyclerViewItemCount(R.id.entriesRecView, 3)
-        sleepLong()
+        sleepMedium()
         swipeItemInRecyclerView(R.id.entriesRecView, FIRST_POSITION)
         sleepMedium()
+
+        isTextDisplayedInView(R.id.dialogTitle, context.getString(R.string.delete_entry_dialog_title))
+        isTextDisplayedInView(R.id.dialogDescription, context.getString(R.string.delete_entry_dialog_description))
+
+        clickOnView(R.id.confirm)
+        sleepShort()
         checkRecyclerViewItemCount(R.id.entriesRecView, 2)
-        checkSnackbarText(R.string.successfully_deleted_entry)
     }
 
     @Test
-    fun swipeToDeleteAndUndo() {
+    fun swipeToDeleteCancel() {
         checkRecyclerViewItemCount(R.id.entriesRecView, 3)
-        sleepLong()
-        swipeItemInRecyclerView(R.id.entriesRecView, FIRST_POSITION)
-        checkRecyclerViewItemCount(R.id.entriesRecView, 2)
-        clickOnText(R.string.undo)
         sleepMedium()
+        swipeItemInRecyclerView(R.id.entriesRecView, FIRST_POSITION)
+        sleepMedium()
+
+        isTextDisplayedInView(R.id.dialogTitle, context.getString(R.string.delete_entry_dialog_title))
+        isTextDisplayedInView(R.id.dialogDescription, context.getString(R.string.delete_entry_dialog_description))
+
+        clickOnView(R.id.cancel)
+        sleepShort()
         checkRecyclerViewItemCount(R.id.entriesRecView, 3)
     }
 }

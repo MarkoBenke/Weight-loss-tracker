@@ -62,8 +62,6 @@
     <string name="start_date_description">Napomena: Datum početka programa se ne može menjati kasnije, i novi unosi ne mogu biti pre datuma početka programa.</string>
     <string name="splash_screen_text">Dizajnirao Marko Benke</string>
     <string name="target_weight_description">Napomena: Podesite svoju željenu kilažu. Cilj koji želite da postignete.</string>
-    <string name="successfully_deleted_entry">Unos uspešno obrisan</string>
-    <string name="undo">Poništi</string>
     <string name="weigh_ins">Vaganja</string>
     <string name="waist_sizes">Veličine struka</string>
     <string name="unknown_error">Greška!</string>
@@ -75,4 +73,8 @@
     <string name="target_weight_update_success">Željena kilaža je ažurirana</string>
     <string name="submit">Potvrdi</string>
     <string name="delete">Obriši</string>
+    <string name="yes">Da</string>
+    <string name="cancel">Otkaži</string>
+    <string name="delete_entry_dialog_title">Obriši unos</string>
+    <string name="delete_entry_dialog_description">Želite li sigurno da obrišete ovaj unos?</string>
 </resources>

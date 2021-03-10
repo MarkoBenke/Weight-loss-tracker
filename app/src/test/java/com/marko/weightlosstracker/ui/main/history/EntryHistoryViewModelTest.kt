@@ -1,6 +1,7 @@
 package com.marko.weightlosstracker.ui.main.history
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.google.common.truth.Truth.assertThat
 import com.marko.weightlosstracker.other.DataGenerator
 import com.marko.weightlosstracker.other.FakeDispatcherProvider
 import com.marko.weightlosstracker.other.MainCoroutineRule
@@ -8,10 +9,7 @@ import com.marko.weightlosstracker.other.getOrAwaitValueTest
 import com.marko.weightlosstracker.repository.FakeWeightEntryRepositoryTest
 import com.marko.weightlosstracker.util.DataState
 import com.marko.weightlosstracker.util.getCurrentDate
-import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -48,20 +46,6 @@ class EntryHistoryViewModelTest {
         val value = viewModel.modelLiveData.getOrAwaitValueTest() as DataState.Success
 
         assertThat(value.data).hasSize(2)
-    }
-
-    @Test
-    fun `delete and undo item, check count`() {
-        viewModel.fetchInitialData()
-        viewModel.deleteEntry(DataGenerator.weightEntry)
-        viewModel.reverseDeletion(DataGenerator.weightEntry)
-
-        runBlocking {
-            delay(1000)
-        }
-        val value = viewModel.modelLiveData.getOrAwaitValueTest() as DataState.Success
-
-        assertThat(value.data).hasSize(3)
     }
 
     @Test
