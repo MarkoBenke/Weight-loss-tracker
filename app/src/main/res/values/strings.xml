@@ -71,8 +71,6 @@
     <string name="splash_screen_text">Designed by Marko Benke</string>
     <string name="weight_loss_tracker_title" translatable="false">WEIGHT LOSS TRACKER</string>
     <string name="target_weight_description">Note: Set your target weight. The weight goal you want to achieve.</string>
-    <string name="successfully_deleted_entry">Successfully deleted entry</string>
-    <string name="undo">Undo</string>
     <string name="weigh_ins">Weigh-ins</string>
     <string name="waist_sizes">Waist sizes</string>
     <string name="unknown_error">An unknown error occurred!</string>
@@ -85,4 +83,8 @@
     <string name="target_weight_update_success">Target weight updated successfully</string>
     <string name="submit">Submit</string>
     <string name="delete">Delete</string>
+    <string name="yes">Yes</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete_entry_dialog_title">Delete weight entry</string>
+    <string name="delete_entry_dialog_description">Are you sure you want to delete this entry?</string>
 </resources>

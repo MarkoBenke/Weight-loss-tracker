@@ -57,13 +57,4 @@ class FakeWeightEntryRepositoryAndroidTest @Inject constructor() : WeightEntryRe
         }
         emit(true)
     }
-
-    override suspend fun reverseDeletionOfWeightEntry(weightEntry: WeightEntry): Flow<DataState<List<WeightEntry>>> =
-        flow {
-            entries.add(weightEntry)
-            val sortedList = entries.sortedByDescending {
-                parseDate(it.date)
-            }
-            emit(DataState.Success(sortedList))
-        }
 }

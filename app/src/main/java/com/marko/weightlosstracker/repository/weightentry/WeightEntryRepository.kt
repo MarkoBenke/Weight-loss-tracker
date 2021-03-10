@@ -13,5 +13,4 @@ interface WeightEntryRepository {
     suspend fun deleteWeightEntryFromList(weightEntry: WeightEntry): Flow<DataState<List<WeightEntry>>>
     suspend fun deleteWeightEntry(weightEntry: WeightEntry): Flow<Boolean>
     suspend fun updateWeightEntry(weightEntry: WeightEntry): Flow<Boolean>
-    suspend fun reverseDeletionOfWeightEntry(weightEntry: WeightEntry): Flow<DataState<List<WeightEntry>>>
 }

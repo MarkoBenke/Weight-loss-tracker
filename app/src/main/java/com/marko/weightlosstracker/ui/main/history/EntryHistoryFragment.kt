@@ -7,12 +7,12 @@ import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.snackbar.Snackbar
 import com.marko.weightlosstracker.R
 import com.marko.weightlosstracker.databinding.FragmentEntryHistoryBinding
 import com.marko.weightlosstracker.model.WeightEntry
 import com.marko.weightlosstracker.ui.core.BaseFragment
 import com.marko.weightlosstracker.ui.core.viewBinding
+import com.marko.weightlosstracker.ui.dialogs.ConfirmationDialog
 import com.marko.weightlosstracker.ui.main.MainActivity
 import com.marko.weightlosstracker.util.DataState
 import dagger.hilt.android.AndroidEntryPoint
@@ -87,17 +87,23 @@ class EntryHistoryFragment : BaseFragment<EntryHistoryViewModel,
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
             val position = viewHolder.layoutPosition
             val item = entriesAdapter.getItem(position)
-            viewModel.deleteEntry(item)
-            Snackbar.make(
-                requireView(),
-                getString(R.string.successfully_deleted_entry),
-                Snackbar.LENGTH_LONG
-            ).apply {
-                setAction(getString(R.string.undo)) {
-                    viewModel.reverseDeletion(item)
+
+            val confirmationDialog = ConfirmationDialog.newInstance(
+                getString(R.string.delete_entry_dialog_title), getString(
+                    R.string.delete_entry_dialog_description
+                )
+            )
+            confirmationDialog.setDialogClickListener(object :
+                ConfirmationDialog.ConfirmationDialogClickListener {
+                override fun onConfirmClicked() {
+                    viewModel.deleteEntry(item)
                 }
-                show()
-            }
+
+                override fun onDeclineClicked() {
+                    entriesAdapter.notifyDataSetChanged()
+                }
+            })
+            confirmationDialog.show(parentFragmentManager, ConfirmationDialog.TAG)
         }
     }
 }
