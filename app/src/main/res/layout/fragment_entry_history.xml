@@ -31,6 +31,7 @@
                 android:layout_centerInParent="true"
                 android:indeterminateTint="@color/purple_500"
                 android:indeterminateTintMode="src_atop"
+                android:visibility="gone"
                 tools:ignore="UnusedAttribute" />
         </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>

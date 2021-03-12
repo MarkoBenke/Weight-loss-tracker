@@ -16,7 +16,7 @@
     <string name="mandatory_fields_error_message">Please fill in mandatory fields!</string>
     <string name="goal_name">Journey to %1skg</string>
     <string name="start_button_text">Start</string>
-    <string name="welcome_setup_message">Please click on start button, and setup your lose weight goal.</string>
+    <string name="welcome_setup_message">Please click on start button, and setup your weight loss goal.</string>
     <string name="start_weight_card">Where you began:</string>
     <string name="current_weight">Current data:</string>
     <string name="bmi_chart_label">Bmi index chart</string>
@@ -87,4 +87,8 @@
     <string name="cancel">Cancel</string>
     <string name="delete_entry_dialog_title">Delete weight entry</string>
     <string name="delete_entry_dialog_description">Are you sure you want to delete this entry?</string>
+    <string name="google_sign_in">Google Sign In</string>
+    <string name="login_title">Welcome to Free Weight Loss Tracker App</string>
+    <string name="login_description">To continue, please sign in…</string>
+    <string name="okay">Okay</string>
 </resources>

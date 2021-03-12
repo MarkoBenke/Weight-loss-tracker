@@ -77,4 +77,8 @@
     <string name="cancel">Otkaži</string>
     <string name="delete_entry_dialog_title">Obriši unos</string>
     <string name="delete_entry_dialog_description">Želite li sigurno da obrišete ovaj unos?</string>
+    <string name="google_sign_in">Google Sign In</string>
+    <string name="login_title">Welcome to Free Weight Loss Tracker App</string>
+    <string name="login_description">To continue, please sign in...</string>
+    <string name="okay">Okay</string>
 </resources>

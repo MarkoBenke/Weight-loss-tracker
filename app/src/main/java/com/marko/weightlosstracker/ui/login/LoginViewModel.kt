@@ -1,9 +1,11 @@
-package com.marko.weightlosstracker.ui.launch
+package com.marko.weightlosstracker.ui.login
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.AuthCredential
+import com.google.firebase.auth.AuthResult
 import com.marko.weightlosstracker.model.User
 import com.marko.weightlosstracker.repository.auth.AuthRepository
 import com.marko.weightlosstracker.repository.user.UserRepository
@@ -15,32 +17,28 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SplashScreenViewModel @Inject constructor(
+class LoginViewModel @Inject constructor(
     private val authRepository: AuthRepository,
     private val userRepository: UserRepository,
-    private val dispatchers: DispatcherProvider
+    private val dispatcherProvider: DispatcherProvider
 ) : ViewModel() {
 
     private val _userLiveData = MutableLiveData<DataState<User?>>()
     val userLiveData: LiveData<DataState<User?>> = _userLiveData
 
-    private val _isUserSignedInLiveData = MutableLiveData<DataState<Unit>>()
-    val isUserSignedInLiveData: LiveData<DataState<Unit>> = _isUserSignedInLiveData
+    private val _authUserLiveData = MutableLiveData<DataState<AuthResult?>>()
+    val authUserLiveData: LiveData<DataState<AuthResult?>> = _authUserLiveData
 
-    init {
-        isUserSignedIn()
-    }
-
-    private fun isUserSignedIn() {
-        viewModelScope.launch(dispatchers.io) {
-            authRepository.isUserSignedIn().collect {
-                _isUserSignedInLiveData.postValue(it)
+    fun loginWithGoogle(credential: AuthCredential) {
+        viewModelScope.launch(dispatcherProvider.io) {
+            authRepository.signInUser(credential).collect {
+                _authUserLiveData.postValue(it)
             }
         }
     }
 
     fun getUser() {
-        viewModelScope.launch(dispatchers.io) {
+        viewModelScope.launch(dispatcherProvider.io) {
             userRepository.getUser().collect {
                 _userLiveData.postValue(it)
             }
