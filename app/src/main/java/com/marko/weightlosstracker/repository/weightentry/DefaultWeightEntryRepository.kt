@@ -55,19 +55,24 @@ class DefaultWeightEntryRepository(
     override suspend fun deleteWeightEntryFromList(weightEntry: WeightEntry): Flow<DataState<List<WeightEntry>>> =
         flow {
             emit(DataState.Loading)
-            weightEntryDao.deleteWeightEntry(weightEntryMapper.mapToEntity(weightEntry))
-
-            val entries = weightEntryDao.getAllWeightEntries()
-            val sortedList = entries.sortedByDescending {
-                parseDate(it.date)
-            }
-            emit(DataState.Success(weightEntryMapper.mapFromEntityList(sortedList)))
+            val result = weightEntryService.deleteWeightEntry(weightEntry.uuid)
+            if (result) {
+                weightEntryDao.deleteWeightEntry(weightEntryMapper.mapToEntity(weightEntry))
+                val entries = weightEntryDao.getAllWeightEntries()
+                val sortedList = entries.sortedByDescending {
+                    parseDate(it.date)
+                }
+                emit(DataState.Success(weightEntryMapper.mapFromEntityList(sortedList)))
+            } else emit(DataState.Error())
         }
 
     override suspend fun deleteWeightEntry(weightEntry: WeightEntry): Flow<DataState<Unit>> = flow {
         emit(DataState.Loading)
-        weightEntryDao.deleteWeightEntry(weightEntryMapper.mapToEntity(weightEntry))
-        emit(DataState.Success(Unit))
+        val result = weightEntryService.deleteWeightEntry(weightEntry.uuid)
+        if (result) {
+            weightEntryDao.deleteWeightEntry(weightEntryMapper.mapToEntity(weightEntry))
+            emit(DataState.Success(Unit))
+        } else emit(DataState.Error())
     }
 
     override suspend fun updateWeightEntry(weightEntry: WeightEntry): Flow<DataState<Unit>> = flow {

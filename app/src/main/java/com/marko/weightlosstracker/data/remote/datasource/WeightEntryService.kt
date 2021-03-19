@@ -32,7 +32,19 @@ class WeightEntryService @Inject constructor(
                     isSuccessful = it.isSuccessful
                 }.await()
             isSuccessful
-        } catch (e: java.lang.Exception) {
+        } catch (e: Exception) {
+            false
+        }
+    }
+
+    suspend fun deleteWeightEntry(id: String): Boolean {
+        return try {
+            var isSuccessful = false
+            firebaseHelper.getEntriesCollection().document(id).delete().addOnCompleteListener {
+                isSuccessful = it.isSuccessful
+            }.await()
+            isSuccessful
+        } catch (e: Exception) {
             false
         }
     }

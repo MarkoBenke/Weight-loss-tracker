@@ -13,6 +13,7 @@ import com.marko.weightlosstracker.model.WeightEntry
 import com.marko.weightlosstracker.ui.core.BaseFragment
 import com.marko.weightlosstracker.ui.core.viewBinding
 import com.marko.weightlosstracker.ui.dialogs.ConfirmationDialog
+import com.marko.weightlosstracker.ui.dialogs.ErrorDialog
 import com.marko.weightlosstracker.ui.main.MainActivity
 import com.marko.weightlosstracker.util.DataState
 import dagger.hilt.android.AndroidEntryPoint
@@ -51,6 +52,8 @@ class EntryHistoryFragment : BaseFragment<EntryHistoryViewModel,
                 binding.progressBar.isVisible = false
             }
             is DataState.Error -> {
+                val dialog = ErrorDialog.newInstance(getString(R.string.unknown_error))
+                dialog.show(parentFragmentManager, ErrorDialog.TAG)
                 binding.progressBar.isVisible = false
             }
             DataState.Loading -> {
