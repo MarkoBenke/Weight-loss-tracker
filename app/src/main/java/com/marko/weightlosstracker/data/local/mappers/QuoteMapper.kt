@@ -1,11 +1,14 @@
 package com.marko.weightlosstracker.data.local.mappers
 
 import com.marko.weightlosstracker.data.local.model.QuoteCache
+import com.marko.weightlosstracker.data.remote.model.QuoteResponse
 import com.marko.weightlosstracker.model.Quote
 import com.marko.weightlosstracker.util.EntityMapper
+import com.marko.weightlosstracker.util.RemoteEntityMapper
 import javax.inject.Inject
 
-class QuoteLocalMapper @Inject constructor(): EntityMapper<QuoteCache, Quote> {
+class QuoteMapper @Inject constructor() : EntityMapper<QuoteCache, Quote>,
+    RemoteEntityMapper<QuoteResponse, Quote> {
 
     override fun mapFromEntity(entity: QuoteCache): Quote {
         return Quote(
@@ -21,5 +24,17 @@ class QuoteLocalMapper @Inject constructor(): EntityMapper<QuoteCache, Quote> {
 
     fun mapFromEntityList(entities: List<QuoteCache>): List<Quote> {
         return entities.map { mapFromEntity(it) }
+    }
+
+    override fun mapFromRemoteEntity(entity: QuoteResponse): Quote {
+        return Quote(
+            entity.id, entity.author, entity.category, entity.quote
+        )
+    }
+
+    override fun mapToRemoteEntity(domainModel: Quote): QuoteResponse {
+        return QuoteResponse(
+            domainModel.id, domainModel.author, domainModel.category, domainModel.quote
+        )
     }
 }

@@ -1,7 +1,8 @@
 package com.marko.weightlosstracker.data.remote.model
 
 data class RemoteUser(
-    val id: String = "",
+    var id: String = "",
+    var username: String = "",
     var startWeight: Float = 0f,
     var currentWeight: Float = 0f,
     var targetWeight: Float = 0f,

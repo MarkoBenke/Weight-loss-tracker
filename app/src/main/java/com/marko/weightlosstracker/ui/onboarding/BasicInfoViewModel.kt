@@ -14,11 +14,11 @@ class BasicInfoViewModel @Inject constructor() : ViewModel() {
     private val _validateLiveData = MutableLiveData<Event<DataState<Unit>>>()
     val validateLiveData: LiveData<Event<DataState<Unit>>> = _validateLiveData
 
-    fun validate(height: String, age: String, currentWeight: String) {
-        if (height.isEmpty() || age.isEmpty() || currentWeight.isEmpty()) {
-            _validateLiveData.postValue(Event(DataState.Error()))
-        } else {
+    fun validate(validationModel: BasicInfoValidationModel) {
+        if (validationModel.isValid()) {
             _validateLiveData.postValue(Event(DataState.Success(Unit)))
+        } else {
+            _validateLiveData.postValue(Event(DataState.Error()))
         }
     }
 }

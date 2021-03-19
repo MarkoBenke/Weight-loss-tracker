@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <View
         android:id="@+id/progress"
@@ -13,6 +12,7 @@
         android:background="@color/on_board_progress_color" />
 
     <LinearLayout
+        android:id="@+id/dataLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/progress"
@@ -50,9 +50,9 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textview.MaterialTextView
-            android:layout_marginTop="@dimen/medium_margin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/medium_margin"
             android:fontFamily="@font/roboto_medium"
             android:lineSpacingMultiplier="1.2"
             android:text="@string/target_weight_description"
@@ -63,9 +63,9 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="380dp"
+        android:layout_above="@id/submit"
+        android:layout_below="@id/dataLayout"
         android:layout_marginHorizontal="@dimen/large_margin"
-        android:layout_centerInParent="true"
-        android:alpha="0.7"
         android:src="@drawable/ic_healthy_habit"
         tools:ignore="ContentDescription" />
 
@@ -80,4 +80,14 @@
         android:text="@string/submit_button_text"
         android:textAllCaps="false"
         android:textSize="18sp" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:indeterminateTint="@color/purple_500"
+        android:indeterminateTintMode="src_atop"
+        android:visibility="gone"
+        tools:ignore="UnusedAttribute" />
 </RelativeLayout>

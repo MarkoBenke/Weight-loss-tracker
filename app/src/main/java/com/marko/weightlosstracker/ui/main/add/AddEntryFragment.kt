@@ -4,13 +4,17 @@ import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import com.marko.weightlosstracker.R
 import com.marko.weightlosstracker.databinding.FragmentAddEntryBinding
 import com.marko.weightlosstracker.model.WeightEntry
 import com.marko.weightlosstracker.ui.core.BaseFragment
 import com.marko.weightlosstracker.ui.core.viewBinding
-import com.marko.weightlosstracker.util.*
+import com.marko.weightlosstracker.ui.dialogs.ErrorDialog
+import com.marko.weightlosstracker.util.DataState
+import com.marko.weightlosstracker.util.getCurrentDate
+import com.marko.weightlosstracker.util.parseSelectedDate
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
@@ -28,7 +32,7 @@ class AddEntryFragment : BaseFragment<AddEntryViewModel, Long>(
         super.onViewCreated(view, savedInstanceState)
 
         initListeners()
-        subscribeToInsertWeightEntryObserver()
+        subscribeToObservers()
     }
 
     override fun updateUi(model: Long) {
@@ -42,27 +46,25 @@ class AddEntryFragment : BaseFragment<AddEntryViewModel, Long>(
 
         binding.submitBtn.setOnClickListener {
             val newWeight = binding.newWeight.editText?.text.toString()
-            viewModel.insertNewEntry(
-                newWeight,
-                WeightEntry(
-                    uuid = binding.setDateText.text.toString().replace(".", ""),
-                    currentWeight = newWeight.toFloatOrNull() ?: 0f,
-                    waistSize = binding.waistSize.editText?.text.toString().toIntOrNull() ?: 0,
-                    date = binding.setDateText.text.toString(),
-                    description = binding.description.editText?.text.toString(),
-                )
-            )
+            viewModel.validate(newWeight)
         }
     }
 
-    private fun subscribeToInsertWeightEntryObserver() {
-        viewModel.insertWeightLiveData.observe(viewLifecycleOwner, { event ->
+    private fun subscribeToObservers() {
+        viewModel.validationLiveData.observe(viewLifecycleOwner, { event ->
             event.getContentIfNotHandled()?.let { result ->
                 when (result) {
                     is DataState.Success -> {
-                        clearFields()
-                        Toast.makeText(requireContext(), R.string.entry_success, Toast.LENGTH_LONG)
-                            .show()
+                        viewModel.insertWeightEntry(
+                            WeightEntry(
+                                uuid = binding.setDateText.text.toString().replace(".", ""),
+                                currentWeight = result.data.toFloatOrNull() ?: 0f,
+                                waistSize = binding.waistSize.editText?.text.toString()
+                                    .toIntOrNull() ?: 0,
+                                date = binding.setDateText.text.toString(),
+                                description = binding.description.editText?.text.toString(),
+                            )
+                        )
                     }
                     is DataState.Error -> {
                         binding.newWeight.error = getString(R.string.mandatory_field)
@@ -71,6 +73,23 @@ class AddEntryFragment : BaseFragment<AddEntryViewModel, Long>(
                 }
             }
         })
+
+        viewModel.insertWeightLiveData.observe(viewLifecycleOwner) { dataState ->
+            when (dataState) {
+                is DataState.Error -> {
+                    binding.progressBar.isVisible = false
+                    val dialog = ErrorDialog.newInstance(getString(R.string.unknown_error))
+                    dialog.show(parentFragmentManager, ErrorDialog.TAG)
+                }
+                DataState.Loading -> binding.progressBar.isVisible = true
+                is DataState.Success -> {
+                    binding.progressBar.isVisible = false
+                    clearFields()
+                    Toast.makeText(requireContext(), R.string.entry_success, Toast.LENGTH_LONG)
+                        .show()
+                }
+            }
+        }
     }
 
     private fun clearFields() {

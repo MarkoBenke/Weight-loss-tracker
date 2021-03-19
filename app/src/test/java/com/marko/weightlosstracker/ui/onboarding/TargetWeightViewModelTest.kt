@@ -31,7 +31,7 @@ class TargetWeightViewModelTest {
 
     @Test
     fun `validate target weight, invalid input, returns error`() {
-        viewModel.insertUserToDb("", DataGenerator.user)
+        viewModel.createUser("", DataGenerator.user)
 
         val value = viewModel.insertUserLiveData.getOrAwaitValueTest()
 
@@ -40,7 +40,7 @@ class TargetWeightViewModelTest {
 
     @Test
     fun `validate target weight, valid input, returns success`() {
-        viewModel.insertUserToDb("70", DataGenerator.user)
+        viewModel.createUser("70", DataGenerator.user)
 
         val value = viewModel.insertUserLiveData.getOrAwaitValueTest()
 

@@ -1,4 +1,4 @@
-package com.marko.weightlosstracker.data.remote.response
+package com.marko.weightlosstracker.data.remote.model
 
 import androidx.annotation.Keep
 

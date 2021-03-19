@@ -22,8 +22,11 @@ class AddEntryViewModel @Inject constructor(
     private val dispatcherProvider: DispatcherProvider
 ) : BaseViewModel<Long>() {
 
-    private val _insertWeightLiveData = MutableLiveData<Event<DataState<Unit>>>()
-    val insertWeightLiveData: LiveData<Event<DataState<Unit>>> = _insertWeightLiveData
+    private val _validationLiveData = MutableLiveData<Event<DataState<String>>>()
+    val validationLiveData: LiveData<Event<DataState<String>>> = _validationLiveData
+
+    private val _insertWeightLiveData = MutableLiveData<DataState<Unit>>()
+    val insertWeightLiveData: LiveData<DataState<Unit>> = _insertWeightLiveData
 
     override fun fetchInitialData() {
         getStartDate()
@@ -37,13 +40,18 @@ class AddEntryViewModel @Inject constructor(
         }
     }
 
-    fun insertNewEntry(newWeight: String, weightEntry: WeightEntry) {
+    fun validate(newWeight: String) {
         if (newWeight.isEmpty()) {
-            _insertWeightLiveData.postValue(Event(DataState.Error()))
+            _validationLiveData.postValue(Event(DataState.Error()))
         } else {
-            viewModelScope.launch(dispatcherProvider.io) {
-                weightEntryRepository.insertWeight(weightEntry)
-                _insertWeightLiveData.postValue(Event(DataState.Success(Unit)))
+            _validationLiveData.postValue(Event(DataState.Success(newWeight)))
+        }
+    }
+
+    fun insertWeightEntry(weightEntry: WeightEntry) {
+        viewModelScope.launch(dispatcherProvider.io) {
+            weightEntryRepository.insertWeight(weightEntry).collect {
+                _insertWeightLiveData.postValue(it)
             }
         }
     }

@@ -36,18 +36,18 @@ class AddEntryViewModelTest {
 
     @Test
     fun `validate insert new weight entry, returns error`() {
-        viewModel.insertNewEntry("", DataGenerator.weightEntry)
+        viewModel.validate("", DataGenerator.weightEntry)
 
-        val value = viewModel.insertWeightLiveData.getOrAwaitValueTest()
+        val value = viewModel.validationLiveData.getOrAwaitValueTest()
 
         assertThat(value.getContentIfNotHandled()).isEqualTo(DataState.Error())
     }
 
     @Test
     fun `validate insert new weight entry, returns success`() {
-        viewModel.insertNewEntry("85", DataGenerator.weightEntry)
+        viewModel.validate("85", DataGenerator.weightEntry)
 
-        val value = viewModel.insertWeightLiveData.getOrAwaitValueTest()
+        val value = viewModel.validationLiveData.getOrAwaitValueTest()
 
         assertThat(value.getContentIfNotHandled()).isEqualTo(DataState.Success(Unit))
     }

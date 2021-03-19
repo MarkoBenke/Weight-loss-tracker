@@ -8,6 +8,8 @@ import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
+import com.marko.weightlosstracker.model.User
+import com.marko.weightlosstracker.model.WeightEntry
 import java.math.RoundingMode
 import java.text.NumberFormat
 import java.util.*

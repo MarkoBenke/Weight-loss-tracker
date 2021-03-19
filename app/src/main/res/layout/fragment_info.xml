@@ -115,6 +115,16 @@
                 android:layout_below="@id/dataLayout"
                 android:src="@drawable/ic_fitness"
                 tools:ignore="ContentDescription" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:indeterminateTint="@color/purple_500"
+                android:indeterminateTintMode="src_atop"
+                android:visibility="gone"
+                tools:ignore="UnusedAttribute" />
         </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>
 </LinearLayout>

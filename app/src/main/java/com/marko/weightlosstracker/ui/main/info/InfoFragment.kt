@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import com.marko.weightlosstracker.BuildConfig
 import com.marko.weightlosstracker.R
@@ -71,16 +72,20 @@ class InfoFragment : BaseFragment<InfoViewModel, DataState<User?>>(
     private fun subscribeToUserStatusObserver() {
         viewModel.updateUserLiveData.observe(viewLifecycleOwner, { result ->
             when (result) {
-                is DataState.Error -> binding.updateTargetWeight.error =
-                    getString(R.string.mandatory_field)
+                is DataState.Error -> {
+                    binding.progressBar.isVisible = false
+                    binding.updateTargetWeight.error =
+                        getString(R.string.mandatory_field)
+                }
                 is DataState.Success -> {
+                    binding.progressBar.isVisible = false
                     Toast.makeText(
                         requireContext(),
                         getString(R.string.target_weight_update_success),
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-                else -> Unit
+                is DataState.Loading -> binding.progressBar.isVisible = true
             }
         })
     }

@@ -34,11 +34,13 @@ class BasicInfoFragmentTest : BaseTest() {
     fun basicInfoUiCheck() {
         isTextDisplayedInView(R.id.weightDataText, context.getString(R.string.weight_data_title))
 
+        checkHintTextOnInputField(R.id.userName, context.getString(R.string.username))
         checkHintTextOnInputField(R.id.height, context.getString(R.string.height))
         checkHintTextOnInputField(R.id.age, context.getString(R.string.age))
         checkHintTextOnInputField(R.id.currentWeight, context.getString(R.string.goal_details_current_weight))
         checkHintTextOnInputField(R.id.waistSize, context.getString(R.string.goal_details_waist_size))
 
+        checkHelperTextOnInputField(R.id.userName, context.getString(R.string.mandatory_field))
         checkHelperTextOnInputField(R.id.height, context.getString(R.string.mandatory_field))
         checkHelperTextOnInputField(R.id.age, context.getString(R.string.mandatory_field))
         checkHelperTextOnInputField(R.id.currentWeight, context.getString(R.string.mandatory_field))
@@ -74,6 +76,14 @@ class BasicInfoFragmentTest : BaseTest() {
     @Test
     fun basicInfoFieldsMaxInputLength() {
         val largeNumber = "123456"
+        val largeName = "Marko Benke Marko Benke"
+
+        typeTextOnInputLayout(R.id.userName, largeName)
+        checkMaxInputLength(
+            R.id.userNameEditText,
+            context.resources.getInteger(R.integer.name_entry_max_length)
+        )
+
         typeTextOnInputLayout(R.id.height, largeNumber)
         checkMaxInputLength(
             R.id.heightEditText,

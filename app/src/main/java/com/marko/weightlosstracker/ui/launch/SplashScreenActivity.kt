@@ -26,30 +26,41 @@ class SplashScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
+        //TODO add check if remote and local entries are matched, if not updated local from remote
+        //TODO change progress bar
+        //TODO delete entries
+        //TODO check if everything is good when user reinstall the app
+        //TODO fix tests
         subscribeToObservers()
     }
 
     private fun subscribeToObservers() {
-        viewModel.userLiveData.observe(this, { dataState ->
-            when (dataState) {
-                is DataState.Loading -> Unit
-                is DataState.Success -> startHomeScreen(dataState.data)
-                is DataState.Error -> startOnBoarding()
-            }
-        })
-
         viewModel.isUserSignedInLiveData.observe(this) { dataState ->
             when (dataState) {
                 is DataState.Error -> {
+                    // User not signed in, navigate to login
                     startLoginScreen()
                 }
                 is DataState.Success -> {
+                    // If user is signed in, get user
                     viewModel.getUser()
                 }
                 else -> Unit
             }
         }
+        viewModel.userLiveData.observe(this, { dataState ->
+            when (dataState) {
+                is DataState.Loading -> Unit
+                is DataState.Success -> {
+                    // User is successfully fetched, navigate to home
+                    startHomeScreen(dataState.data)
+                }
+                is DataState.Error -> {
+                    // No user in database, navigate to on boarding
+                    startOnBoarding()
+                }
+            }
+        })
     }
 
     private fun startOnBoarding() {

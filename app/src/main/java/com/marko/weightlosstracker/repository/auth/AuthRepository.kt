@@ -8,5 +8,4 @@ import kotlinx.coroutines.flow.Flow
 interface AuthRepository {
     suspend fun signInUser(googleAuthCredential: AuthCredential): Flow<DataState<AuthResult?>>
     fun isUserSignedIn(): Flow<DataState<Unit>>
-    suspend fun logoutUser()
 }

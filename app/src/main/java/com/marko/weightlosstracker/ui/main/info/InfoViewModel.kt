@@ -38,9 +38,8 @@ class InfoViewModel @Inject constructor(
             val value = modelLiveData.value as DataState.Success?
             value?.data?.targetWeight = updatedTargetWeight.toFloat()
             viewModelScope.launch(dispatcherProvider.io) {
-                userRepository.updateUser(value?.data!!)
-                withContext(dispatcherProvider.main) {
-                    _updateUserLiveData.postValue(DataState.Success(Unit))
+                userRepository.updateUser(value?.data!!).collect {
+                    _updateUserLiveData.postValue(it)
                 }
             }
         }

@@ -11,8 +11,8 @@ import com.marko.weightlosstracker.ui.core.DispatcherProvider
 import com.marko.weightlosstracker.util.DataState
 import com.marko.weightlosstracker.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,15 +24,14 @@ class TargetWeightViewModel @Inject constructor(
     private val _insertUserLiveData = MutableLiveData<Event<DataState<Unit>>>()
     val insertUserLiveData: LiveData<Event<DataState<Unit>>> = _insertUserLiveData
 
-    fun insertUserToDb(targetWeight: String, user: User?) {
+    fun createUser(targetWeight: String, user: User?) {
         if (targetWeight.isEmpty()) {
             _insertUserLiveData.postValue(Event(DataState.Error()))
         } else {
             user?.let {
                 viewModelScope.launch(dispatchers.io) {
-                    userRepository.insertUser(it)
-                    withContext(dispatchers.main) {
-                        _insertUserLiveData.postValue(Event(DataState.Success(Unit)))
+                    userRepository.insertUser(it).collect {
+                        _insertUserLiveData.postValue(Event(it))
                     }
                 }
             }

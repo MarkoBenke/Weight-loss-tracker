@@ -1,6 +1,6 @@
-package com.marko.weightlosstracker.data.remote
+package com.marko.weightlosstracker.data.remote.datasource
 
-import com.marko.weightlosstracker.data.remote.response.QuoteResponse
+import com.marko.weightlosstracker.data.remote.model.QuoteResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Headers

@@ -14,10 +14,14 @@ import org.junit.Rule
 @ExperimentalCoroutinesApi
 class BasicInfoViewModelTest {
 
+    private val username = "Marko"
     private val userAge = "25"
     private val userHeight = "175"
     private val userWeight = "95"
     private val emptyField = ""
+    private val validationModel = BasicInfoValidationModel(
+        username, userHeight, userAge, userWeight
+    )
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
@@ -33,8 +37,19 @@ class BasicInfoViewModelTest {
     }
 
     @Test
+    fun `validate basic info, empty username, returns error`() {
+        validationModel.username = emptyField
+        viewModel.validate(validationModel)
+
+        val value = viewModel.validateLiveData.getOrAwaitValueTest()
+
+        assertThat(value.getContentIfNotHandled()).isEqualTo(DataState.Error())
+    }
+
+    @Test
     fun `validate basic info, empty height, returns error`() {
-        viewModel.validate(emptyField, userAge, userWeight)
+        validationModel.height = emptyField
+        viewModel.validate(validationModel)
 
         val value = viewModel.validateLiveData.getOrAwaitValueTest()
 
@@ -43,7 +58,8 @@ class BasicInfoViewModelTest {
 
     @Test
     fun `validate basic info, empty age, returns error`() {
-        viewModel.validate(userHeight, emptyField, userWeight)
+        validationModel.age = emptyField
+        viewModel.validate(validationModel)
 
         val value = viewModel.validateLiveData.getOrAwaitValueTest()
 
@@ -52,7 +68,8 @@ class BasicInfoViewModelTest {
 
     @Test
     fun `validate basic info, empty weight, returns error`() {
-        viewModel.validate(userHeight, userAge, emptyField)
+        validationModel.currentWeight = emptyField
+        viewModel.validate(validationModel)
 
         val value = viewModel.validateLiveData.getOrAwaitValueTest()
 
@@ -61,7 +78,13 @@ class BasicInfoViewModelTest {
 
     @Test
     fun `validate basic info, empty fields, returns error`() {
-        viewModel.validate(emptyField, emptyField, emptyField)
+        validationModel.apply {
+            age = emptyField
+            username = emptyField
+            currentWeight = emptyField
+            height = emptyField
+        }
+        viewModel.validate(validationModel)
 
         val value = viewModel.validateLiveData.getOrAwaitValueTest()
 
@@ -70,7 +93,7 @@ class BasicInfoViewModelTest {
 
     @Test
     fun `validate basic info, valid input, returns success`() {
-        viewModel.validate(userHeight, userAge, userWeight)
+        viewModel.validate(validationModel)
 
         val value = viewModel.validateLiveData.getOrAwaitValueTest()
         assertThat(value.getContentIfNotHandled()).isEqualTo(DataState.Success(Unit))

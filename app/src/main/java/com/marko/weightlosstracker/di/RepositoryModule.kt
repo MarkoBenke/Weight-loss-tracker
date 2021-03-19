@@ -5,11 +5,12 @@ import com.marko.weightlosstracker.data.local.SettingsManager
 import com.marko.weightlosstracker.data.local.dao.QuoteDao
 import com.marko.weightlosstracker.data.local.dao.UserDao
 import com.marko.weightlosstracker.data.local.dao.WeightEntryDao
-import com.marko.weightlosstracker.data.local.mappers.QuoteLocalMapper
+import com.marko.weightlosstracker.data.local.mappers.QuoteMapper
 import com.marko.weightlosstracker.data.local.mappers.UserMapper
 import com.marko.weightlosstracker.data.local.mappers.WeightEntryMapper
-import com.marko.weightlosstracker.data.remote.QuoteNetworkMapper
-import com.marko.weightlosstracker.data.remote.QuotesService
+import com.marko.weightlosstracker.data.remote.datasource.QuotesService
+import com.marko.weightlosstracker.data.remote.datasource.UserService
+import com.marko.weightlosstracker.data.remote.datasource.WeightEntryService
 import com.marko.weightlosstracker.repository.auth.AuthRepository
 import com.marko.weightlosstracker.repository.auth.DefaultAuthRepository
 import com.marko.weightlosstracker.repository.quotes.DefaultQuotesRepository
@@ -21,47 +22,63 @@ import com.marko.weightlosstracker.repository.weightentry.WeightEntryRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.scopes.ViewModelScoped
 
 @Module
-@InstallIn(SingletonComponent::class)
+@InstallIn(ViewModelComponent::class)
+//TODO Singleton or ViewModel scope
 object RepositoryModule {
 
-    @Singleton
+    @ViewModelScoped
     @Provides
     fun provideQuotesRepository(
-        quotesService: QuotesService, quoteDao: QuoteDao,
-        networkMapper: QuoteNetworkMapper, localMapper: QuoteLocalMapper
+        quotesService: QuotesService, quoteDao: QuoteDao, mapper: QuoteMapper
     ): QuotesRepository =
-        DefaultQuotesRepository(quotesService, quoteDao, networkMapper, localMapper)
+        DefaultQuotesRepository(quotesService, quoteDao, mapper)
 
-    @Singleton
+    @ViewModelScoped
     @Provides
     fun provideUserRepository(
         userDao: UserDao,
+        userService: UserService,
         weightEntryDao: WeightEntryDao,
+        weightEntryService: WeightEntryService,
         settingsManager: SettingsManager,
-        userMapper: UserMapper
+        userMapper: UserMapper,
+        weightEntryMapper: WeightEntryMapper
     ): UserRepository = DefaultUserRepository(
         userDao,
+        userService,
         weightEntryDao,
+        weightEntryService,
         settingsManager,
-        userMapper
+        userMapper,
+        weightEntryMapper
     )
 
-    @Singleton
+    @ViewModelScoped
     @Provides
     fun provideWeightEntryRepository(
-        weightEntryDao: WeightEntryDao, userDao: UserDao, mapper: WeightEntryMapper
-    ): WeightEntryRepository = DefaultWeightEntryRepository(weightEntryDao, userDao, mapper)
+        weightEntryDao: WeightEntryDao,
+        weightEntryService: WeightEntryService,
+        userDao: UserDao,
+        userService: UserService,
+        mapper: WeightEntryMapper
+    ): WeightEntryRepository =
+        DefaultWeightEntryRepository(
+            weightEntryDao,
+            weightEntryService,
+            userDao,
+            userService,
+            mapper
+        )
 
-    @Singleton
+    @ViewModelScoped
     @Provides
-    fun provideAuthRepository(firebaseAuth: FirebaseAuth): AuthRepository =
-        DefaultAuthRepository(firebaseAuth)
-
-    @Singleton
-    @Provides
-    fun provideFirebaseAuth() = FirebaseAuth.getInstance()
+    fun provideAuthRepository(
+        firebaseAuth: FirebaseAuth,
+        settingsManager: SettingsManager
+    ): AuthRepository =
+        DefaultAuthRepository(settingsManager, firebaseAuth)
 }

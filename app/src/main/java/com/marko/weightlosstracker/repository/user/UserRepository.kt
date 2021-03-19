@@ -6,8 +6,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface UserRepository {
 
-    suspend fun insertUser(user: User)
+    suspend fun insertUser(user: User): Flow<DataState<Unit>>
     suspend fun getUser(): Flow<DataState<User?>>
     suspend fun getUsersStartDate(): Flow<Long>
-    suspend fun updateUser(user: User)
+    suspend fun updateUser(user: User): Flow<DataState<Unit>>
 }

@@ -8,6 +8,7 @@ import androidx.room.PrimaryKey
 @Keep data class UserCache(
     @PrimaryKey
     val uuid: Int = 0,
+    var username: String,
     var startWeight: Float,
     val currentWeight: Float,
     val targetWeight: Float,

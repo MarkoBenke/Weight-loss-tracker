@@ -1,6 +1,9 @@
 package com.marko.weightlosstracker.di
 
-import com.marko.weightlosstracker.data.remote.QuotesService
+import com.marko.weightlosstracker.data.remote.FirebaseHelper
+import com.marko.weightlosstracker.data.remote.datasource.QuotesService
+import com.marko.weightlosstracker.data.remote.datasource.UserService
+import com.marko.weightlosstracker.data.remote.datasource.WeightEntryService
 import com.marko.weightlosstracker.util.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -22,4 +25,13 @@ object NetworkModule {
             .build()
             .create(QuotesService::class.java)
     }
+
+    @Provides
+    @Singleton
+    fun provideUserService(firebaseHelper: FirebaseHelper) = UserService(firebaseHelper)
+
+    @Provides
+    @Singleton
+    fun provideWeightEntryService(firebaseHelper: FirebaseHelper) =
+        WeightEntryService(firebaseHelper)
 }

@@ -9,6 +9,7 @@ import com.marko.weightlosstracker.databinding.FragmentHomeBinding
 import com.marko.weightlosstracker.model.Stats
 import com.marko.weightlosstracker.ui.core.BaseFragment
 import com.marko.weightlosstracker.ui.core.viewBinding
+import com.marko.weightlosstracker.ui.dialogs.ErrorDialog
 import com.marko.weightlosstracker.util.*
 import dagger.hilt.android.AndroidEntryPoint
 import mobi.gspd.segmentedbarview.Segment
@@ -40,6 +41,11 @@ class HomeFragment : BaseFragment<HomeViewModel, Stats>(
                 }
                 is DataState.Error -> {
                     binding.progressBar.isVisible = false
+                    val dialog = ErrorDialog.newInstance(
+                        if (it.message.isEmpty()) getString(R.string.unknown_error)
+                        else it.message
+                    )
+                    dialog.show(parentFragmentManager, ErrorDialog.TAG)
                 }
                 DataState.Loading -> {
                     binding.progressBar.isVisible = true

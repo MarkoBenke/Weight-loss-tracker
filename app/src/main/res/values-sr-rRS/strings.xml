@@ -81,4 +81,5 @@
     <string name="login_title">Welcome to Free Weight Loss Tracker App</string>
     <string name="login_description">To continue, please sign in...</string>
     <string name="okay">Okay</string>
+    <string name="username">Username</string>
 </resources>

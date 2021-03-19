@@ -3,6 +3,7 @@ package com.marko.weightlosstracker.ui.onboarding
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -44,7 +45,7 @@ class TargetWeightFragment : Fragment(R.layout.fragment_target_weight) {
                 startBmi = calculateBmi(currentWeight, height)
             }
 
-            viewModel.insertUserToDb(userTargetWeight, user)
+            viewModel.createUser(userTargetWeight, user)
         }
 
         binding.targetWeight.editText?.doOnTextChanged { _, _, _, _ ->
@@ -57,6 +58,7 @@ class TargetWeightFragment : Fragment(R.layout.fragment_target_weight) {
             event.getContentIfNotHandled()?.let { result ->
                 when (result) {
                     is DataState.Success -> {
+                        binding.progressBar.isVisible = false
                         val intent = Intent(requireActivity(), MainActivity::class.java).apply {
                             putExtra(OnBoardingActivity.USER_KEY, user)
                             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -65,9 +67,10 @@ class TargetWeightFragment : Fragment(R.layout.fragment_target_weight) {
                         requireActivity().finish()
                     }
                     is DataState.Error -> {
+                        binding.progressBar.isVisible = false
                         binding.targetWeight.error = getString(R.string.mandatory_field)
                     }
-                    DataState.Loading -> Unit
+                    DataState.Loading -> binding.progressBar.isVisible = true
                 }
             }
         })

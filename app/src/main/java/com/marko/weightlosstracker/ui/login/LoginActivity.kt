@@ -35,14 +35,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun subscribeToObservers() {
-        viewModel.userLiveData.observe(this, { dataState ->
-            when (dataState) {
-                is DataState.Loading -> Unit
-                is DataState.Success -> startHomeScreen(dataState.data)
-                is DataState.Error -> startOnBoarding()
-            }
-        })
-
         viewModel.authUserLiveData.observe(this) { result ->
             when (result) {
                 is DataState.Error -> {
@@ -60,6 +52,14 @@ class LoginActivity : AppCompatActivity() {
                 DataState.Loading -> binding.progressBar.isVisible = true
             }
         }
+
+        viewModel.userLiveData.observe(this, { dataState ->
+            when (dataState) {
+                is DataState.Loading -> Unit
+                is DataState.Success -> startHomeScreen(dataState.data)
+                is DataState.Error -> startOnBoarding()
+            }
+        })
     }
 
     private fun startOnBoarding() {
@@ -88,6 +88,9 @@ class LoginActivity : AppCompatActivity() {
         if (token != null) {
             val credential = GoogleAuthProvider.getCredential(token, null)
             viewModel.loginWithGoogle(credential)
+        } else {
+            val dialog = ErrorDialog.newInstance(getString(R.string.unknown_error))
+            dialog.show(supportFragmentManager, ErrorDialog.TAG)
         }
     }
 
