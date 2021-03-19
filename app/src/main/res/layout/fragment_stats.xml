@@ -98,7 +98,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:paddingBottom="@dimen/medium_padding">
+                    android:paddingBottom="@dimen/large_padding">
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/progressTitle"

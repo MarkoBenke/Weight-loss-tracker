@@ -27,7 +27,6 @@ class SplashScreenActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         //TODO add check if remote and local entries are matched, if not updated local from remote
-        //TODO change progress bar
         //TODO check if everything is good when user reinstall the app
         //TODO fix tests
         subscribeToObservers()
