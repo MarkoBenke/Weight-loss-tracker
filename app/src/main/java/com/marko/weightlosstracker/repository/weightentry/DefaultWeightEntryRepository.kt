@@ -20,7 +20,7 @@ class DefaultWeightEntryRepository(
     private val weightEntryMapper: WeightEntryMapper
 ) : WeightEntryRepository {
 
-    override suspend fun getAllEntries(): Flow<DataState<List<WeightEntry>>> = flow {
+    override suspend fun getLocalEntries(): Flow<DataState<List<WeightEntry>>> = flow {
         emit(DataState.Loading)
 
         val entries = weightEntryDao.getAllWeightEntries()
@@ -28,6 +28,19 @@ class DefaultWeightEntryRepository(
             parseDate(it.date)
         }
         emit(DataState.Success(weightEntryMapper.mapFromEntityList(sortedList)))
+    }
+
+    override suspend fun syncEntriesData(): Flow<Unit> = flow {
+        val entriesResult = weightEntryService.getAllEntries()
+        entriesResult?.let {
+            val localEntries = weightEntryDao.getAllWeightEntries()
+            if (entriesResult.size > localEntries.size) {
+                entriesResult.forEach {
+                    weightEntryDao.insertWeightEntry(weightEntryMapper.remoteToLocal(it))
+                }
+            }
+        }
+        emit(Unit)
     }
 
     override suspend fun insertWeight(weightEntry: WeightEntry): Flow<DataState<Unit>> = flow {

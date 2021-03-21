@@ -1,5 +1,6 @@
 package com.marko.weightlosstracker.data.remote.datasource
 
+import com.google.firebase.firestore.ktx.toObject
 import com.marko.weightlosstracker.data.remote.FirebaseHelper
 import com.marko.weightlosstracker.data.remote.model.RemoteUser
 import kotlinx.coroutines.tasks.await
@@ -32,10 +33,19 @@ class UserService @Inject constructor(
         } catch (e: Exception) {
             false
         }
-
     }
 
-    suspend fun getUser(): RemoteUser {
-        TODO("Not yet implemented")
+    suspend fun getUser(): RemoteUser? {
+        return try {
+            var user: RemoteUser? = null
+            firebaseHelper.getUserDocument().get().addOnCompleteListener {
+                if (it.isSuccessful) {
+                    user = it.result?.toObject<RemoteUser>()
+                }
+            }.await()
+            user
+        } catch (e: Exception) {
+            null
+        }
     }
 }

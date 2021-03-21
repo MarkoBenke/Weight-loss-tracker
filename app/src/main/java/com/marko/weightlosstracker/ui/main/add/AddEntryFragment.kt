@@ -6,12 +6,14 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
+import androidx.fragment.app.activityViewModels
 import com.marko.weightlosstracker.R
 import com.marko.weightlosstracker.databinding.FragmentAddEntryBinding
 import com.marko.weightlosstracker.model.WeightEntry
 import com.marko.weightlosstracker.ui.core.BaseFragment
 import com.marko.weightlosstracker.ui.core.viewBinding
 import com.marko.weightlosstracker.ui.dialogs.ErrorDialog
+import com.marko.weightlosstracker.ui.main.MainViewModel
 import com.marko.weightlosstracker.util.DataState
 import com.marko.weightlosstracker.util.getCurrentDate
 import com.marko.weightlosstracker.util.parseSelectedDate
@@ -27,6 +29,7 @@ class AddEntryFragment : BaseFragment<AddEntryViewModel, Long>(
     private val binding by viewBinding(FragmentAddEntryBinding::bind)
     private var calendar = Calendar.getInstance()
     private lateinit var datePickerDialog: DatePickerDialog
+    private val mainViewModel: MainViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -45,8 +48,12 @@ class AddEntryFragment : BaseFragment<AddEntryViewModel, Long>(
         }
 
         binding.submitBtn.setOnClickListener {
-            val newWeight = binding.newWeight.editText?.text.toString()
-            viewModel.validate(newWeight)
+            if (mainViewModel.isNetworkAvailable) {
+                val newWeight = binding.newWeight.editText?.text.toString()
+                viewModel.validate(newWeight)
+            } else {
+                showNoInternetConnectionToast()
+            }
         }
     }
 

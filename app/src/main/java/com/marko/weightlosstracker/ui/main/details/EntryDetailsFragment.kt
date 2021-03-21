@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.marko.weightlosstracker.R
@@ -14,6 +15,7 @@ import com.marko.weightlosstracker.model.WeightEntry
 import com.marko.weightlosstracker.ui.core.viewBinding
 import com.marko.weightlosstracker.ui.dialogs.ErrorDialog
 import com.marko.weightlosstracker.ui.main.MainActivity
+import com.marko.weightlosstracker.ui.main.MainViewModel
 import com.marko.weightlosstracker.util.DataState
 import com.marko.weightlosstracker.util.hideKeyboard
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,6 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class EntryDetailsFragment : Fragment(R.layout.fragment_entry_details) {
 
     private val viewModel: EntryDetailsViewModel by viewModels()
+    private val mainViewModel: MainViewModel by activityViewModels()
     private val binding by viewBinding(FragmentEntryDetailsBinding::bind)
     private lateinit var weightEntry: WeightEntry
 
@@ -35,11 +38,14 @@ class EntryDetailsFragment : Fragment(R.layout.fragment_entry_details) {
 
     private fun initListeners() {
         binding.submit.setOnClickListener {
-            viewModel.validate(binding.newWeightEditText.text.toString())
+            if (mainViewModel.isNetworkAvailable)
+                viewModel.validate(binding.newWeightEditText.text.toString())
+            else showNoInternetConnectionToast()
         }
 
         binding.delete.setOnClickListener {
-            viewModel.delete(weightEntry)
+            if (mainViewModel.isNetworkAvailable) viewModel.delete(weightEntry)
+            else showNoInternetConnectionToast()
         }
 
         binding.newWeight.editText?.doOnTextChanged { _, _, _, _ ->
@@ -89,5 +95,13 @@ class EntryDetailsFragment : Fragment(R.layout.fragment_entry_details) {
             waistSize.editText?.setText(weightEntry.waistSize.toString())
             description.editText?.setText(weightEntry.description)
         }
+    }
+
+    private fun showNoInternetConnectionToast() {
+        Toast.makeText(
+            requireContext(),
+            getString(R.string.no_internet_connection_error),
+            Toast.LENGTH_SHORT
+        ).show()
     }
 }

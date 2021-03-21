@@ -7,7 +7,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface WeightEntryRepository {
 
-    suspend fun getAllEntries(): Flow<DataState<List<WeightEntry>>>
+    suspend fun getLocalEntries(): Flow<DataState<List<WeightEntry>>>
+    suspend fun syncEntriesData(): Flow<Unit>
     suspend fun getUserStats(): Flow<Stats>
     suspend fun insertWeight(weightEntry: WeightEntry): Flow<DataState<Unit>>
     suspend fun deleteWeightEntryFromList(weightEntry: WeightEntry): Flow<DataState<List<WeightEntry>>>

@@ -10,4 +10,5 @@ interface UserRepository {
     suspend fun getUser(): Flow<DataState<User?>>
     suspend fun getUsersStartDate(): Flow<Long>
     suspend fun updateUser(user: User): Flow<DataState<Unit>>
+    suspend fun syncUserData(): Flow<Unit>
 }

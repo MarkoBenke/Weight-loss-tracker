@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +16,7 @@ import com.marko.weightlosstracker.ui.core.viewBinding
 import com.marko.weightlosstracker.ui.dialogs.ConfirmationDialog
 import com.marko.weightlosstracker.ui.dialogs.ErrorDialog
 import com.marko.weightlosstracker.ui.main.MainActivity
+import com.marko.weightlosstracker.ui.main.MainViewModel
 import com.marko.weightlosstracker.util.DataState
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,6 +28,7 @@ class EntryHistoryFragment : BaseFragment<EntryHistoryViewModel,
 ) {
 
     private val binding by viewBinding(FragmentEntryHistoryBinding::bind)
+    private val mainViewModel: MainViewModel by activityViewModels()
     private lateinit var entriesAdapter: EntriesAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -99,7 +102,12 @@ class EntryHistoryFragment : BaseFragment<EntryHistoryViewModel,
             confirmationDialog.setDialogClickListener(object :
                 ConfirmationDialog.ConfirmationDialogClickListener {
                 override fun onConfirmClicked() {
-                    viewModel.deleteEntry(item)
+                    if (mainViewModel.isNetworkAvailable) {
+                        viewModel.deleteEntry(item)
+                    } else {
+                        entriesAdapter.notifyDataSetChanged()
+                        showNoInternetConnectionToast()
+                    }
                 }
 
                 override fun onDeclineClicked() {

@@ -59,4 +59,20 @@ class UserMapper @Inject constructor() : EntityMapper<UserCache, User>,
             domainModel.gender.name, domainModel.goalName
         )
     }
+
+    fun remoteToLocal(remoteUser: RemoteUser): UserCache {
+        return UserCache(
+            username = remoteUser.username,
+            startWeight = remoteUser.startWeight,
+            currentWeight = remoteUser.currentWeight,
+            targetWeight = remoteUser.targetWeight,
+            startWaistSize = remoteUser.startWaistSize,
+            startBmi = remoteUser.startBmi,
+            height = remoteUser.height,
+            startDate = remoteUser.startDate,
+            age = remoteUser.age,
+            gender = remoteUser.gender,
+            goalName = remoteUser.goalName
+        )
+    }
 }

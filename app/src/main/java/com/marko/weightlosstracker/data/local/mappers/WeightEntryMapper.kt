@@ -45,4 +45,14 @@ class WeightEntryMapper @Inject constructor() : EntityMapper<WeightEntryCache, W
             domainModel.description
         )
     }
+
+    fun remoteToLocal(remoteWeightEntry: RemoteWeightEntry): WeightEntryCache {
+        return WeightEntryCache(
+            remoteWeightEntry.uuid,
+            remoteWeightEntry.currentWeight,
+            remoteWeightEntry.waistSize,
+            remoteWeightEntry.date,
+            remoteWeightEntry.description
+        )
+    }
 }

@@ -10,6 +10,20 @@ class WeightEntryService @Inject constructor(
     private val firebaseHelper: FirebaseHelper
 ) {
 
+    suspend fun getAllEntries(): List<RemoteWeightEntry>? {
+        return try {
+            var entries: MutableList<RemoteWeightEntry>? = null
+            firebaseHelper.getEntriesCollection().get().addOnCompleteListener {
+                if (it.isSuccessful) {
+                    entries = it.result?.toObjects(RemoteWeightEntry::class.java)
+                }
+            }.await()
+            entries
+        } catch (e: Exception) {
+            null
+        }
+    }
+
     suspend fun insertWeightEntry(weightEntry: RemoteWeightEntry): Boolean {
         return try {
             var isSuccessful = false

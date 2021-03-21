@@ -7,12 +7,14 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
+import androidx.fragment.app.activityViewModels
 import com.marko.weightlosstracker.BuildConfig
 import com.marko.weightlosstracker.R
 import com.marko.weightlosstracker.databinding.FragmentInfoBinding
 import com.marko.weightlosstracker.model.User
 import com.marko.weightlosstracker.ui.core.BaseFragment
 import com.marko.weightlosstracker.ui.core.viewBinding
+import com.marko.weightlosstracker.ui.main.MainViewModel
 import com.marko.weightlosstracker.util.Constants
 import com.marko.weightlosstracker.util.DataState
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,6 +25,7 @@ class InfoFragment : BaseFragment<InfoViewModel, DataState<User?>>(
 ) {
 
     private val binding by viewBinding(FragmentInfoBinding::bind)
+    private val mainViewModel: MainViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -47,8 +50,10 @@ class InfoFragment : BaseFragment<InfoViewModel, DataState<User?>>(
         binding.version.text = getString(R.string.version, BuildConfig.VERSION_NAME)
 
         binding.updateTargetWeight.setEndIconOnClickListener {
-            val updatedTargetWeight = binding.updateTargetWeightEditText.text.toString()
-            viewModel.updateUser(updatedTargetWeight)
+            if (mainViewModel.isNetworkAvailable) {
+                val updatedTargetWeight = binding.updateTargetWeightEditText.text.toString()
+                viewModel.updateUser(updatedTargetWeight)
+            } else showNoInternetConnectionToast()
         }
 
         binding.privacy.setOnClickListener {

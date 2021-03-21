@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.marko.weightlosstracker.model.User
 import com.marko.weightlosstracker.repository.auth.AuthRepository
 import com.marko.weightlosstracker.repository.user.UserRepository
+import com.marko.weightlosstracker.repository.weightentry.WeightEntryRepository
 import com.marko.weightlosstracker.ui.core.DispatcherProvider
 import com.marko.weightlosstracker.util.DataState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,6 +19,7 @@ import javax.inject.Inject
 class SplashScreenViewModel @Inject constructor(
     private val authRepository: AuthRepository,
     private val userRepository: UserRepository,
+    private val weightEntryRepository: WeightEntryRepository,
     private val dispatchers: DispatcherProvider
 ) : ViewModel() {
 
@@ -41,8 +43,12 @@ class SplashScreenViewModel @Inject constructor(
 
     fun getUser() {
         viewModelScope.launch(dispatchers.io) {
-            userRepository.getUser().collect {
-                _userLiveData.postValue(it)
+            userRepository.syncUserData().collect {
+                weightEntryRepository.syncEntriesData().collect {
+                    userRepository.getUser().collect { user ->
+                        _userLiveData.postValue(user)
+                    }
+                }
             }
         }
     }

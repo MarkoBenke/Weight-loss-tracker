@@ -9,6 +9,7 @@ import com.google.firebase.auth.AuthResult
 import com.marko.weightlosstracker.model.User
 import com.marko.weightlosstracker.repository.auth.AuthRepository
 import com.marko.weightlosstracker.repository.user.UserRepository
+import com.marko.weightlosstracker.repository.weightentry.WeightEntryRepository
 import com.marko.weightlosstracker.ui.core.DispatcherProvider
 import com.marko.weightlosstracker.util.DataState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,6 +21,7 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(
     private val authRepository: AuthRepository,
     private val userRepository: UserRepository,
+    private val weightEntryRepository: WeightEntryRepository,
     private val dispatcherProvider: DispatcherProvider
 ) : ViewModel() {
 
@@ -39,8 +41,12 @@ class LoginViewModel @Inject constructor(
 
     fun getUser() {
         viewModelScope.launch(dispatcherProvider.io) {
-            userRepository.getUser().collect {
-                _userLiveData.postValue(it)
+            userRepository.syncUserData().collect {
+                weightEntryRepository.syncEntriesData().collect {
+                    userRepository.getUser().collect { user ->
+                        _userLiveData.postValue(user)
+                    }
+                }
             }
         }
     }

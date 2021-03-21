@@ -7,6 +7,7 @@ import com.marko.weightlosstracker.R
 import com.marko.weightlosstracker.data.local.DefaultSettingsManager
 import com.marko.weightlosstracker.data.local.SettingsManager
 import com.marko.weightlosstracker.ui.core.DispatcherProvider
+import com.marko.weightlosstracker.util.ConnectivityManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,6 +28,11 @@ object AppModule {
             RequestOptions().placeholder(R.drawable.ic_image)
                 .error(R.drawable.ic_image)
         )
+
+    @Singleton
+    @Provides
+    fun provideConnectivityManager(@ApplicationContext context: Context) =
+        ConnectivityManager(context)
 
     @Singleton
     @Provides

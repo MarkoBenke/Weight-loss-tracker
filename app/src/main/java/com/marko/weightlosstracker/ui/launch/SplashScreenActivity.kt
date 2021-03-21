@@ -28,6 +28,13 @@ class SplashScreenActivity : AppCompatActivity() {
         setContentView(binding.root)
         //TODO add check if remote and local entries are matched, if not updated local from remote
         //TODO check if everything is good when user reinstall the app
+        //TODO test those 2 previous scenarios
+
+
+        //TODO login with no internet connection
+        //TODO display username somewhere
+        //TODO disable adding entries offline
+        //TODO add drawer with settings and profile fragment
         //TODO fix tests
         subscribeToObservers()
     }

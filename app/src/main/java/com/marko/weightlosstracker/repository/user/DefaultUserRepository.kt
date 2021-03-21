@@ -52,9 +52,22 @@ class DefaultUserRepository constructor(
         } else emit(DataState.Error())
     }
 
+    override suspend fun syncUserData(): Flow<Unit> = flow {
+        val remoteUser = userService.getUser()
+        val userCache = userDao.getUser()
+
+        if (remoteUser != null) {
+            userCache?.let {
+                if (userMapper.mapFromRemoteEntity(remoteUser) != userMapper.mapFromEntity(it)) {
+                    userDao.updateUser(userMapper.remoteToLocal(remoteUser))
+                }
+            } ?: userDao.insertUser(userMapper.remoteToLocal(remoteUser))
+        }
+        emit(Unit)
+    }
+
     override suspend fun getUser(): Flow<DataState<User?>> = flow {
         emit(DataState.Loading)
-        //TODO if user should come from local or remote
         val userCache = userDao.getUser()
         if (userCache != null) {
             emit(DataState.Success(userMapper.mapFromEntity(userCache)))

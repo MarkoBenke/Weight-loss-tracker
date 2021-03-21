@@ -18,7 +18,7 @@ class FakeWeightEntryRepositoryAndroidTest @Inject constructor() : WeightEntryRe
         entries = DataGenerator.listOfEntries.toMutableList()
     }
 
-    override suspend fun getAllEntries(): Flow<DataState<List<WeightEntry>>> = flow {
+    override suspend fun getLocalEntries(): Flow<DataState<List<WeightEntry>>> = flow {
         val sortedList = entries.sortedByDescending {
             parseDate(it.date)
         }

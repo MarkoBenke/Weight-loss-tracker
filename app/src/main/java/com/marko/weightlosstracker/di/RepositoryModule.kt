@@ -64,14 +64,14 @@ object RepositoryModule {
         weightEntryService: WeightEntryService,
         userDao: UserDao,
         userService: UserService,
-        mapper: WeightEntryMapper
+        entryMapper: WeightEntryMapper
     ): WeightEntryRepository =
         DefaultWeightEntryRepository(
             weightEntryDao,
             weightEntryService,
             userDao,
             userService,
-            mapper
+            entryMapper
         )
 
     @ViewModelScoped

@@ -92,4 +92,6 @@
     <string name="login_description">To proceed, please sign in…</string>
     <string name="okay">Okay</string>
     <string name="username">Username</string>
+    <string name="no_internet_connection">No internet connection</string>
+    <string name="no_internet_connection_error">Check your internet connection</string>
 </resources>

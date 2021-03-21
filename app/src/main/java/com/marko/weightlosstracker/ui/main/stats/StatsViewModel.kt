@@ -59,7 +59,7 @@ class StatsViewModel @Inject constructor(
 
     private fun getAllEntries(stats: Stats) {
         viewModelScope.launch(dispatcherProvider.io) {
-            weightEntryRepository.getAllEntries().collect {
+            weightEntryRepository.getLocalEntries().collect {
                 when (it) {
                     is DataState.Success -> {
                         modelLiveData.postValue(
