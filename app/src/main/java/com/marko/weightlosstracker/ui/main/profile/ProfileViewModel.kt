@@ -1,4 +1,4 @@
-package com.marko.weightlosstracker.ui.main.info
+package com.marko.weightlosstracker.ui.main.profile
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,17 +11,19 @@ import com.marko.weightlosstracker.util.DataState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class InfoViewModel @Inject constructor(
+class ProfileViewModel @Inject constructor(
     private val userRepository: UserRepository,
     private val dispatcherProvider: DispatcherProvider
 ) : BaseViewModel<DataState<User?>>() {
 
     private val _updateUserLiveData = MutableLiveData<DataState<Unit>>()
     val updateUserLiveData: LiveData<DataState<Unit>> = _updateUserLiveData
+
+    private val _validateLiveData = MutableLiveData<DataState<UpdateUserValidationModel>>()
+    val validateLiveData: LiveData<DataState<UpdateUserValidationModel>> = _validateLiveData
 
     override fun fetchInitialData() {
         viewModelScope.launch(dispatcherProvider.io) {
@@ -31,16 +33,22 @@ class InfoViewModel @Inject constructor(
         }
     }
 
-    fun updateUser(updatedTargetWeight: String) {
-        if (updatedTargetWeight.isEmpty()) {
-            _updateUserLiveData.postValue(DataState.Error())
+    fun validate(validationModel: UpdateUserValidationModel) {
+        if (validationModel.isValid()) {
+            _validateLiveData.postValue(DataState.Success(validationModel))
         } else {
-            val value = modelLiveData.value as DataState.Success?
-            value?.data?.targetWeight = updatedTargetWeight.toFloat()
-            viewModelScope.launch(dispatcherProvider.io) {
-                userRepository.updateUser(value?.data!!).collect {
-                    _updateUserLiveData.postValue(it)
-                }
+            _validateLiveData.postValue(DataState.Error())
+        }
+    }
+
+    fun updateUser(model: UpdateUserValidationModel) {
+        val value = modelLiveData.value as DataState.Success?
+        value?.data?.targetWeight = model.targetWeight.toFloat()
+        value?.data?.age = model.age.toInt()
+        value?.data?.username = model.username
+        viewModelScope.launch(dispatcherProvider.io) {
+            userRepository.updateUser(value?.data!!).collect {
+                _updateUserLiveData.postValue(it)
             }
         }
     }

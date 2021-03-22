@@ -3,8 +3,8 @@ package com.marko.weightlosstracker.data.local.mappers
 import com.marko.weightlosstracker.data.local.model.WeightEntryCache
 import com.marko.weightlosstracker.data.remote.model.RemoteWeightEntry
 import com.marko.weightlosstracker.model.WeightEntry
-import com.marko.weightlosstracker.util.EntityMapper
-import com.marko.weightlosstracker.util.RemoteEntityMapper
+import com.marko.weightlosstracker.data.util.EntityMapper
+import com.marko.weightlosstracker.data.util.RemoteEntityMapper
 import javax.inject.Inject
 
 class WeightEntryMapper @Inject constructor() : EntityMapper<WeightEntryCache, WeightEntry>,

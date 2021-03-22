@@ -24,10 +24,10 @@ class DefaultQuotesRepository constructor(
                     quoteDao.insertQuote(quoteMapper.mapToEntity(quote))
                     getQuoteLocally()?.let { cachedQuote ->
                         emit(DataState.Success(cachedQuote))
-                    } ?: emit(DataState.Error("An unknown error occurred"))
-                } ?: emit(DataState.Error("An unknown error occurred"))
+                    } ?: emit(DataState.Error())
+                } ?: emit(DataState.Error())
             } else {
-                emit(DataState.Error("An unknown error occurred"))
+                emit(DataState.Error())
             }
         } catch (e: Exception) {
             getQuoteLocally()?.let { cachedQuote ->

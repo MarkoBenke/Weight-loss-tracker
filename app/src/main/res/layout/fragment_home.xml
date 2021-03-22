@@ -17,37 +17,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/goalName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginHorizontal="@dimen/medium_margin"
-                android:layout_marginVertical="@dimen/medium_margin"
-                android:fontFamily="@font/mouse_memoirs"
-                android:gravity="center"
-                android:letterSpacing="0.03"
-                android:maxLines="1"
-                android:shadowColor="@color/grey"
-                android:shadowRadius="4"
-                android:textColor="@color/primaryTextColor"
-                android:textSize="28sp"
-                tools:text="Loose weight" />
-
-            <View
-                android:id="@+id/divider"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@id/goalName"
-                android:layout_marginHorizontal="@dimen/medium_margin"
-                android:background="@color/dividerColor" />
-
             <LinearLayout
                 android:id="@+id/dataLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/divider"
-                android:layout_margin="@dimen/medium_margin"
+                android:layout_marginTop="@dimen/large_margin"
+                android:layout_marginBottom="@dimen/medium_margin"
+                android:layout_marginHorizontal="@dimen/medium_margin"
                 android:baselineAligned="false"
                 android:orientation="horizontal"
                 android:weightSum="6">
@@ -225,7 +201,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="@dimen/medium_margin"
+                    android:layout_marginBottom="@dimen/small_margin"
                     android:text="@string/bmi_chart_label"
                     android:textColor="@android:color/black"
                     android:textSize="24sp"

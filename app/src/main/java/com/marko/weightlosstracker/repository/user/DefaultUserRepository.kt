@@ -1,6 +1,6 @@
 package com.marko.weightlosstracker.repository.user
 
-import com.marko.weightlosstracker.data.local.SettingsManager
+import com.marko.weightlosstracker.data.local.settings.SettingsManager
 import com.marko.weightlosstracker.data.local.dao.UserDao
 import com.marko.weightlosstracker.data.local.dao.WeightEntryDao
 import com.marko.weightlosstracker.data.local.mappers.UserMapper
@@ -9,7 +9,7 @@ import com.marko.weightlosstracker.data.remote.datasource.UserService
 import com.marko.weightlosstracker.data.remote.datasource.WeightEntryService
 import com.marko.weightlosstracker.model.User
 import com.marko.weightlosstracker.util.DataState
-import com.marko.weightlosstracker.util.UserTable
+import com.marko.weightlosstracker.data.util.UserTable
 import com.marko.weightlosstracker.util.parseDate
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -88,6 +88,10 @@ class DefaultUserRepository constructor(
     }
 
     private fun getUserMap(user: User): HashMap<String, Any?> {
-        return hashMapOf(UserTable.TARGET_WEIGHT to user.targetWeight)
+        return hashMapOf(
+            UserTable.TARGET_WEIGHT to user.targetWeight,
+            UserTable.AGE to user.age,
+            UserTable.USERNAME to user.username
+        )
     }
 }

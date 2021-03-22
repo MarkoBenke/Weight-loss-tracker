@@ -2,7 +2,7 @@ package com.marko.weightlosstracker.data.remote.datasource
 
 import com.marko.weightlosstracker.data.remote.FirebaseHelper
 import com.marko.weightlosstracker.data.remote.model.RemoteWeightEntry
-import com.marko.weightlosstracker.util.WeightEntryTable
+import com.marko.weightlosstracker.data.util.WeightEntryTable
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 

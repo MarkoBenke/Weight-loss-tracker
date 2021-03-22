@@ -37,19 +37,3 @@ fun parseNoYearDate(selectedDate: String): String {
     }
 }
 
-fun isDateToday(date: String): Boolean {
-    val formatter: DateFormat = SimpleDateFormat(DATE_FORMAT, Locale.getDefault())
-    return try {
-        DateUtils.isToday(formatter.parse(date)!!.time)
-    } catch (e: ParseException) {
-        true
-    }
-}
-
-fun getDateInPast(daysOff: Int): String {
-    val calendar = Calendar.getInstance()
-    calendar.add(Calendar.DATE, daysOff)
-    val formatter: DateFormat = SimpleDateFormat(DATE_FORMAT, Locale.getDefault())
-    return formatter.format(calendar.time)
-}
-

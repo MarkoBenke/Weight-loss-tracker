@@ -1,4 +1,4 @@
-package com.marko.weightlosstracker.data.local
+package com.marko.weightlosstracker.data.local.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

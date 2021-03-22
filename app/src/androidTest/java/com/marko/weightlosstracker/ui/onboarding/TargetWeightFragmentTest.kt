@@ -33,7 +33,7 @@ class TargetWeightFragmentTest: BaseTest() {
     fun targetWeightUiCheck() {
         isViewVisible(R.id.idealWeight)
 
-        checkHintTextOnInputField(R.id.targetWeight, context.getString(R.string.desired_weight))
+        checkHintTextOnInputField(R.id.targetWeight, context.getString(R.string.target_weight))
 
         checkHelperTextOnInputField(R.id.targetWeight, context.getString(R.string.mandatory_field))
 

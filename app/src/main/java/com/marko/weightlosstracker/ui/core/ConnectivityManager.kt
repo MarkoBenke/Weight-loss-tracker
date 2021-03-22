@@ -1,4 +1,4 @@
-package com.marko.weightlosstracker.util
+package com.marko.weightlosstracker.ui.core
 
 import android.content.Context
 import androidx.lifecycle.LifecycleOwner

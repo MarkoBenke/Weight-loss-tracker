@@ -30,8 +30,6 @@ class SplashScreenActivity : AppCompatActivity() {
         //TODO check if everything is good when user reinstall the app
         //TODO test those 2 previous scenarios
 
-
-        //TODO add drawer with settings and profile fragment
         //TODO fix tests
         subscribeToObservers()
     }

@@ -1,13 +1,13 @@
 package com.marko.weightlosstracker.di
 
 import com.google.firebase.auth.FirebaseAuth
-import com.marko.weightlosstracker.data.local.SettingsManager
 import com.marko.weightlosstracker.data.local.dao.QuoteDao
 import com.marko.weightlosstracker.data.local.dao.UserDao
 import com.marko.weightlosstracker.data.local.dao.WeightEntryDao
 import com.marko.weightlosstracker.data.local.mappers.QuoteMapper
 import com.marko.weightlosstracker.data.local.mappers.UserMapper
 import com.marko.weightlosstracker.data.local.mappers.WeightEntryMapper
+import com.marko.weightlosstracker.data.local.settings.SettingsManager
 import com.marko.weightlosstracker.data.remote.datasource.QuotesService
 import com.marko.weightlosstracker.data.remote.datasource.UserService
 import com.marko.weightlosstracker.data.remote.datasource.WeightEntryService
@@ -76,9 +76,6 @@ object RepositoryModule {
 
     @ViewModelScoped
     @Provides
-    fun provideAuthRepository(
-        firebaseAuth: FirebaseAuth,
-        settingsManager: SettingsManager
-    ): AuthRepository =
-        DefaultAuthRepository(settingsManager, firebaseAuth)
+    fun provideAuthRepository(firebaseAuth: FirebaseAuth): AuthRepository =
+        DefaultAuthRepository(firebaseAuth)
 }

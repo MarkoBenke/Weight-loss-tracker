@@ -6,6 +6,8 @@ import com.marko.weightlosstracker.data.local.mappers.WeightEntryMapper
 import com.marko.weightlosstracker.data.local.model.UserCache
 import com.marko.weightlosstracker.data.remote.datasource.UserService
 import com.marko.weightlosstracker.data.remote.datasource.WeightEntryService
+import com.marko.weightlosstracker.data.util.UserTable
+import com.marko.weightlosstracker.data.util.WeightEntryTable
 import com.marko.weightlosstracker.model.Stats
 import com.marko.weightlosstracker.model.WeightEntry
 import com.marko.weightlosstracker.util.*
@@ -45,8 +47,15 @@ class DefaultWeightEntryRepository(
 
     override suspend fun insertWeight(weightEntry: WeightEntry): Flow<DataState<Unit>> = flow {
         emit(DataState.Loading)
+
+        val entryResult = weightEntryService.insertWeightEntry(weightEntryMapper.mapToRemoteEntity(weightEntry))
+        if (entryResult) {
+            weightEntryDao.insertWeightEntry(weightEntryMapper.mapToEntity(weightEntry))
+            emit(DataState.Success(Unit))
+        } else emit(DataState.Error())
+
         val user = userDao.getUser()
-        //if user modifies his first entry, modify user object as well
+        //if user modifies his initial weight entry, modify users starting values as well
         if (user?.startDate == weightEntry.date) {
             modifyUserAndEntry(user, weightEntry)
             val userMap = getUserMap(user)
@@ -56,13 +65,30 @@ class DefaultWeightEntryRepository(
                 emit(DataState.Success(Unit))
             } else emit(DataState.Error())
         }
-        val result = weightEntryService.insertWeightEntry(
-            weightEntryMapper.mapToRemoteEntity(weightEntry)
-        )
-        if (result) {
-            weightEntryDao.insertWeightEntry(weightEntryMapper.mapToEntity(weightEntry))
+    }
+
+    override suspend fun updateWeightEntry(weightEntry: WeightEntry): Flow<DataState<Unit>> = flow {
+        emit(DataState.Loading)
+
+        val entryResult = weightEntryService.updateWeightEntry(getWeightEntryMap(weightEntry))
+        if (entryResult) {
+            weightEntryDao.updateWeightEntry(weightEntryMapper.mapToEntity(weightEntry))
             emit(DataState.Success(Unit))
         } else emit(DataState.Error())
+
+        if (weightEntry.isInitialEntry) {
+            //if user modifies his initial weight entry, modify users starting values as well
+            val user = userDao.getUser()
+            user?.let {
+                modifyUserAndEntry(user, weightEntry)
+                val userMap = getUserMap(user)
+                val userResult = userService.updateUser(userMap)
+                if (userResult) {
+                    userDao.updateUser(user)
+                    emit(DataState.Success(Unit))
+                } else emit(DataState.Error())
+            } ?: emit(DataState.Error())
+        }
     }
 
     override suspend fun deleteWeightEntryFromList(weightEntry: WeightEntry): Flow<DataState<List<WeightEntry>>> =
@@ -84,29 +110,6 @@ class DefaultWeightEntryRepository(
         val result = weightEntryService.deleteWeightEntry(weightEntry.uuid)
         if (result) {
             weightEntryDao.deleteWeightEntry(weightEntryMapper.mapToEntity(weightEntry))
-            emit(DataState.Success(Unit))
-        } else emit(DataState.Error())
-    }
-
-    override suspend fun updateWeightEntry(weightEntry: WeightEntry): Flow<DataState<Unit>> = flow {
-        emit(DataState.Loading)
-        if (weightEntry.isInitialEntry) {
-            //if user modifies his first entry, modify user object as well
-            val user = userDao.getUser()
-            user?.let {
-                modifyUserAndEntry(user, weightEntry)
-                val userMap = getUserMap(user)
-                val userResult = userService.updateUser(userMap)
-                if (userResult) {
-                    userDao.updateUser(user)
-                    emit(DataState.Success(Unit))
-                } else emit(DataState.Error())
-            } ?: emit(DataState.Error())
-        }
-
-        val entryResult = weightEntryService.updateWeightEntry(getWeightEntryMap(weightEntry))
-        if (entryResult) {
-            weightEntryDao.updateWeightEntry(weightEntryMapper.mapToEntity(weightEntry))
             emit(DataState.Success(Unit))
         } else emit(DataState.Error())
     }
@@ -162,11 +165,10 @@ class DefaultWeightEntryRepository(
     private fun modifyUserAndEntry(user: UserCache?, weightEntry: WeightEntry) {
         user?.apply {
             startWeight = weightEntry.currentWeight
+            startBmi = calculateBmi(weightEntry.currentWeight, height)
             if (weightEntry.waistSize != 0) {
                 startWaistSize = weightEntry.waistSize
             }
-            startBmi = calculateBmi(weightEntry.currentWeight, height)
-            weightEntry.description = goalName
         }
     }
 }

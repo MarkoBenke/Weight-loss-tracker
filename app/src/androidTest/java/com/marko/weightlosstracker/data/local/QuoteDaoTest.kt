@@ -5,6 +5,7 @@ import androidx.test.filters.SmallTest
 import com.marko.weightlosstracker.data.local.dao.QuoteDao
 import com.marko.weightlosstracker.utils.DataGenerator
 import com.google.common.truth.Truth.assertThat
+import com.marko.weightlosstracker.data.local.db.WeightLossDatabase
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi

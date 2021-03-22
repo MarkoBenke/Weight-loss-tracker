@@ -25,31 +25,6 @@
                 android:layout_marginVertical="@dimen/large_margin"
                 android:orientation="vertical">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/updateTargetWeight"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/medium_margin"
-                    android:hint="@string/update_target_weight"
-                    app:endIconDrawable="@drawable/ic_save"
-                    app:endIconMode="custom">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/updateTargetWeightEditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:fontFamily="@font/roboto_medium"
-                        android:inputType="numberDecimal"
-                        android:maxLength="@integer/weight_entry_max_length" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="@dimen/large_margin"
-                    android:background="@color/dividerColor" />
-
                 <TextView
                     android:id="@+id/privacy"
                     android:layout_width="match_parent"
@@ -92,7 +67,6 @@
                     android:layout_height="1dp"
                     android:layout_marginBottom="@dimen/large_margin"
                     android:background="@color/dividerColor" />
-
             </LinearLayout>
 
             <TextView
@@ -108,24 +82,12 @@
                 tools:text="Version: 1.2" />
 
             <ImageView
-                android:alpha="0.8"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_above="@id/version"
                 android:layout_below="@id/dataLayout"
                 android:src="@drawable/ic_fitness"
                 tools:ignore="ContentDescription" />
-
-            <ProgressBar
-                android:id="@+id/progressBar"
-                android:layout_width="@dimen/progress_bar_size"
-                android:layout_height="@dimen/progress_bar_size"
-                android:layout_centerInParent="true"
-                android:background="@drawable/progress_bar_circle"
-                android:elevation="16dp"
-                android:indeterminate="true"
-                android:padding="@dimen/small_padding"
-                android:visibility="gone" />
         </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>
 </LinearLayout>

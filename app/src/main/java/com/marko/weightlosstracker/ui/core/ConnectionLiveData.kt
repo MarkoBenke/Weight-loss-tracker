@@ -1,4 +1,4 @@
-package com.marko.weightlosstracker.util
+package com.marko.weightlosstracker.ui.core
 
 import android.content.Context
 import android.content.Context.CONNECTIVITY_SERVICE
@@ -50,8 +50,8 @@ class ConnectionLiveData(context: Context) : LiveData<Boolean>() {
                 // check if this network actually has internet
                 CoroutineScope(Dispatchers.IO).launch {
                     val hasInternet = DoesNetworkHaveInternet.execute(network.socketFactory)
-                    if(hasInternet){
-                        withContext(Dispatchers.Main){
+                    if (hasInternet) {
+                        withContext(Dispatchers.Main) {
                             validNetworks.add(network)
                             checkValidNetworks()
                         }

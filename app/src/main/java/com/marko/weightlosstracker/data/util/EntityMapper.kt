@@ -1,4 +1,4 @@
-package com.marko.weightlosstracker.util
+package com.marko.weightlosstracker.data.util
 
 interface EntityMapper<Entity, DomainModel> {
 

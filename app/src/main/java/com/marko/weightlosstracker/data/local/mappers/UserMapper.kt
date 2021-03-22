@@ -4,8 +4,8 @@ import com.marko.weightlosstracker.data.local.model.UserCache
 import com.marko.weightlosstracker.data.remote.model.RemoteUser
 import com.marko.weightlosstracker.model.Gender
 import com.marko.weightlosstracker.model.User
-import com.marko.weightlosstracker.util.EntityMapper
-import com.marko.weightlosstracker.util.RemoteEntityMapper
+import com.marko.weightlosstracker.data.util.EntityMapper
+import com.marko.weightlosstracker.data.util.RemoteEntityMapper
 import javax.inject.Inject
 
 class UserMapper @Inject constructor() : EntityMapper<UserCache, User>,

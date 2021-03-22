@@ -12,7 +12,7 @@ import org.junit.Before
 import org.junit.Rule
 
 @ExperimentalCoroutinesApi
-class BasicInfoViewModelTest {
+class BasicProfileViewModelTest {
 
     private val username = "Marko"
     private val userAge = "25"

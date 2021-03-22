@@ -34,6 +34,7 @@
             android:name=".ui.onboarding.OnBoardingActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:theme="@style/Theme.WeightLossTrackerAppBar"
             android:name=".ui.main.MainActivity"
             android:screenOrientation="portrait" />
 

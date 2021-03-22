@@ -5,21 +5,19 @@ import com.marko.weightlosstracker.other.DataGenerator
 import com.marko.weightlosstracker.other.FakeDispatcherProvider
 import com.marko.weightlosstracker.other.MainCoroutineRule
 import com.marko.weightlosstracker.other.getOrAwaitValueTest
-import com.marko.weightlosstracker.repository.FakeWeightEntryRepositoryTest
 import com.marko.weightlosstracker.util.DataState
-import com.marko.weightlosstracker.util.getCurrentDate
 import com.google.common.truth.Truth.assertThat
 import com.marko.weightlosstracker.repository.FakeUserRepositoryTest
+import com.marko.weightlosstracker.ui.main.profile.ProfileViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
-class InfoViewModelTest {
+class ProfileViewModelTest {
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
@@ -27,11 +25,11 @@ class InfoViewModelTest {
     @get:Rule
     var mainCoroutineRule = MainCoroutineRule()
 
-    private lateinit var viewModel: InfoViewModel
+    private lateinit var viewModel: ProfileViewModel
 
     @Before
     fun setup() {
-        viewModel = InfoViewModel(FakeUserRepositoryTest(), FakeDispatcherProvider())
+        viewModel = ProfileViewModel(FakeUserRepositoryTest(), FakeDispatcherProvider())
     }
 
     @Test
