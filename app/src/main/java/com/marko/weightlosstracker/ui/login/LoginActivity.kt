@@ -40,8 +40,7 @@ class LoginActivity : AppCompatActivity() {
                 is DataState.Error -> {
                     binding.progressBar.isVisible = false
                     val dialog = ErrorDialog.newInstance(
-                        if (result.message.isEmpty()) getString(R.string.unknown_error)
-                        else result.message
+                         getString(R.string.unknown_error)
                     )
                     dialog.show(supportFragmentManager, ErrorDialog.TAG)
                 }

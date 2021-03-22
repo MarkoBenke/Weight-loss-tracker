@@ -28,7 +28,7 @@ class DefaultAuthRepository(
                     emit(DataState.Error())
                 }
             } catch (ex: Exception) {
-                emit(DataState.Error(ex.localizedMessage ?: ""))
+                emit(DataState.Error())
             }
         }
 

@@ -31,7 +31,6 @@
                 android:text="@string/chart_title"
                 android:textColor="@color/primaryTextColor"
                 android:textSize="24sp"
-                android:textStyle="bold"
                 app:fontFamily="@font/mouse_memoirs"
                 tools:ignore="RelativeOverlap" />
 
@@ -113,7 +112,6 @@
                         android:text="@string/progress_title"
                         android:textColor="@color/primaryTextColor"
                         android:textSize="24sp"
-                        android:textStyle="bold"
                         app:fontFamily="@font/mouse_memoirs" />
 
                     <View

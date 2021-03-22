@@ -60,6 +60,7 @@ class TargetWeightFragment : BaseFragment<TargetWeightViewModel, Event<DataState
         user = requireArguments().getParcelable(OnBoardingActivity.USER_KEY)
         binding.idealWeight.text = getString(
             R.string.ideal_weight_text,
+            user?.username,
             viewModel.generateIdealWeight(user)
         )
 

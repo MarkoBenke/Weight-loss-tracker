@@ -80,6 +80,13 @@ class DefaultUserRepository constructor(
         return settingsManager.getStartDate()
     }
 
+    override suspend fun getUsername(): Flow<String> = flow {
+        val user = userDao.getUser()
+        user?.let {
+            emit(it.username)
+        } ?: emit("")
+    }
+
     private fun getUserMap(user: User): HashMap<String, Any?> {
         return hashMapOf(UserTable.TARGET_WEIGHT to user.targetWeight)
     }

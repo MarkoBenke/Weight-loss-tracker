@@ -31,9 +31,6 @@ class SplashScreenActivity : AppCompatActivity() {
         //TODO test those 2 previous scenarios
 
 
-        //TODO login with no internet connection
-        //TODO display username somewhere
-        //TODO disable adding entries offline
         //TODO add drawer with settings and profile fragment
         //TODO fix tests
         subscribeToObservers()

@@ -28,16 +28,12 @@ class AddEntryViewModel @Inject constructor(
     private val _insertWeightLiveData = MutableLiveData<DataState<Unit>>()
     val insertWeightLiveData: LiveData<DataState<Unit>> = _insertWeightLiveData
 
+    private val _usernameLiveData = MutableLiveData<String>()
+    val usernameLiveData: LiveData<String> = _usernameLiveData
+
     override fun fetchInitialData() {
         getStartDate()
-    }
-
-    private fun getStartDate() {
-        viewModelScope.launch(dispatcherProvider.io) {
-            userRepository.getUsersStartDate().collect { startDateInMillis ->
-                modelLiveData.postValue(startDateInMillis)
-            }
-        }
+        getUser()
     }
 
     fun validate(newWeight: String) {
@@ -52,6 +48,22 @@ class AddEntryViewModel @Inject constructor(
         viewModelScope.launch(dispatcherProvider.io) {
             weightEntryRepository.insertWeight(weightEntry).collect {
                 _insertWeightLiveData.postValue(it)
+            }
+        }
+    }
+
+    private fun getUser() {
+        viewModelScope.launch(dispatcherProvider.io) {
+            userRepository.getUsername().collect {
+                _usernameLiveData.postValue(it)
+            }
+        }
+    }
+
+    private fun getStartDate() {
+        viewModelScope.launch(dispatcherProvider.io) {
+            userRepository.getUsersStartDate().collect { startDateInMillis ->
+                modelLiveData.postValue(startDateInMillis)
             }
         }
     }

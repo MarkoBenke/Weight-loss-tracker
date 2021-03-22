@@ -22,6 +22,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginHorizontal="@dimen/large_margin"
         android:fontFamily="@font/mouse_memoirs"
+        android:gravity="center"
         android:textColor="@color/primaryTextColor"
         android:textSize="28sp"
         tools:text="Dialog Title" />

@@ -12,7 +12,7 @@
     <string name="weight_data_title">Tell us your basic info:</string>
     <string name="submit_button_text">Submit</string>
     <string name="desired_weight">Target weight(kg)</string>
-    <string name="ideal_weight_text">Your ideal weight is around \n%1s</string>
+    <string name="ideal_weight_text">Hey %1s, your ideal weight is around \n%2s</string>
     <string name="mandatory_fields_error_message">Please fill in mandatory fields!</string>
     <string name="goal_name">Journey to %1skg</string>
     <string name="start_button_text">Start</string>
@@ -73,7 +73,7 @@
     <string name="target_weight_description">Note: Set your target weight. The weight goal you want to achieve.</string>
     <string name="weigh_ins">Weigh-ins</string>
     <string name="waist_sizes">Waist sizes</string>
-    <string name="unknown_error">An unknown error occurred!</string>
+    <string name="unknown_error">An unknown error occurred!\nPlease check your internet connection…</string>
     <string name="goal_accomplished">Goal accomplished!</string>
     <string name="info_tab" translatable="false">Info</string>
     <string name="update_target_weight">Update target weight</string>
@@ -94,4 +94,5 @@
     <string name="username">Username</string>
     <string name="no_internet_connection">No internet connection</string>
     <string name="no_internet_connection_error">Check your internet connection</string>
+    <string name="add_entry_title">Hey %1s, time for new entry?</string>
 </resources>

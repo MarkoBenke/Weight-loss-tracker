@@ -97,6 +97,13 @@ class AddEntryFragment : BaseFragment<AddEntryViewModel, Long>(
                 }
             }
         }
+
+        viewModel.usernameLiveData.observe(viewLifecycleOwner) { username ->
+            binding.title.text = getString(
+                R.string.add_entry_title,
+                username
+            )
+        }
     }
 
     private fun clearFields() {
