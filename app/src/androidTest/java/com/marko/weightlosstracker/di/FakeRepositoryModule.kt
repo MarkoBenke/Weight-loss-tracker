@@ -1,8 +1,10 @@
 package com.marko.weightlosstracker.di
 
+import com.marko.weightlosstracker.repository.FakeAuthRepositoryAndroidTest
 import com.marko.weightlosstracker.repository.FakeQuotesRepositoryAndroidTest
 import com.marko.weightlosstracker.repository.FakeUserRepositoryAndroidTest
 import com.marko.weightlosstracker.repository.FakeWeightEntryRepositoryAndroidTest
+import com.marko.weightlosstracker.repository.auth.AuthRepository
 import com.marko.weightlosstracker.repository.quotes.QuotesRepository
 import com.marko.weightlosstracker.repository.user.UserRepository
 import com.marko.weightlosstracker.repository.weightentry.WeightEntryRepository
@@ -38,5 +40,11 @@ object FakeRepositoryModule {
 
     @Singleton
     @Provides
-    fun provideWeightEntryRepository(): WeightEntryRepository = FakeWeightEntryRepositoryAndroidTest()
+    fun provideWeightEntryRepository(shouldReturnError: Boolean): WeightEntryRepository
+    = FakeWeightEntryRepositoryAndroidTest(shouldReturnError)
+
+    @Singleton
+    @Provides
+    fun provideAuthRepository(shouldReturnError: Boolean): AuthRepository
+            = FakeAuthRepositoryAndroidTest(shouldReturnError)
 }

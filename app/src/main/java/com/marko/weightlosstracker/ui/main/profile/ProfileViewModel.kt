@@ -42,14 +42,16 @@ class ProfileViewModel @Inject constructor(
     }
 
     fun updateUser(model: UpdateUserValidationModel) {
-        val value = modelLiveData.value as DataState.Success?
-        value?.data?.targetWeight = model.targetWeight.toFloat()
-        value?.data?.age = model.age.toInt()
-        value?.data?.username = model.username
-        viewModelScope.launch(dispatcherProvider.io) {
-            userRepository.updateUser(value?.data!!).collect {
-                _updateUserLiveData.postValue(it)
+        val userResult = modelLiveData.value as DataState.Success?
+        userResult?.data?.let {
+            it.targetWeight = model.targetWeight.toFloat()
+            it.age = model.age.toInt()
+            it.username = model.username
+            viewModelScope.launch(dispatcherProvider.io) {
+                userRepository.updateUser(it).collect {
+                    _updateUserLiveData.postValue(it)
+                }
             }
-        }
+        } ?: _updateUserLiveData.postValue(DataState.Error())
     }
 }

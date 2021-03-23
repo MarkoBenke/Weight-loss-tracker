@@ -1,8 +1,8 @@
-package com.marko.weightlosstracker.data.remote.datasource
+package com.marko.weightlosstracker.data.network.services
 
 import com.google.firebase.firestore.ktx.toObject
-import com.marko.weightlosstracker.data.remote.FirebaseHelper
-import com.marko.weightlosstracker.data.remote.model.RemoteUser
+import com.marko.weightlosstracker.data.network.FirebaseHelper
+import com.marko.weightlosstracker.data.network.entities.RemoteUser
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 

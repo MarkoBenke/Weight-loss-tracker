@@ -2,7 +2,7 @@ package com.marko.weightlosstracker.repository.quotes
 
 import com.marko.weightlosstracker.data.local.dao.QuoteDao
 import com.marko.weightlosstracker.data.local.mappers.QuoteMapper
-import com.marko.weightlosstracker.data.remote.datasource.QuotesService
+import com.marko.weightlosstracker.data.network.services.QuotesService
 import com.marko.weightlosstracker.model.Quote
 import com.marko.weightlosstracker.util.DataState
 import kotlinx.coroutines.flow.Flow

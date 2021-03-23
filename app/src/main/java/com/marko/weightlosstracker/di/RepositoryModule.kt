@@ -8,9 +8,9 @@ import com.marko.weightlosstracker.data.local.mappers.QuoteMapper
 import com.marko.weightlosstracker.data.local.mappers.UserMapper
 import com.marko.weightlosstracker.data.local.mappers.WeightEntryMapper
 import com.marko.weightlosstracker.data.local.settings.SettingsManager
-import com.marko.weightlosstracker.data.remote.datasource.QuotesService
-import com.marko.weightlosstracker.data.remote.datasource.UserService
-import com.marko.weightlosstracker.data.remote.datasource.WeightEntryService
+import com.marko.weightlosstracker.data.network.services.QuotesService
+import com.marko.weightlosstracker.data.network.services.UserService
+import com.marko.weightlosstracker.data.network.services.WeightEntryService
 import com.marko.weightlosstracker.repository.auth.AuthRepository
 import com.marko.weightlosstracker.repository.auth.DefaultAuthRepository
 import com.marko.weightlosstracker.repository.quotes.DefaultQuotesRepository

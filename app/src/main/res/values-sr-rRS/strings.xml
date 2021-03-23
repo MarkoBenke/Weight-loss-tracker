@@ -77,16 +77,16 @@
     <string name="delete_entry_dialog_title">Obriši unos</string>
     <string name="delete_entry_dialog_description">Želite li sigurno da obrišete ovaj unos?</string>
     <string name="google_sign_in">Google Prijava</string>
-    <string name="login_title">Welcome to Free Weight Loss Tracker App</string>
+    <string name="login_title">Dobrodošli na Free Weight Loss Tracker aplikaciju</string>
     <string name="login_description">Da biste nastavili, prijavite se…</string>
     <string name="okay">Okej</string>
     <string name="username">Korisničko ime</string>
     <string name="no_internet_connection">Nema internet konekcije</string>
     <string name="no_internet_connection_error">Proverite vašu internet konekciju</string>
     <string name="add_entry_title">Hej %1s, vreme je za novi unos?</string>
-    <string name="profile">Profile</string>
-    <string name="settings">Settings</string>
-    <string name="entry_details">Entry Details</string>
-    <string name="update">Update</string>
-    <string name="add_tab_title">Add Entry</string>
+    <string name="profile">Profil</string>
+    <string name="settings">Podešavanja</string>
+    <string name="entry_details">Detalji</string>
+    <string name="update">Ažuriraj</string>
+    <string name="add_tab_title">Dodaj Unos</string>
 </resources>

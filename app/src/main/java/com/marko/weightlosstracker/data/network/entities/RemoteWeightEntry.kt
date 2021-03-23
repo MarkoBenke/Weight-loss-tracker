@@ -1,4 +1,4 @@
-package com.marko.weightlosstracker.data.remote.model
+package com.marko.weightlosstracker.data.network.entities
 
 data class RemoteWeightEntry(
     var uuid: String = "",

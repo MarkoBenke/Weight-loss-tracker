@@ -31,7 +31,7 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideConnectivityManager(@ApplicationContext context: Context) =
+    fun provideConnectivityManager(@ApplicationContext context: Context): ConnectivityManager =
         ConnectivityManager(context)
 
     @Singleton

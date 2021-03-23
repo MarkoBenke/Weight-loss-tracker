@@ -1,9 +1,9 @@
 package com.marko.weightlosstracker.di
 
-import com.marko.weightlosstracker.data.remote.FirebaseHelper
-import com.marko.weightlosstracker.data.remote.datasource.QuotesService
-import com.marko.weightlosstracker.data.remote.datasource.UserService
-import com.marko.weightlosstracker.data.remote.datasource.WeightEntryService
+import com.marko.weightlosstracker.data.network.FirebaseHelper
+import com.marko.weightlosstracker.data.network.services.QuotesService
+import com.marko.weightlosstracker.data.network.services.UserService
+import com.marko.weightlosstracker.data.network.services.WeightEntryService
 import com.marko.weightlosstracker.util.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides

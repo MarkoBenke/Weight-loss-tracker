@@ -1,11 +1,14 @@
 package com.marko.weightlosstracker.utils
 
-import com.marko.weightlosstracker.data.local.model.QuoteCache
-import com.marko.weightlosstracker.data.local.model.UserCache
-import com.marko.weightlosstracker.data.local.model.WeightEntryCache
+import com.marko.weightlosstracker.data.local.entities.QuoteCache
+import com.marko.weightlosstracker.data.local.entities.UserCache
+import com.marko.weightlosstracker.data.local.entities.WeightEntryCache
 import com.marko.weightlosstracker.model.*
 
 object DataGenerator {
+
+    val largeName = "Marko Benke Marko Benke"
+    val largeNumber = "123456"
 
     val quoteCache = QuoteCache(
         1, "2Pac", "Motivational", "Only God can judge me."
@@ -23,6 +26,7 @@ object DataGenerator {
     )
 
     val user = User(
+        username = "Marko",
         startWeight = 95f, currentWeight = 85f, targetWeight = 75f, startWaistSize = 102,
         startBmi = 30.2f, height = 173f, startDate = "01.01.2021", age = 30, gender = Gender.MALE,
         goalName = "Journey to 25kg"

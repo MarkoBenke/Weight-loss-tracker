@@ -1,4 +1,4 @@
-package com.marko.weightlosstracker.data.local.model
+package com.marko.weightlosstracker.data.local.entities
 
 import androidx.annotation.Keep
 import androidx.room.Entity

@@ -1,7 +1,7 @@
-package com.marko.weightlosstracker.data.remote.datasource
+package com.marko.weightlosstracker.data.network.services
 
-import com.marko.weightlosstracker.data.remote.FirebaseHelper
-import com.marko.weightlosstracker.data.remote.model.RemoteWeightEntry
+import com.marko.weightlosstracker.data.network.FirebaseHelper
+import com.marko.weightlosstracker.data.network.entities.RemoteWeightEntry
 import com.marko.weightlosstracker.data.util.WeightEntryTable
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject

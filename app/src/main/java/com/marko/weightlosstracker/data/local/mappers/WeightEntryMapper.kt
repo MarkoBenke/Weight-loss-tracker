@@ -1,7 +1,7 @@
 package com.marko.weightlosstracker.data.local.mappers
 
-import com.marko.weightlosstracker.data.local.model.WeightEntryCache
-import com.marko.weightlosstracker.data.remote.model.RemoteWeightEntry
+import com.marko.weightlosstracker.data.local.entities.WeightEntryCache
+import com.marko.weightlosstracker.data.network.entities.RemoteWeightEntry
 import com.marko.weightlosstracker.model.WeightEntry
 import com.marko.weightlosstracker.data.util.EntityMapper
 import com.marko.weightlosstracker.data.util.RemoteEntityMapper

@@ -8,6 +8,8 @@ import com.marko.weightlosstracker.other.getOrAwaitValueTest
 import com.marko.weightlosstracker.repository.FakeUserRepositoryTest
 import com.marko.weightlosstracker.util.DataState
 import com.google.common.truth.Truth.assertThat
+import com.marko.weightlosstracker.repository.FakeAuthRepositoryTest
+import com.marko.weightlosstracker.repository.FakeWeightEntryRepositoryTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Rule
 import org.junit.Test
@@ -25,7 +27,14 @@ class SplashScreenViewModelTest {
 
     @Test
     fun `get user, returns success`() {
-        viewModel = SplashScreenViewModel(FakeUserRepositoryTest(), FakeDispatcherProvider())
+        viewModel = SplashScreenViewModel(
+            FakeAuthRepositoryTest(),
+            FakeUserRepositoryTest(),
+            FakeWeightEntryRepositoryTest(),
+            FakeDispatcherProvider()
+        )
+
+        viewModel.getUser()
 
         val value = viewModel.userLiveData.getOrAwaitValueTest()
 
@@ -35,11 +44,43 @@ class SplashScreenViewModelTest {
     @Test
     fun `get user, returns error`() {
         viewModel = SplashScreenViewModel(
+            FakeAuthRepositoryTest(),
             FakeUserRepositoryTest(shouldReturnError = true),
+            FakeWeightEntryRepositoryTest(),
             FakeDispatcherProvider()
         )
 
+        viewModel.getUser()
+
         val value = viewModel.userLiveData.getOrAwaitValueTest()
+
+        assertThat(value).isEqualTo(DataState.Error("Error!"))
+    }
+
+    @Test
+    fun `is user signed in, returns success`() {
+        viewModel = SplashScreenViewModel(
+            FakeAuthRepositoryTest(),
+            FakeUserRepositoryTest(),
+            FakeWeightEntryRepositoryTest(),
+            FakeDispatcherProvider()
+        )
+
+        val value = viewModel.isUserSignedInLiveData.getOrAwaitValueTest()
+
+        assertThat(value).isEqualTo(DataState.Success(Unit))
+    }
+
+    @Test
+    fun `is user signed in, returns error`() {
+        viewModel = SplashScreenViewModel(
+            FakeAuthRepositoryTest(shouldReturnError = true),
+            FakeUserRepositoryTest(),
+            FakeWeightEntryRepositoryTest(),
+            FakeDispatcherProvider()
+        )
+
+        val value = viewModel.isUserSignedInLiveData.getOrAwaitValueTest()
 
         assertThat(value).isEqualTo(DataState.Error("Error!"))
     }

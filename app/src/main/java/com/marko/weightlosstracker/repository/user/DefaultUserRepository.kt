@@ -5,8 +5,8 @@ import com.marko.weightlosstracker.data.local.dao.UserDao
 import com.marko.weightlosstracker.data.local.dao.WeightEntryDao
 import com.marko.weightlosstracker.data.local.mappers.UserMapper
 import com.marko.weightlosstracker.data.local.mappers.WeightEntryMapper
-import com.marko.weightlosstracker.data.remote.datasource.UserService
-import com.marko.weightlosstracker.data.remote.datasource.WeightEntryService
+import com.marko.weightlosstracker.data.network.services.UserService
+import com.marko.weightlosstracker.data.network.services.WeightEntryService
 import com.marko.weightlosstracker.model.User
 import com.marko.weightlosstracker.util.DataState
 import com.marko.weightlosstracker.data.util.UserTable

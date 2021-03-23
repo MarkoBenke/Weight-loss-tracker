@@ -4,8 +4,8 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.marko.weightlosstracker.R
-import com.marko.weightlosstracker.ui.main.MainViewModel
 import com.marko.weightlosstracker.ui.core.ConnectivityManager
+import com.marko.weightlosstracker.ui.main.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

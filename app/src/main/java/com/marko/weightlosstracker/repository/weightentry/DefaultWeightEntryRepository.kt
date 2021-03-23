@@ -3,9 +3,9 @@ package com.marko.weightlosstracker.repository.weightentry
 import com.marko.weightlosstracker.data.local.dao.UserDao
 import com.marko.weightlosstracker.data.local.dao.WeightEntryDao
 import com.marko.weightlosstracker.data.local.mappers.WeightEntryMapper
-import com.marko.weightlosstracker.data.local.model.UserCache
-import com.marko.weightlosstracker.data.remote.datasource.UserService
-import com.marko.weightlosstracker.data.remote.datasource.WeightEntryService
+import com.marko.weightlosstracker.data.local.entities.UserCache
+import com.marko.weightlosstracker.data.network.services.UserService
+import com.marko.weightlosstracker.data.network.services.WeightEntryService
 import com.marko.weightlosstracker.data.util.UserTable
 import com.marko.weightlosstracker.data.util.WeightEntryTable
 import com.marko.weightlosstracker.model.Stats

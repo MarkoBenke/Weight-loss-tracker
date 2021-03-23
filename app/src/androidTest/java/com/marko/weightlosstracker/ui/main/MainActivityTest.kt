@@ -1,6 +1,7 @@
 package com.marko.weightlosstracker.ui.main
 
 import androidx.test.core.app.ActivityScenario
+import androidx.test.espresso.Espresso.pressBack
 import com.marko.weightlosstracker.R
 import com.marko.weightlosstracker.utils.BaseTest
 import com.marko.weightlosstracker.utils.DataGenerator
@@ -25,7 +26,7 @@ class MainActivityTest : BaseTest() {
 
     @Test
     fun checkMainScreenNavigation() {
-        isViewVisible(R.id.goalName)
+        isViewVisible(R.id.homeCard)
 
         clickOnView(R.id.addEntry)
         sleepMedium()
@@ -44,7 +45,7 @@ class MainActivityTest : BaseTest() {
         isViewVisible(R.id.submitBtn)
 
         clickOnView(R.id.home)
-        isViewVisible(R.id.goalName)
+        isViewVisible(R.id.homeCard)
     }
 
     @Test
@@ -128,6 +129,48 @@ class MainActivityTest : BaseTest() {
 
         isViewNotVisible(R.id.bottomNav)
         isButtonDisabled(R.id.delete)
+    }
+
+    @Test
+    fun addEntryAndBackNavigatesToHome() {
+        clickOnView(R.id.addEntry)
+
+        pressBackAndCheckIfHomeIsPresent()
+    }
+
+    @Test
+    fun statsAndBackNavigatesToHome() {
+        clickOnView(R.id.stats)
+
+        pressBackAndCheckIfHomeIsPresent()
+    }
+
+    @Test
+    fun entriesAndBackNavigatesToHome() {
+        navigateToEntries()
+
+        pressBackAndCheckIfHomeIsPresent()
+    }
+
+    @Test
+    fun drawerProfileBackNavigatesToHome() {
+        openDrawer()
+        clickOnText(R.string.profile)
+
+        pressBackAndCheckIfHomeIsPresent()
+    }
+
+    @Test
+    fun drawerSettingsBackNavigatesToHome() {
+        openDrawer()
+        clickOnText(R.string.settings)
+
+        pressBackAndCheckIfHomeIsPresent()
+    }
+
+    private fun pressBackAndCheckIfHomeIsPresent() {
+        pressBack()
+        isViewVisible(R.id.homeCard)
     }
 
     private fun navigateToEntries() {

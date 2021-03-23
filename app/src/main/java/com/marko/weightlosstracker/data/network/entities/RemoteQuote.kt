@@ -1,8 +1,8 @@
-package com.marko.weightlosstracker.data.remote.model
+package com.marko.weightlosstracker.data.network.entities
 
 import androidx.annotation.Keep
 
-@Keep class QuoteResponse(
+@Keep class RemoteQuote(
     val id: Int,
     val author: String,
     val category: String,

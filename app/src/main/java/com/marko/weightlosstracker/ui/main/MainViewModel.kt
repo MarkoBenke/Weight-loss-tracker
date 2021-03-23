@@ -19,7 +19,7 @@ class MainViewModel @Inject constructor(
     private val dispatcherProvider: DispatcherProvider
 ) : ViewModel() {
 
-    var isNetworkAvailable = false
+    var isNetworkAvailable = true
 
     private val _userLiveData = MutableLiveData<User?>()
     val userLiveData: LiveData<User?> = _userLiveData

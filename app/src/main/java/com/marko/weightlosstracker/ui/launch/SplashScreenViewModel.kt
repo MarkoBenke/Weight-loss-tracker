@@ -33,14 +33,6 @@ class SplashScreenViewModel @Inject constructor(
         isUserSignedIn()
     }
 
-    private fun isUserSignedIn() {
-        viewModelScope.launch(dispatchers.io) {
-            authRepository.isUserSignedIn().collect {
-                _isUserSignedInLiveData.postValue(it)
-            }
-        }
-    }
-
     fun getUser() {
         viewModelScope.launch(dispatchers.io) {
             userRepository.syncUserData().collect {
@@ -49,6 +41,14 @@ class SplashScreenViewModel @Inject constructor(
                         _userLiveData.postValue(user)
                     }
                 }
+            }
+        }
+    }
+
+    private fun isUserSignedIn() {
+        viewModelScope.launch(dispatchers.io) {
+            authRepository.isUserSignedIn().collect {
+                _isUserSignedInLiveData.postValue(it)
             }
         }
     }

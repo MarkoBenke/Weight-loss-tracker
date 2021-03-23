@@ -1,7 +1,7 @@
 package com.marko.weightlosstracker.data.local.dao
 
 import androidx.room.*
-import com.marko.weightlosstracker.data.local.model.UserCache
+import com.marko.weightlosstracker.data.local.entities.UserCache
 
 @Dao
 interface UserDao {

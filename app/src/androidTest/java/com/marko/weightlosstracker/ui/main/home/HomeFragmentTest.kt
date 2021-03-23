@@ -39,10 +39,6 @@ class HomeFragmentTest : BaseTest() {
             R.id.currentBmi,
             context.getString(R.string.bmi_details_card, stats.bmi.shortToString())
         )
-        isTextDisplayedInView(
-            R.id.goalName,
-            context.getString(R.string.goal_name, stats.targetWeight)
-        )
 
         isTextDisplayedInView(
             R.id.startWeight,

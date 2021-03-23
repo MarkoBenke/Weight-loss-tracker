@@ -33,7 +33,7 @@ class TargetWeightViewModelTest {
     fun `validate target weight, invalid input, returns error`() {
         viewModel.createUser("", DataGenerator.user)
 
-        val value = viewModel.insertUserLiveData.getOrAwaitValueTest()
+        val value = viewModel.modelLiveData.getOrAwaitValueTest()
 
         assertThat(value.getContentIfNotHandled()).isEqualTo(DataState.Error())
     }
@@ -42,7 +42,7 @@ class TargetWeightViewModelTest {
     fun `validate target weight, valid input, returns success`() {
         viewModel.createUser("70", DataGenerator.user)
 
-        val value = viewModel.insertUserLiveData.getOrAwaitValueTest()
+        val value = viewModel.modelLiveData.getOrAwaitValueTest()
 
         assertThat(value.getContentIfNotHandled()).isEqualTo(DataState.Success(Unit))
     }

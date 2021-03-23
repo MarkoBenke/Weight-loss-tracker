@@ -15,8 +15,8 @@ android {
         applicationId "com.marko.weightlosstracker"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1"
 
         testInstrumentationRunner "com.marko.weightlosstracker.HiltTestRunner"
     }
@@ -54,7 +54,6 @@ android {
 }
 
 dependencies {
-    def fragment_version = "1.2.5"
     def multidex = "2.0.1"
     def room_version = "2.2.6"
     def lottieVersion = "3.4.0"
@@ -141,7 +140,7 @@ dependencies {
     // Segmented view
     implementation 'mobi.gspd:segmentedbarview:1.1.6@aar'
 
-    debugImplementation('androidx.fragment:fragment-testing:1.3.0') {
+    debugImplementation('androidx.fragment:fragment-testing:1.2.5') {
         exclude group: 'androidx.test', module: 'monitor'
     }
 

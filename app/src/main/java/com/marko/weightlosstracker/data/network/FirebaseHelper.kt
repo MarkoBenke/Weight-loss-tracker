@@ -1,4 +1,4 @@
-package com.marko.weightlosstracker.data.remote
+package com.marko.weightlosstracker.data.network
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference

@@ -79,6 +79,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_above="@id/submit"
                 android:layout_below="@id/dataLayout"
                 android:src="@drawable/ic_fitness"
                 tools:ignore="ContentDescription" />

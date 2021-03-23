@@ -5,9 +5,8 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import javax.inject.Inject
 
-class ConnectivityManager @Inject constructor(
-    context: Context,
-) {
+class ConnectivityManager @Inject constructor(context: Context) {
+
     private val connectionLiveData = ConnectionLiveData(context)
 
     // observe this in ui
