@@ -40,7 +40,7 @@ class SplashScreenActivity : AppCompatActivity() {
                 }
                 is DataState.Success -> {
                     // If user is signed in, get user
-                    viewModel.getUser()
+                    viewModel.syncDataAndFetchUser()
                 }
                 else -> Unit
             }

@@ -38,7 +38,6 @@ class ConnectionLiveData(context: Context) : LiveData<Boolean>() {
     }
 
     private fun createNetworkCallback() = object : ConnectivityManager.NetworkCallback() {
-
         /*
           Called when a network is detected. If that network has internet, save it in the Set.
           Source: https://developer.android.com/reference/android/net/ConnectivityManager.NetworkCallback#onAvailable(android.net.Network)

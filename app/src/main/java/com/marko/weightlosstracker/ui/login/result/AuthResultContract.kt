@@ -3,7 +3,6 @@ package com.marko.weightlosstracker.ui.login.result
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import androidx.activity.result.contract.ActivityResultContract
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -39,8 +38,6 @@ class AuthResultContract : ActivityResultContract<Int, String?>() {
                 }
             }
             else -> {
-                val task = GoogleSignIn.getSignedInAccountFromIntent(intent)
-                Log.d("BENI", "parseResult: " + task.exception.toString())
                 null
             }
         }

@@ -30,9 +30,9 @@ class MainViewModel @Inject constructor(
 
     private fun getUser() {
         viewModelScope.launch(dispatcherProvider.io) {
-            userRepository.getUser().collect {
-                when(it) {
-                    is DataState.Success -> _userLiveData.postValue(it.data)
+            userRepository.getUser().collect { dataState ->
+                when (dataState) {
+                    is DataState.Success -> _userLiveData.postValue(dataState.data)
                     else -> Unit
                 }
             }

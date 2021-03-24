@@ -46,7 +46,7 @@ class LoginActivity : AppCompatActivity() {
                 }
                 is DataState.Success -> {
                     binding.progressBar.isVisible = false
-                    viewModel.getUser()
+                    viewModel.syncDataAndFetchUser()
                 }
                 DataState.Loading -> binding.progressBar.isVisible = true
             }
@@ -54,9 +54,15 @@ class LoginActivity : AppCompatActivity() {
 
         viewModel.userLiveData.observe(this, { dataState ->
             when (dataState) {
-                is DataState.Loading -> Unit
-                is DataState.Success -> startHomeScreen(dataState.data)
-                is DataState.Error -> startOnBoarding()
+                is DataState.Loading -> binding.progressBar.isVisible = true
+                is DataState.Success -> {
+                    binding.progressBar.isVisible = false
+                    startHomeScreen(dataState.data)
+                }
+                is DataState.Error -> {
+                    binding.progressBar.isVisible = false
+                    startOnBoarding()
+                }
             }
         })
     }

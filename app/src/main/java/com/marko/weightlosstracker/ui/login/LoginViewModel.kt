@@ -39,7 +39,7 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun getUser() {
+    fun syncDataAndFetchUser() {
         viewModelScope.launch(dispatcherProvider.io) {
             userRepository.syncUserData().collect {
                 weightEntryRepository.syncEntriesData().collect {

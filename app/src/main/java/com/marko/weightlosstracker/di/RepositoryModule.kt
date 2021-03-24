@@ -27,7 +27,6 @@ import dagger.hilt.android.scopes.ViewModelScoped
 
 @Module
 @InstallIn(ViewModelComponent::class)
-//TODO Singleton or ViewModel scope
 object RepositoryModule {
 
     @ViewModelScoped

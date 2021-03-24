@@ -34,7 +34,7 @@ class LoginViewModelTest {
             FakeDispatcherProvider()
         )
 
-        viewModel.getUser()
+        viewModel.syncDataAndFetchUser()
 
         val value = viewModel.userLiveData.getOrAwaitValueTest()
 
@@ -50,7 +50,7 @@ class LoginViewModelTest {
             FakeDispatcherProvider()
         )
 
-        viewModel.getUser()
+        viewModel.syncDataAndFetchUser()
 
         val value = viewModel.userLiveData.getOrAwaitValueTest()
 

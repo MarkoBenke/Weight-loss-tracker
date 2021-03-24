@@ -33,7 +33,7 @@ class SplashScreenViewModel @Inject constructor(
         isUserSignedIn()
     }
 
-    fun getUser() {
+    fun syncDataAndFetchUser() {
         viewModelScope.launch(dispatchers.io) {
             userRepository.syncUserData().collect {
                 weightEntryRepository.syncEntriesData().collect {

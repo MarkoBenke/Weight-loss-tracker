@@ -12,7 +12,6 @@ import com.marko.weightlosstracker.databinding.FragmentProfileBinding
 import com.marko.weightlosstracker.model.User
 import com.marko.weightlosstracker.ui.core.BaseFragment
 import com.marko.weightlosstracker.ui.core.viewBinding
-import com.marko.weightlosstracker.ui.dialogs.ErrorDialog
 import com.marko.weightlosstracker.ui.main.MainViewModel
 import com.marko.weightlosstracker.util.DataState
 import dagger.hilt.android.AndroidEntryPoint
@@ -75,8 +74,7 @@ class ProfileFragment : BaseFragment<ProfileViewModel, DataState<User?>>(
         viewModel.updateUserLiveData.observe(viewLifecycleOwner, { result ->
             when (result) {
                 is DataState.Error -> {
-                    val dialog = ErrorDialog.newInstance(getString(R.string.unknown_error))
-                    dialog.show(parentFragmentManager, ErrorDialog.TAG)
+                    showErrorDialog()
                     binding.progressBar.isVisible = false
                 }
                 is DataState.Success -> {

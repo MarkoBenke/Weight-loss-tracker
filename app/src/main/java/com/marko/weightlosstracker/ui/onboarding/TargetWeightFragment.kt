@@ -47,7 +47,6 @@ class TargetWeightFragment : BaseFragment<TargetWeightViewModel, Event<DataState
                     requireActivity().finish()
                 }
                 is DataState.Error -> {
-                    //TODO check if this works when you get error state more than once
                     binding.progressBar.isVisible = false
                     binding.targetWeight.error = getString(R.string.mandatory_field)
                 }

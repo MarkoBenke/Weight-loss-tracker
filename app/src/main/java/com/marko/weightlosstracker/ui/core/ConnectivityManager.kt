@@ -9,7 +9,7 @@ class ConnectivityManager @Inject constructor(context: Context) {
 
     private val connectionLiveData = ConnectionLiveData(context)
 
-    // observe this in ui
+    // observe this on ui
     val isNetworkAvailable = MutableLiveData(false)
 
     fun registerConnectionObserver(lifecycleOwner: LifecycleOwner){

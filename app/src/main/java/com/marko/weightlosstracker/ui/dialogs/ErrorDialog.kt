@@ -41,7 +41,7 @@ class ErrorDialog : DialogFragment() {
     }
 
     companion object {
-        const val TAG = "ConfirmationDialog"
+        const val TAG = "ErrorDialog"
         private const val DIALOG_TITLE = "title"
 
         fun newInstance(dialogTitle: String) =

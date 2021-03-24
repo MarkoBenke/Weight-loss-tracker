@@ -12,7 +12,6 @@ import com.marko.weightlosstracker.databinding.FragmentAddEntryBinding
 import com.marko.weightlosstracker.model.WeightEntry
 import com.marko.weightlosstracker.ui.core.BaseFragment
 import com.marko.weightlosstracker.ui.core.viewBinding
-import com.marko.weightlosstracker.ui.dialogs.ErrorDialog
 import com.marko.weightlosstracker.ui.main.MainViewModel
 import com.marko.weightlosstracker.util.DataState
 import com.marko.weightlosstracker.util.getCurrentDate
@@ -85,8 +84,7 @@ class AddEntryFragment : BaseFragment<AddEntryViewModel, Long>(
             when (dataState) {
                 is DataState.Error -> {
                     binding.progressBar.isVisible = false
-                    val dialog = ErrorDialog.newInstance(getString(R.string.unknown_error))
-                    dialog.show(parentFragmentManager, ErrorDialog.TAG)
+                    showErrorDialog()
                 }
                 DataState.Loading -> binding.progressBar.isVisible = true
                 is DataState.Success -> {
