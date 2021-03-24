@@ -2,15 +2,18 @@ package com.marko.weightlosstracker.repository.weightentry
 
 import com.marko.weightlosstracker.data.local.dao.UserDao
 import com.marko.weightlosstracker.data.local.dao.WeightEntryDao
-import com.marko.weightlosstracker.data.local.mappers.WeightEntryMapper
 import com.marko.weightlosstracker.data.local.entities.UserCache
+import com.marko.weightlosstracker.data.local.mappers.WeightEntryMapper
 import com.marko.weightlosstracker.data.network.services.UserService
 import com.marko.weightlosstracker.data.network.services.WeightEntryService
 import com.marko.weightlosstracker.data.util.UserTable
 import com.marko.weightlosstracker.data.util.WeightEntryTable
 import com.marko.weightlosstracker.model.Stats
 import com.marko.weightlosstracker.model.WeightEntry
-import com.marko.weightlosstracker.util.*
+import com.marko.weightlosstracker.util.Constants
+import com.marko.weightlosstracker.util.DataState
+import com.marko.weightlosstracker.util.calculateBmi
+import com.marko.weightlosstracker.util.parseDate
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
@@ -48,7 +51,8 @@ class DefaultWeightEntryRepository(
     override suspend fun insertWeight(weightEntry: WeightEntry): Flow<DataState<Unit>> = flow {
         emit(DataState.Loading)
 
-        val entryResult = weightEntryService.insertWeightEntry(weightEntryMapper.mapToRemoteEntity(weightEntry))
+        val entryResult =
+            weightEntryService.insertWeightEntry(weightEntryMapper.mapToRemoteEntity(weightEntry))
         if (entryResult) {
             weightEntryDao.insertWeightEntry(weightEntryMapper.mapToEntity(weightEntry))
             emit(DataState.Success(Unit))

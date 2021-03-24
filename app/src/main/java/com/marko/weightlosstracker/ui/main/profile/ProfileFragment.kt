@@ -81,6 +81,8 @@ class ProfileFragment : BaseFragment<ProfileViewModel, DataState<User?>>(
                 }
                 is DataState.Success -> {
                     binding.progressBar.isVisible = false
+                    mainViewModel.userLiveData.value?.targetWeight =
+                        binding.targetWeightEditText.text.toString().toFloat()
                     Toast.makeText(
                         requireContext(),
                         getString(R.string.user_update_success),

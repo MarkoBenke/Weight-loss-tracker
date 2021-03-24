@@ -1,5 +1,7 @@
 package com.marko.weightlosstracker.model
 
-enum class Gender {
+import androidx.annotation.Keep
+
+@Keep enum class Gender {
     MALE, FEMALE
 }

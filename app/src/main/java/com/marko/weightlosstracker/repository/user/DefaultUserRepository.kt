@@ -1,15 +1,15 @@
 package com.marko.weightlosstracker.repository.user
 
-import com.marko.weightlosstracker.data.local.settings.SettingsManager
 import com.marko.weightlosstracker.data.local.dao.UserDao
 import com.marko.weightlosstracker.data.local.dao.WeightEntryDao
 import com.marko.weightlosstracker.data.local.mappers.UserMapper
 import com.marko.weightlosstracker.data.local.mappers.WeightEntryMapper
+import com.marko.weightlosstracker.data.local.settings.SettingsManager
 import com.marko.weightlosstracker.data.network.services.UserService
 import com.marko.weightlosstracker.data.network.services.WeightEntryService
+import com.marko.weightlosstracker.data.util.UserTable
 import com.marko.weightlosstracker.model.User
 import com.marko.weightlosstracker.util.DataState
-import com.marko.weightlosstracker.data.util.UserTable
 import com.marko.weightlosstracker.util.parseDate
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -57,11 +57,13 @@ class DefaultUserRepository constructor(
         val userCache = userDao.getUser()
 
         if (remoteUser != null) {
-            userCache?.let {
-                if (userMapper.mapFromRemoteEntity(remoteUser) != userMapper.mapFromEntity(it)) {
+            if (userCache != null) {
+                if (userMapper.mapFromRemoteEntity(remoteUser) != userMapper.mapFromEntity(userCache)) {
                     userDao.updateUser(userMapper.remoteToLocal(remoteUser))
                 }
-            } ?: userDao.insertUser(userMapper.remoteToLocal(remoteUser))
+            } else {
+                userDao.insertUser(userMapper.remoteToLocal(remoteUser))
+            }
         }
         emit(Unit)
     }

@@ -89,4 +89,5 @@
     <string name="entry_details">Detalji</string>
     <string name="update">Ažuriraj</string>
     <string name="add_tab_title">Dodaj Unos</string>
+    <string name="statistics">@string/stats_tab</string>
 </resources>

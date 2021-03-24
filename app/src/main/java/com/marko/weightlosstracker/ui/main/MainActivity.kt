@@ -12,7 +12,9 @@ import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.marko.weightlosstracker.R
 import com.marko.weightlosstracker.databinding.ActivityMainBinding
+import com.marko.weightlosstracker.model.User
 import com.marko.weightlosstracker.ui.core.ConnectivityManager
+import com.marko.weightlosstracker.ui.onboarding.OnBoardingActivity
 import com.marko.weightlosstracker.util.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -57,13 +59,6 @@ class MainActivity : AppCompatActivity() {
 
         setupActionBarWithNavController(this, navController, binding.drawerLayout)
 
-        viewModel.userLiveData.observe(this) {
-            supportActionBar?.title = getString(
-                R.string.goal_name,
-                it?.targetWeight.toString()
-            )
-        }
-
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.entryDetailsFragment, R.id.profileFragment, R.id.settingsFragment ->
@@ -78,6 +73,9 @@ class MainActivity : AppCompatActivity() {
                 else -> binding.bottomNav.isVisible = true
             }
         }
+
+        val user = intent.extras?.getParcelable<User>(OnBoardingActivity.USER_KEY)
+        supportActionBar?.title = getString(R.string.goal_name, user?.targetWeight.toString())
     }
 
     override fun onSupportNavigateUp(): Boolean {

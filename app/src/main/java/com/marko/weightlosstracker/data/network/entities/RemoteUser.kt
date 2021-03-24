@@ -1,6 +1,8 @@
 package com.marko.weightlosstracker.data.network.entities
 
-data class RemoteUser(
+import androidx.annotation.Keep
+
+@Keep data class RemoteUser(
     var id: String = "",
     var username: String = "",
     var startWeight: Float = 0f,

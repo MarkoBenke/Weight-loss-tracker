@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.marko.weightlosstracker.databinding.ActivitySplashScreenBinding
 import com.marko.weightlosstracker.model.User
 import com.marko.weightlosstracker.ui.login.LoginActivity
@@ -26,7 +27,7 @@ class SplashScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
+        FirebaseAnalytics.getInstance(this)
         subscribeToObservers()
     }
 

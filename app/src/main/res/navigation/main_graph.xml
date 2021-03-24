@@ -40,7 +40,7 @@
     <fragment
         android:id="@+id/stats"
         android:name="com.marko.weightlosstracker.ui.main.stats.StatsFragment"
-        android:label="@string/stats_tab">
+        android:label="@string/statistics">
         <action
             android:id="@+id/action_statsFragment_to_entryHistoryFragment"
             app:destination="@id/entryHistory"
