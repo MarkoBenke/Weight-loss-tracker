@@ -10,7 +10,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class FakeWeightEntryRepositoryTest @Inject constructor() : WeightEntryRepository {
+class FakeWeightEntryRepositoryTest(private val shouldReturnError: Boolean = false)
+    : WeightEntryRepository {
 
     private var entries = mutableListOf<WeightEntry>()
 
@@ -18,19 +19,28 @@ class FakeWeightEntryRepositoryTest @Inject constructor() : WeightEntryRepositor
         entries = DataGenerator.listOfEntries.toMutableList()
     }
 
-    override suspend fun getAllEntries(): Flow<DataState<List<WeightEntry>>> = flow {
+    override suspend fun getLocalEntries(): Flow<DataState<List<WeightEntry>>> = flow {
         val sortedList = entries.sortedByDescending {
             parseDate(it.date)
         }
         emit(DataState.Success(sortedList))
     }
 
+    override suspend fun syncEntriesData(): Flow<Unit> = flow {
+        emit(Unit)
+    }
+
     override suspend fun getUserStats(): Flow<Stats> = flow {
         emit(DataGenerator.stats)
     }
 
-    override suspend fun insertWeight(weightEntry: WeightEntry) {
+    override suspend fun insertWeight(weightEntry: WeightEntry): Flow<DataState<Unit>> = flow {
+        if (shouldReturnError) {
+            emit(DataState.Error())
+            return@flow
+        }
         entries.add(weightEntry)
+        emit(DataState.Success(Unit))
     }
 
     override suspend fun deleteWeightEntryFromList(weightEntry: WeightEntry): Flow<DataState<List<WeightEntry>>> =
@@ -42,12 +52,20 @@ class FakeWeightEntryRepositoryTest @Inject constructor() : WeightEntryRepositor
             emit(DataState.Success(sortedList))
         }
 
-    override suspend fun deleteWeightEntry(weightEntry: WeightEntry): Flow<Boolean> = flow {
+    override suspend fun deleteWeightEntry(weightEntry: WeightEntry): Flow<DataState<Unit>> = flow {
+        if (shouldReturnError) {
+            emit(DataState.Error())
+            return@flow
+        }
         entries.remove(weightEntry)
-        emit(true)
+        emit(DataState.Success(Unit))
     }
 
-    override suspend fun updateWeightEntry(weightEntry: WeightEntry): Flow<Boolean> = flow {
+    override suspend fun updateWeightEntry(weightEntry: WeightEntry): Flow<DataState<Unit>> = flow {
+        if (shouldReturnError) {
+            emit(DataState.Error())
+            return@flow
+        }
         entries.forEach { value ->
             if (value.uuid == weightEntry.uuid) {
                 value.description = weightEntry.description
@@ -55,6 +73,6 @@ class FakeWeightEntryRepositoryTest @Inject constructor() : WeightEntryRepositor
                 value.currentWeight = weightEntry.currentWeight
             }
         }
-        emit(true)
+        emit(DataState.Success(Unit))
     }
 }

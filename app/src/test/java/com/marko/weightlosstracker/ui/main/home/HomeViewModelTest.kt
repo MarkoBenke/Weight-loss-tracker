@@ -27,8 +27,7 @@ class HomeViewModelTest {
     @Test
     fun `get quote, returns success`() {
         viewModel = HomeViewModel(
-            FakeQuotesRepositoryTest(), FakeWeightEntryRepositoryTest(),
-            FakeDispatcherProvider()
+            FakeQuotesRepositoryTest(), FakeWeightEntryRepositoryTest(), FakeDispatcherProvider()
         )
         viewModel.fetchInitialData()
         val value = viewModel.quoteLiveData.getOrAwaitValueTest()

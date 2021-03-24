@@ -2,7 +2,7 @@ package com.marko.weightlosstracker.data.local.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.marko.weightlosstracker.data.local.model.WeightEntryCache
+import com.marko.weightlosstracker.data.local.entities.WeightEntryCache
 
 @Dao
 interface WeightEntryDao {

@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.marko.weightlosstracker.data.local.model.QuoteCache
+import com.marko.weightlosstracker.data.local.entities.QuoteCache
 
 @Dao
 interface QuoteDao {

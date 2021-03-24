@@ -5,6 +5,7 @@ import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.intent.Intents.intended
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
 import com.marko.weightlosstracker.di.FakeRepositoryModule
+import com.marko.weightlosstracker.ui.login.LoginActivity
 import com.marko.weightlosstracker.ui.main.MainActivity
 import com.marko.weightlosstracker.utils.BaseTest
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -31,23 +32,23 @@ class SplashScreenActivityTest: BaseTest() {
     @After
     fun teardown() {
         Intents.release()
+        FakeRepositoryModule.shouldReturnError = false
     }
 
     @Test
-    fun checkNavigationHandlingIfUserReturnsError() {
+    fun checkNavigationHandlingIfUserSignedInReturnsError() {
         FakeRepositoryModule.shouldReturnError = true
-
         hiltRule.inject()
 
         ActivityScenario.launch(SplashScreenActivity::class.java)
         runBlocking {
             delay(SPLASH_SCREEN_TIME_OUT)
         }
-        intended(hasComponent(LaunchActivity::class.java.name))
+        intended(hasComponent(LoginActivity::class.java.name))
     }
 
     @Test
-    fun checkNavigationHandlingIfUserReturnsSuccess() {
+    fun checkNavigationHandlingIfUserSignedInReturnsSuccess() {
         FakeRepositoryModule.shouldReturnError = false
         hiltRule.inject()
         ActivityScenario.launch(SplashScreenActivity::class.java)

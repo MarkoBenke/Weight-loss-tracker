@@ -5,7 +5,10 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.marko.weightlosstracker.databinding.ActivitySplashScreenBinding
+import com.marko.weightlosstracker.model.User
+import com.marko.weightlosstracker.ui.login.LoginActivity
 import com.marko.weightlosstracker.ui.main.MainActivity
 import com.marko.weightlosstracker.ui.onboarding.OnBoardingActivity
 import com.marko.weightlosstracker.util.DataState
@@ -24,44 +27,82 @@ class SplashScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
+        FirebaseAnalytics.getInstance(this)
         subscribeToObservers()
     }
 
     private fun subscribeToObservers() {
+        viewModel.isUserSignedInLiveData.observe(this) { dataState ->
+            when (dataState) {
+                is DataState.Error -> {
+                    // User not signed in, navigate to login
+                    startLoginScreen()
+                }
+                is DataState.Success -> {
+                    // If user is signed in, get user
+                    viewModel.syncDataAndFetchUser()
+                }
+                else -> Unit
+            }
+        }
         viewModel.userLiveData.observe(this, { dataState ->
             when (dataState) {
                 is DataState.Loading -> Unit
                 is DataState.Success -> {
-                    lifecycleScope.launchWhenStarted {
-                        delay(SPLASH_TIME_OUT)
-                        withContext(Dispatchers.Main) {
-                            if (dataState.data != null) {
-                                val intent =
-                                    Intent(this@SplashScreenActivity, MainActivity::class.java)
-                                intent.putExtra(OnBoardingActivity.USER_KEY, dataState.data)
-                                startActivity(intent)
-                                finish()
-                            }
-                        }
-                    }
+                    // User is successfully fetched, navigate to home
+                    startHomeScreen(dataState.data)
                 }
                 is DataState.Error -> {
-                    lifecycleScope.launchWhenStarted {
-                        delay(SPLASH_TIME_OUT)
-                        withContext(Dispatchers.Main) {
-                            startActivity(
-                                Intent(
-                                    this@SplashScreenActivity,
-                                    LaunchActivity::class.java
-                                )
-                            )
-                            finish()
-                        }
-                    }
+                    // No user in database, navigate to on boarding
+                    startOnBoarding()
                 }
             }
         })
+    }
+
+    private fun startOnBoarding() {
+        lifecycleScope.launchWhenStarted {
+            delay(SPLASH_TIME_OUT)
+            withContext(Dispatchers.Main) {
+                startActivity(
+                    Intent(
+                        this@SplashScreenActivity,
+                        LaunchActivity::class.java
+                    )
+                )
+                finish()
+            }
+        }
+    }
+
+    private fun startHomeScreen(userData: User?) {
+        lifecycleScope.launchWhenStarted {
+            delay(SPLASH_TIME_OUT)
+            withContext(Dispatchers.Main) {
+                if (userData != null) {
+                    val intent =
+                        Intent(this@SplashScreenActivity, MainActivity::class.java)
+                    intent.putExtra(OnBoardingActivity.USER_KEY, userData)
+                    startActivity(intent)
+                    finish()
+                }
+            }
+        }
+    }
+
+    private fun startLoginScreen() {
+        lifecycleScope.launchWhenStarted {
+            delay(SPLASH_TIME_OUT)
+            withContext(Dispatchers.Main) {
+                startActivity(
+                    Intent(
+                        this@SplashScreenActivity,
+                        LoginActivity::class.java
+                    )
+                )
+                finish()
+            }
+        }
     }
 
     companion object {

@@ -15,13 +15,18 @@ import androidx.test.espresso.action.Swipe
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.doesNotExist
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.contrib.DrawerActions
 import androidx.test.espresso.contrib.PickerActions
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.RootMatchers.withDecorView
 import androidx.test.espresso.matcher.ViewMatchers.*
 import com.google.android.material.textfield.TextInputLayout
-import org.hamcrest.*
+import com.marko.weightlosstracker.R
 import org.hamcrest.CoreMatchers.*
+import org.hamcrest.Description
+import org.hamcrest.Matcher
+import org.hamcrest.Matchers
+import org.hamcrest.TypeSafeMatcher
 import org.hamcrest.core.StringContains
 
 abstract class BaseUiTest {
@@ -37,6 +42,9 @@ abstract class BaseUiTest {
     fun sleepLong() {
         SystemClock.sleep(2000)
     }
+
+    fun openDrawer() =
+        onView(withId(R.id.drawerLayout)).perform(DrawerActions.open())
 
    fun swipeItemInRecyclerView(recViewId: Int, itemPosition: Int) {
        onView(withId(recViewId)).perform(

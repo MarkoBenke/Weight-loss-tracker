@@ -2,7 +2,7 @@ package com.marko.weightlosstracker.di
 
 import android.content.Context
 import androidx.room.Room
-import com.marko.weightlosstracker.data.local.WeightLossDatabase
+import com.marko.weightlosstracker.data.local.db.WeightLossDatabase
 import com.marko.weightlosstracker.util.Constants
 import dagger.Module
 import dagger.Provides

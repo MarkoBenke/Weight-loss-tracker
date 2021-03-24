@@ -5,6 +5,8 @@ import com.marko.weightlosstracker.R
 import com.marko.weightlosstracker.util.getCurrentDate
 import com.marko.weightlosstracker.utils.BaseTest
 import com.marko.weightlosstracker.utils.DataGenerator
+import com.marko.weightlosstracker.utils.DataGenerator.largeName
+import com.marko.weightlosstracker.utils.DataGenerator.largeNumber
 import com.marko.weightlosstracker.utils.launchFragmentInHiltContainer
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -34,11 +36,19 @@ class BasicInfoFragmentTest : BaseTest() {
     fun basicInfoUiCheck() {
         isTextDisplayedInView(R.id.weightDataText, context.getString(R.string.weight_data_title))
 
+        checkHintTextOnInputField(R.id.userName, context.getString(R.string.username))
         checkHintTextOnInputField(R.id.height, context.getString(R.string.height))
         checkHintTextOnInputField(R.id.age, context.getString(R.string.age))
-        checkHintTextOnInputField(R.id.currentWeight, context.getString(R.string.goal_details_current_weight))
-        checkHintTextOnInputField(R.id.waistSize, context.getString(R.string.goal_details_waist_size))
+        checkHintTextOnInputField(
+            R.id.currentWeight,
+            context.getString(R.string.goal_details_current_weight)
+        )
+        checkHintTextOnInputField(
+            R.id.waistSize,
+            context.getString(R.string.goal_details_waist_size)
+        )
 
+        checkHelperTextOnInputField(R.id.userName, context.getString(R.string.mandatory_field))
         checkHelperTextOnInputField(R.id.height, context.getString(R.string.mandatory_field))
         checkHelperTextOnInputField(R.id.age, context.getString(R.string.mandatory_field))
         checkHelperTextOnInputField(R.id.currentWeight, context.getString(R.string.mandatory_field))
@@ -54,7 +64,7 @@ class BasicInfoFragmentTest : BaseTest() {
         isTextDisplayedInView(R.id.setDateText, getCurrentDate())
 
         clickOnView(R.id.setDate)
-        selectDateInCalendar(5, 10,2020)
+        selectDateInCalendar(5, 10, 2020)
         clickOnCalendarOk()
 
         isTextDisplayedInView(R.id.setDateText, "05.10.2020")
@@ -65,7 +75,7 @@ class BasicInfoFragmentTest : BaseTest() {
         isTextDisplayedInView(R.id.setDateText, getCurrentDate())
 
         clickOnView(R.id.setDateText)
-        selectDateInCalendar(5, 10,2020)
+        selectDateInCalendar(5, 10, 2020)
         clickOnCalendarOk()
 
         isTextDisplayedInView(R.id.setDateText, "05.10.2020")
@@ -73,7 +83,12 @@ class BasicInfoFragmentTest : BaseTest() {
 
     @Test
     fun basicInfoFieldsMaxInputLength() {
-        val largeNumber = "123456"
+        typeTextOnInputLayout(R.id.userName, largeName)
+        checkMaxInputLength(
+            R.id.userNameEditText,
+            context.resources.getInteger(R.integer.name_entry_max_length)
+        )
+
         typeTextOnInputLayout(R.id.height, largeNumber)
         checkMaxInputLength(
             R.id.heightEditText,

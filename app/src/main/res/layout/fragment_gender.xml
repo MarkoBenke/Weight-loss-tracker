@@ -57,9 +57,8 @@
         android:layout_width="match_parent"
         android:layout_height="380dp"
         android:layout_above="@id/next"
+        android:layout_below="@id/genderSwitch"
         android:layout_marginHorizontal="@dimen/large_margin"
-        android:layout_marginBottom="@dimen/large_margin"
-        android:alpha="0.7"
         android:src="@drawable/ic_personal_trainer"
         tools:ignore="ContentDescription" />
 
@@ -69,8 +68,7 @@
         android:layout_height="@dimen/basic_dialog_button_height"
         android:layout_alignParentBottom="true"
         android:layout_marginHorizontal="@dimen/large_margin"
-        android:layout_marginTop="@dimen/large_margin"
-        android:layout_marginBottom="@dimen/extra_large_margin"
+        android:layout_marginVertical="@dimen/large_margin"
         android:fontFamily="@font/roboto_medium"
         android:text="@string/next_button_text"
         android:textAllCaps="false"

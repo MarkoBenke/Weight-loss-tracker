@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/launch_screen_image"
+    android:background="@color/surface"
     android:fitsSystemWindows="true">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/ic_launch_image"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/appTitle"
@@ -14,14 +21,13 @@
         android:gravity="center"
         android:lineSpacingMultiplier="1.2"
         android:padding="@dimen/large_padding"
-        android:shadowColor="@android:color/black"
-        android:shadowRadius="4"
         android:text="@string/weight_loss_tracker_title"
-        android:textColor="@android:color/white"
+        android:textColor="@color/primaryTextColor"
         android:textSize="50sp"
         android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/appDesc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/appTitle"
@@ -29,10 +35,8 @@
         android:gravity="center"
         android:lineSpacingMultiplier="1.2"
         android:padding="@dimen/large_padding"
-        android:shadowColor="@android:color/black"
-        android:shadowRadius="4"
         android:text="@string/welcome_setup_message"
-        android:textColor="@android:color/white"
+        android:textColor="@color/primaryTextColor"
         android:textSize="18sp"
         android:textStyle="bold" />
 

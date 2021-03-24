@@ -4,9 +4,10 @@ import android.content.Context
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.marko.weightlosstracker.R
-import com.marko.weightlosstracker.data.local.DefaultSettingsManager
-import com.marko.weightlosstracker.data.local.SettingsManager
+import com.marko.weightlosstracker.data.local.settings.DefaultSettingsManager
+import com.marko.weightlosstracker.data.local.settings.SettingsManager
 import com.marko.weightlosstracker.ui.core.DispatcherProvider
+import com.marko.weightlosstracker.ui.core.ConnectivityManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,6 +28,11 @@ object AppModule {
             RequestOptions().placeholder(R.drawable.ic_image)
                 .error(R.drawable.ic_image)
         )
+
+    @Singleton
+    @Provides
+    fun provideConnectivityManager(@ApplicationContext context: Context): ConnectivityManager =
+        ConnectivityManager(context)
 
     @Singleton
     @Provides

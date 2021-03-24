@@ -84,6 +84,7 @@ class OnBoardingActivityTest : BaseTest() {
     }
 
     private fun fillBasicInfoData() {
+        typeTextOnInputLayout(R.id.userName, "Mare")
         typeTextOnInputLayout(R.id.height, "175")
         typeTextOnInputLayout(R.id.age, "30")
         typeTextOnInputLayout(R.id.currentWeight, "85")

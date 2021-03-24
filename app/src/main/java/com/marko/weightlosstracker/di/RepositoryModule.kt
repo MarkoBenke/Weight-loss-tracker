@@ -1,14 +1,18 @@
 package com.marko.weightlosstracker.di
 
-import com.marko.weightlosstracker.data.local.SettingsManager
+import com.google.firebase.auth.FirebaseAuth
 import com.marko.weightlosstracker.data.local.dao.QuoteDao
 import com.marko.weightlosstracker.data.local.dao.UserDao
 import com.marko.weightlosstracker.data.local.dao.WeightEntryDao
-import com.marko.weightlosstracker.data.local.mappers.QuoteLocalMapper
+import com.marko.weightlosstracker.data.local.mappers.QuoteMapper
 import com.marko.weightlosstracker.data.local.mappers.UserMapper
 import com.marko.weightlosstracker.data.local.mappers.WeightEntryMapper
-import com.marko.weightlosstracker.data.remote.QuoteNetworkMapper
-import com.marko.weightlosstracker.data.remote.QuotesService
+import com.marko.weightlosstracker.data.local.settings.SettingsManager
+import com.marko.weightlosstracker.data.network.services.QuotesService
+import com.marko.weightlosstracker.data.network.services.UserService
+import com.marko.weightlosstracker.data.network.services.WeightEntryService
+import com.marko.weightlosstracker.repository.auth.AuthRepository
+import com.marko.weightlosstracker.repository.auth.DefaultAuthRepository
 import com.marko.weightlosstracker.repository.quotes.DefaultQuotesRepository
 import com.marko.weightlosstracker.repository.quotes.QuotesRepository
 import com.marko.weightlosstracker.repository.user.DefaultUserRepository
@@ -28,28 +32,49 @@ object RepositoryModule {
     @ViewModelScoped
     @Provides
     fun provideQuotesRepository(
-        quotesService: QuotesService, quoteDao: QuoteDao,
-        networkMapper: QuoteNetworkMapper, localMapper: QuoteLocalMapper
+        quotesService: QuotesService, quoteDao: QuoteDao, mapper: QuoteMapper
     ): QuotesRepository =
-        DefaultQuotesRepository(quotesService, quoteDao, networkMapper, localMapper)
+        DefaultQuotesRepository(quotesService, quoteDao, mapper)
 
     @ViewModelScoped
     @Provides
     fun provideUserRepository(
         userDao: UserDao,
+        userService: UserService,
         weightEntryDao: WeightEntryDao,
+        weightEntryService: WeightEntryService,
         settingsManager: SettingsManager,
-        userMapper: UserMapper
+        userMapper: UserMapper,
+        weightEntryMapper: WeightEntryMapper
     ): UserRepository = DefaultUserRepository(
         userDao,
+        userService,
         weightEntryDao,
+        weightEntryService,
         settingsManager,
-        userMapper
+        userMapper,
+        weightEntryMapper
     )
 
     @ViewModelScoped
     @Provides
     fun provideWeightEntryRepository(
-        weightEntryDao: WeightEntryDao, userDao: UserDao, mapper: WeightEntryMapper
-    ): WeightEntryRepository = DefaultWeightEntryRepository(weightEntryDao, userDao, mapper)
+        weightEntryDao: WeightEntryDao,
+        weightEntryService: WeightEntryService,
+        userDao: UserDao,
+        userService: UserService,
+        entryMapper: WeightEntryMapper
+    ): WeightEntryRepository =
+        DefaultWeightEntryRepository(
+            weightEntryDao,
+            weightEntryService,
+            userDao,
+            userService,
+            entryMapper
+        )
+
+    @ViewModelScoped
+    @Provides
+    fun provideAuthRepository(firebaseAuth: FirebaseAuth): AuthRepository =
+        DefaultAuthRepository(firebaseAuth)
 }

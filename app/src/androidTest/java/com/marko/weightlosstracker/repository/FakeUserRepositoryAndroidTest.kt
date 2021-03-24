@@ -13,8 +13,12 @@ class FakeUserRepositoryAndroidTest @Inject constructor(
     private val shouldReturnError: Boolean
 ) : UserRepository {
 
-    override suspend fun insertUser(user: User) {
-
+    override suspend fun insertUser(user: User): Flow<DataState<Unit>> = flow {
+        if (shouldReturnError) {
+            emit(DataState.Error("Error!"))
+            return@flow
+        }
+        emit(DataState.Success(Unit))
     }
 
     override suspend fun getUser(): Flow<DataState<User?>> = flow {
@@ -34,7 +38,19 @@ class FakeUserRepositoryAndroidTest @Inject constructor(
         emit(parseDate(startDate)!!.time)
     }
 
-    override suspend fun updateUser(user: User) {
+    override suspend fun updateUser(user: User): Flow<DataState<Unit>> = flow {
+        if (shouldReturnError) {
+            emit(DataState.Error("Error!"))
+            return@flow
+        }
+        emit(DataState.Success(Unit))
+    }
 
+    override suspend fun syncUserData(): Flow<Unit> = flow {
+        emit(Unit)
+    }
+
+    override suspend fun getUsername(): Flow<String> = flow {
+        emit(DataGenerator.user.username)
     }
 }

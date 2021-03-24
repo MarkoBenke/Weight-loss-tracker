@@ -18,8 +18,8 @@ data class Stats(
     val cheeseburgersBurned: Float
 ) {
 
-    fun getCaloriesBurnedString(): String = caloriesBurned.roundUp().toString()
-    fun getCheeseburgersBurnedString(): String = cheeseburgersBurned.roundUp().toString()
+    fun getCaloriesBurnedString(): String = caloriesBurned.toInt().toString()
+    fun getCheeseburgersBurnedString(): String = cheeseburgersBurned.toInt().toString()
     fun getTotalLossString(): String = totalLoss.roundUp().toString()
     fun getRemainingString(): String = remaining.roundUp().toString()
     fun getCurrentWeightString(): String = currentWeight.roundUp().toString()

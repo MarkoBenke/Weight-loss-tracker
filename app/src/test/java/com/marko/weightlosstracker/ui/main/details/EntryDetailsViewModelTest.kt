@@ -9,7 +9,6 @@ import com.marko.weightlosstracker.other.getOrAwaitValueTest
 import com.marko.weightlosstracker.repository.FakeWeightEntryRepositoryTest
 import com.marko.weightlosstracker.util.DataState
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
@@ -24,13 +23,9 @@ class EntryDetailsViewModelTest {
 
     private lateinit var viewModel: EntryDetailsViewModel
 
-    @Before
-    fun setup() {
-        viewModel = EntryDetailsViewModel(FakeWeightEntryRepositoryTest(), FakeDispatcherProvider())
-    }
-
     @Test
     fun `validate update weight entry, returns error`() {
+        viewModel = EntryDetailsViewModel(FakeWeightEntryRepositoryTest(), FakeDispatcherProvider())
         viewModel.validate("")
 
         val value = viewModel.validation.getOrAwaitValueTest()
@@ -40,6 +35,7 @@ class EntryDetailsViewModelTest {
 
     @Test
     fun `validate update weight entry, returns success`() {
+        viewModel = EntryDetailsViewModel(FakeWeightEntryRepositoryTest(), FakeDispatcherProvider())
         viewModel.validate("95")
 
         val value = viewModel.validation.getOrAwaitValueTest()
@@ -49,19 +45,49 @@ class EntryDetailsViewModelTest {
 
     @Test
     fun `update weight entry, returns success`() {
+        viewModel = EntryDetailsViewModel(FakeWeightEntryRepositoryTest(), FakeDispatcherProvider())
         viewModel.update(DataGenerator.weightEntry)
 
         val value = viewModel.weightEntryAction.getOrAwaitValueTest()
 
-        assertThat(value).isEqualTo(true)
+        assertThat(value).isEqualTo(DataState.Success(Unit))
+    }
+
+    @Test
+    fun `update weight entry, returns error`() {
+        viewModel = EntryDetailsViewModel(
+            FakeWeightEntryRepositoryTest(
+                shouldReturnError = true
+            ), FakeDispatcherProvider()
+        )
+        viewModel.update(DataGenerator.weightEntry)
+
+        val value = viewModel.weightEntryAction.getOrAwaitValueTest()
+
+        assertThat(value).isEqualTo(DataState.Error())
     }
 
     @Test
     fun `delete weight entry, returns success`() {
+        viewModel = EntryDetailsViewModel(FakeWeightEntryRepositoryTest(), FakeDispatcherProvider())
         viewModel.delete(DataGenerator.weightEntry)
 
         val value = viewModel.weightEntryAction.getOrAwaitValueTest()
 
-        assertThat(value).isEqualTo(true)
+        assertThat(value).isEqualTo(DataState.Success(Unit))
+    }
+
+    @Test
+    fun `delete weight entry, returns Error`() {
+        viewModel = EntryDetailsViewModel(
+            FakeWeightEntryRepositoryTest(
+                shouldReturnError = true
+            ), FakeDispatcherProvider()
+        )
+        viewModel.delete(DataGenerator.weightEntry)
+
+        val value = viewModel.weightEntryAction.getOrAwaitValueTest()
+
+        assertThat(value).isEqualTo(DataState.Error())
     }
 }

@@ -1,38 +1,32 @@
 package com.marko.weightlosstracker.ui.onboarding
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.marko.weightlosstracker.model.Gender
 import com.marko.weightlosstracker.model.User
 import com.marko.weightlosstracker.repository.user.UserRepository
+import com.marko.weightlosstracker.ui.core.BaseViewModel
 import com.marko.weightlosstracker.ui.core.DispatcherProvider
 import com.marko.weightlosstracker.util.DataState
 import com.marko.weightlosstracker.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
 class TargetWeightViewModel @Inject constructor(
     private val userRepository: UserRepository,
     private val dispatchers: DispatcherProvider
-) : ViewModel() {
+) : BaseViewModel<Event<DataState<Unit>>>() {
 
-    private val _insertUserLiveData = MutableLiveData<Event<DataState<Unit>>>()
-    val insertUserLiveData: LiveData<Event<DataState<Unit>>> = _insertUserLiveData
-
-    fun insertUserToDb(targetWeight: String, user: User?) {
+    fun createUser(targetWeight: String, user: User?) {
         if (targetWeight.isEmpty()) {
-            _insertUserLiveData.postValue(Event(DataState.Error()))
+            modelLiveData.postValue(Event(DataState.Error()))
         } else {
             user?.let {
                 viewModelScope.launch(dispatchers.io) {
-                    userRepository.insertUser(it)
-                    withContext(dispatchers.main) {
-                        _insertUserLiveData.postValue(Event(DataState.Success(Unit)))
+                    userRepository.insertUser(it).collect {
+                        modelLiveData.postValue(Event(it))
                     }
                 }
             }
@@ -53,5 +47,9 @@ class TargetWeightViewModel @Inject constructor(
 
             "$minWeight kg - $maxWeight kg"
         } ?: ""
+    }
+
+    override fun fetchInitialData() {
+        /*NO-OP */
     }
 }

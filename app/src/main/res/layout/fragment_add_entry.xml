@@ -21,8 +21,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/large_margin"
-                android:layout_marginVertical="@dimen/large_margin"
+                android:layout_marginTop="@dimen/medium_margin"
                 android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/mouse_memoirs"
+                    android:gravity="center"
+                    android:layout_marginBottom="@dimen/small_margin"
+                    android:letterSpacing="0.03"
+                    android:shadowColor="@color/grey"
+                    android:shadowRadius="4"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="24sp"
+                    tools:text="Hey you, time for new entry?" />
+
+                <View
+                    android:id="@+id/divider"
+                    android:layout_width="match_parent"
+                    android:layout_marginBottom="@dimen/medium_margin"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="@dimen/medium_margin"
+                    android:background="@color/dividerColor" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/newWeight"
@@ -118,7 +140,7 @@
                 android:layout_above="@id/submitBtn"
                 android:layout_below="@id/dataLayout"
                 android:layout_marginHorizontal="@dimen/large_margin"
-                android:layout_marginTop="-16dp"
+                android:layout_marginTop="-60dp"
                 android:alpha="0.55"
                 android:src="@drawable/ic_track_and_field"
                 tools:ignore="ContentDescription" />
@@ -136,13 +158,14 @@
 
             <ProgressBar
                 android:id="@+id/progressBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/progress_bar_size"
+                android:layout_height="@dimen/progress_bar_size"
                 android:layout_centerInParent="true"
-                android:indeterminateTint="@color/purple_500"
-                android:indeterminateTintMode="src_atop"
-                android:visibility="gone"
-                tools:ignore="UnusedAttribute" />
+                android:background="@drawable/progress_bar_circle"
+                android:elevation="16dp"
+                android:indeterminate="true"
+                android:padding="@dimen/small_padding"
+                android:visibility="gone" />
         </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>
 </RelativeLayout>

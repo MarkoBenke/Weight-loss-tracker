@@ -19,8 +19,8 @@ class EntryDetailsViewModel @Inject constructor(
     private val dispatchers: DispatcherProvider
 ) : ViewModel() {
 
-    private val _weightEntryAction = MutableLiveData<Boolean>()
-    val weightEntryAction: LiveData<Boolean> = _weightEntryAction
+    private val _weightEntryAction = MutableLiveData<DataState<Unit>>()
+    val weightEntryAction: LiveData<DataState<Unit>> = _weightEntryAction
 
     private val _validation = MutableLiveData<DataState<Unit>>()
     val validation: LiveData<DataState<Unit>> = _validation

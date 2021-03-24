@@ -120,12 +120,23 @@
                     android:id="@+id/delete"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:drawableEnd="@drawable/ic_delete"
                     android:layout_weight="1"
+                    android:drawableEnd="@drawable/ic_delete"
                     android:fontFamily="@font/roboto_medium"
                     android:text="@string/delete"
                     android:textSize="16sp" />
             </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="@dimen/progress_bar_size"
+                android:layout_height="@dimen/progress_bar_size"
+                android:layout_centerInParent="true"
+                android:background="@drawable/progress_bar_circle"
+                android:elevation="16dp"
+                android:indeterminate="true"
+                android:padding="@dimen/small_padding"
+                android:visibility="gone" />
         </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>
 </RelativeLayout>

@@ -31,7 +31,7 @@ class EntryHistoryViewModel @Inject constructor(
 
     private fun getAllWeightEntries() {
         viewModelScope.launch(dispatcherProvider.io) {
-            weightEntryRepository.getAllEntries().collect {
+            weightEntryRepository.getLocalEntries().collect {
                 modelLiveData.postValue(it)
             }
         }

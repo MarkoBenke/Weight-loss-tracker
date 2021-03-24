@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.marko.weightlosstracker.R
 import com.marko.weightlosstracker.utils.BaseTest
 import com.marko.weightlosstracker.utils.DataGenerator
+import com.marko.weightlosstracker.utils.DataGenerator.largeNumber
 import com.marko.weightlosstracker.utils.launchFragmentInHiltContainer
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -13,7 +14,7 @@ import org.junit.Test
 
 @ExperimentalCoroutinesApi
 @HiltAndroidTest
-class TargetWeightFragmentTest: BaseTest() {
+class TargetWeightFragmentTest : BaseTest() {
 
     @get:Rule
     var hiltRule = HiltAndroidRule(this)
@@ -33,7 +34,7 @@ class TargetWeightFragmentTest: BaseTest() {
     fun targetWeightUiCheck() {
         isViewVisible(R.id.idealWeight)
 
-        checkHintTextOnInputField(R.id.targetWeight, context.getString(R.string.desired_weight))
+        checkHintTextOnInputField(R.id.targetWeight, context.getString(R.string.target_weight))
 
         checkHelperTextOnInputField(R.id.targetWeight, context.getString(R.string.mandatory_field))
 
@@ -42,7 +43,6 @@ class TargetWeightFragmentTest: BaseTest() {
 
     @Test
     fun targetWeightFieldMaxInputLength() {
-        val largeNumber = "123456"
         typeTextOnInputLayout(R.id.targetWeight, largeNumber)
         checkMaxInputLength(
             R.id.targetWeightEditText,

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "118041892032",
+    "project_id": "free-weight-loss-tracker",
+    "storage_bucket": "free-weight-loss-tracker.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:118041892032:android:d49461ac9090fe5a3d8925",
+        "android_client_info": {
+          "package_name": "com.marko.weightlosstracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "118041892032-bpjh9pvsn02uqli05tsehhd48kcugj20.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsQuLgV1w0XK_wGqA86jAAs0XBiumrOzE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "118041892032-bpjh9pvsn02uqli05tsehhd48kcugj20.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

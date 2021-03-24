@@ -40,6 +40,24 @@
             android:textSize="30sp" />
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/userName"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/username"
+            app:errorEnabled="true"
+            app:helperText="@string/mandatory_field">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/userNameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/roboto_medium"
+                android:inputType="textCapSentences"
+                android:maxLength="@integer/name_entry_max_length" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/height"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
@@ -158,7 +176,7 @@
         android:layout_height="@dimen/basic_dialog_button_height"
         android:layout_alignParentBottom="true"
         android:layout_marginHorizontal="@dimen/large_margin"
-        android:layout_marginBottom="@dimen/extra_large_margin"
+        android:layout_marginBottom="@dimen/large_margin"
         android:fontFamily="@font/roboto_medium"
         android:text="@string/next_button_text"
         android:textAllCaps="false"
@@ -166,11 +184,12 @@
 
     <ProgressBar
         android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/progress_bar_size"
+        android:layout_height="@dimen/progress_bar_size"
         android:layout_centerInParent="true"
-        android:indeterminateTint="@color/purple_500"
-        android:indeterminateTintMode="src_atop"
-        android:visibility="gone"
-        tools:ignore="UnusedAttribute" />
+        android:background="@drawable/progress_bar_circle"
+        android:elevation="16dp"
+        android:indeterminate="true"
+        android:padding="@dimen/small_padding"
+        android:visibility="gone" />
 </RelativeLayout>

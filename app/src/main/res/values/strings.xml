@@ -11,12 +11,12 @@
     <string name="goal_details_waist_size">Waist size(cm)</string>
     <string name="weight_data_title">Tell us your basic info:</string>
     <string name="submit_button_text">Submit</string>
-    <string name="desired_weight">Target weight(kg)</string>
-    <string name="ideal_weight_text">Your ideal weight is around \n%1s</string>
+    <string name="target_weight">Target weight(kg)</string>
+    <string name="ideal_weight_text">Hey %1s, your ideal weight is around \n%2s</string>
     <string name="mandatory_fields_error_message">Please fill in mandatory fields!</string>
     <string name="goal_name">Journey to %1skg</string>
     <string name="start_button_text">Start</string>
-    <string name="welcome_setup_message">Please click on start button, and setup your lose weight goal.</string>
+    <string name="welcome_setup_message">Please click on start button, and setup your weight loss goal.</string>
     <string name="start_weight_card">Where you began:</string>
     <string name="current_weight">Current data:</string>
     <string name="bmi_chart_label">Bmi index chart</string>
@@ -30,6 +30,7 @@
     <string name="best_record_label">Best record</string>
     <string name="details_tab">Details</string>
     <string name="add_tab">Add</string>
+    <string name="add_tab_title">Add Entry</string>
     <string name="stats_tab">Stats</string>
     <string name="history_tab">History</string>
     <string name="kg" translatable="false">%1s kg</string>
@@ -73,18 +74,29 @@
     <string name="target_weight_description">Note: Set your target weight. The weight goal you want to achieve.</string>
     <string name="weigh_ins">Weigh-ins</string>
     <string name="waist_sizes">Waist sizes</string>
-    <string name="unknown_error">An unknown error occurred!</string>
+    <string name="unknown_error">An unknown error occurred!\nPlease check your internet connection…</string>
     <string name="goal_accomplished">Goal accomplished!</string>
-    <string name="info_tab" translatable="false">Info</string>
-    <string name="update_target_weight">Update target weight</string>
     <string name="privacy_policy">Privacy policy</string>
     <string name="version">Version: %1s</string>
     <string name="terms_and_conditions">Terms and conditions</string>
-    <string name="target_weight_update_success">Target weight updated successfully</string>
+    <string name="user_update_success">Update successful</string>
     <string name="submit">Submit</string>
     <string name="delete">Delete</string>
     <string name="yes">Yes</string>
     <string name="cancel">Cancel</string>
     <string name="delete_entry_dialog_title">Delete weight entry</string>
     <string name="delete_entry_dialog_description">Are you sure you want to delete this entry?</string>
+    <string name="google_sign_in">Google Sign In</string>
+    <string name="login_title">Welcome to Free Weight Loss Tracker App</string>
+    <string name="login_description">To proceed, please sign in…</string>
+    <string name="okay">Okay</string>
+    <string name="username">Username</string>
+    <string name="no_internet_connection">No internet connection</string>
+    <string name="no_internet_connection_error">Check your internet connection</string>
+    <string name="add_entry_title">Hey %1s, time for new entry?</string>
+    <string name="profile">Profile</string>
+    <string name="settings">Settings</string>
+    <string name="entry_details">Entry Details</string>
+    <string name="update">Update</string>
+    <string name="statistics">Statistics</string>
 </resources>

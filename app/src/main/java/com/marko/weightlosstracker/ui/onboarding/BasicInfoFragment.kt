@@ -7,14 +7,14 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.marko.weightlosstracker.R
 import com.marko.weightlosstracker.databinding.FragmentBasicInfoBinding
 import com.marko.weightlosstracker.model.User
+import com.marko.weightlosstracker.ui.core.viewBinding
 import com.marko.weightlosstracker.util.DataState
 import com.marko.weightlosstracker.util.getCurrentDate
 import com.marko.weightlosstracker.util.parseSelectedDate
-import com.google.android.material.snackbar.Snackbar
-import com.marko.weightlosstracker.ui.core.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
@@ -31,9 +31,12 @@ class BasicInfoFragment : Fragment(R.layout.fragment_basic_info) {
 
         binding.next.setOnClickListener {
             viewModel.validate(
-                binding.height.editText?.text.toString(),
-                binding.age.editText?.text.toString(),
-                binding.currentWeight.editText?.text.toString(),
+                BasicInfoValidationModel(
+                    binding.userName.editText?.text.toString(),
+                    binding.height.editText?.text.toString(),
+                    binding.age.editText?.text.toString(),
+                    binding.currentWeight.editText?.text.toString(),
+                )
             )
         }
 
@@ -44,10 +47,11 @@ class BasicInfoFragment : Fragment(R.layout.fragment_basic_info) {
     private fun subscribeToObservers() {
         user = requireArguments().getParcelable(OnBoardingActivity.USER_KEY)
         viewModel.validateLiveData.observe(viewLifecycleOwner, { event ->
-            when (event.getContentIfNotHandled()) {
+            when (event?.getContentIfNotHandled()) {
                 is DataState.Success -> {
                     user?.apply {
                         height = binding.height.editText?.text.toString().toFloat()
+                        username = binding.userName.editText?.text.toString()
                         age = binding.age.editText?.text.toString().toInt()
                         currentWeight =
                             binding.currentWeight.editText?.text.toString().toFloat()

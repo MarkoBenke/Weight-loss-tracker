@@ -5,7 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.marko.weightlosstracker.model.User
+import com.marko.weightlosstracker.repository.auth.AuthRepository
 import com.marko.weightlosstracker.repository.user.UserRepository
+import com.marko.weightlosstracker.repository.weightentry.WeightEntryRepository
 import com.marko.weightlosstracker.ui.core.DispatcherProvider
 import com.marko.weightlosstracker.util.DataState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,21 +17,38 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SplashScreenViewModel @Inject constructor(
+    private val authRepository: AuthRepository,
     private val userRepository: UserRepository,
+    private val weightEntryRepository: WeightEntryRepository,
     private val dispatchers: DispatcherProvider
 ) : ViewModel() {
 
     private val _userLiveData = MutableLiveData<DataState<User?>>()
     val userLiveData: LiveData<DataState<User?>> = _userLiveData
 
+    private val _isUserSignedInLiveData = MutableLiveData<DataState<Unit>>()
+    val isUserSignedInLiveData: LiveData<DataState<Unit>> = _isUserSignedInLiveData
+
     init {
-        getUser()
+        isUserSignedIn()
     }
 
-    private fun getUser() {
+    fun syncDataAndFetchUser() {
         viewModelScope.launch(dispatchers.io) {
-            userRepository.getUser().collect {
-                _userLiveData.postValue(it)
+            userRepository.syncUserData().collect {
+                weightEntryRepository.syncEntriesData().collect {
+                    userRepository.getUser().collect { user ->
+                        _userLiveData.postValue(user)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun isUserSignedIn() {
+        viewModelScope.launch(dispatchers.io) {
+            authRepository.isUserSignedIn().collect {
+                _isUserSignedInLiveData.postValue(it)
             }
         }
     }

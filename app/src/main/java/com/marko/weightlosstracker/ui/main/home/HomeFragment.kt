@@ -40,6 +40,8 @@ class HomeFragment : BaseFragment<HomeViewModel, Stats>(
                 }
                 is DataState.Error -> {
                     binding.progressBar.isVisible = false
+                    if (it.message.isEmpty()) showErrorDialog()
+                    else showErrorDialog(it.message)
                 }
                 DataState.Loading -> {
                     binding.progressBar.isVisible = true
@@ -54,7 +56,6 @@ class HomeFragment : BaseFragment<HomeViewModel, Stats>(
             currentBmi.text = getString(R.string.bmi_details_card, stats.bmi.shortToString())
             currentWeight.text = getString(R.string.kg, stats.currentWeight.shortToString())
             currentDate.text = stats.lastEntryDate
-            goalName.text = getGoalName(stats.targetWeight.toString())
             startWeight.text = getString(R.string.kg, stats.startWeight.toString())
             startBmi.text =
                 getString(R.string.bmi_details_card, stats.startBmi.shortToString())
@@ -106,9 +107,5 @@ class HomeFragment : BaseFragment<HomeViewModel, Stats>(
                 )
             )
         }
-    }
-
-    private fun getGoalName(targetWeight: String): String {
-        return getString(R.string.goal_name, targetWeight)
     }
 }

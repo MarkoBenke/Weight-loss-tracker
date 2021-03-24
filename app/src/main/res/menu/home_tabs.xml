@@ -25,10 +25,4 @@
         android:orderInCategory="4"
         android:icon="@drawable/ic_history_menu"
         android:title="@string/history_tab" />
-    <item
-        android:id="@+id/info"
-        app:showAsAction="always"
-        android:orderInCategory="5"
-        android:icon="@drawable/ic_info"
-        android:title="@string/info_tab" />
 </menu>
