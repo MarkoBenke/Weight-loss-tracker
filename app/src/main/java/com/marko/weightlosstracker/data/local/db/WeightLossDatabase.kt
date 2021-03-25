@@ -5,12 +5,12 @@ import androidx.room.RoomDatabase
 import com.marko.weightlosstracker.data.local.dao.QuoteDao
 import com.marko.weightlosstracker.data.local.dao.UserDao
 import com.marko.weightlosstracker.data.local.dao.WeightEntryDao
-import com.marko.weightlosstracker.data.local.entities.QuoteCache
-import com.marko.weightlosstracker.data.local.entities.UserCache
-import com.marko.weightlosstracker.data.local.entities.WeightEntryCache
+import com.marko.weightlosstracker.data.local.entities.QuoteEntity
+import com.marko.weightlosstracker.data.local.entities.UserEntity
+import com.marko.weightlosstracker.data.local.entities.WeightEntryEntity
 
 @Database(
-    entities = [QuoteCache::class, UserCache::class, WeightEntryCache::class],
+    entities = [QuoteEntity::class, UserEntity::class, WeightEntryEntity::class],
     version = 2,
     exportSchema = false
 )

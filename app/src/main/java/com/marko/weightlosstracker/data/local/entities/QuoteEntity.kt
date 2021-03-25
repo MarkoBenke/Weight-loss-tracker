@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "quotes_table")
 @Keep
-data class QuoteCache(
+data class QuoteEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     val author: String,

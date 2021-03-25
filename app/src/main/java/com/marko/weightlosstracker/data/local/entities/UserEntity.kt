@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "user_table")
-@Keep data class UserCache(
+@Keep data class UserEntity(
     @PrimaryKey
     val uuid: Int = 0,
     var username: String,
