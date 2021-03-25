@@ -22,6 +22,10 @@ https://play.google.com/store/apps/details?id=com.marko.weightlosstracker
 - MVVM
 - Repository Pattern
 - Dependency injection with Hilt
+- Firebase(with coroutines)
+  - Authentication
+  - Firestore Database
+  - Analytics
 - JetPack
   - Data Store - store data asynchronously, overcoming some of the drawbacks of SharedPreferences.
   - Navigation Components - Build and structure your in-app UI, handle deep links, and navigate between screens.
