@@ -17,9 +17,21 @@
           "client_id": "118041892032-f6hojaevtmh6c9pcnnbqi3u6v1ohcs2m.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-          "package_name": "com.marko.weightlosstracker",
-          "certificate_hash": ""
+            "package_name": "com.marko.weightlosstracker",
+            "certificate_hash": ""
           }
+        },
+        {
+          "client_id": "118041892032-pp0joohhqujj9jp2nb0g496t05v04699.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.marko.weightlosstracker",
+            "certificate_hash": ""
+          }
+        },
+        {
+          "client_id": "118041892032-bpjh9pvsn02uqli05tsehhd48kcugj20.apps.googleusercontent.com",
+          "client_type": 3
         }
       ],
       "api_key": [
@@ -31,7 +43,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "",
+              "client_id": "118041892032-bpjh9pvsn02uqli05tsehhd48kcugj20.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
