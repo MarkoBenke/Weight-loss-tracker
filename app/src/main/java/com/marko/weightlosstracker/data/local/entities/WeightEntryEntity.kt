@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "weight_entries_table")
-@Keep class WeightEntryCache(
+@Keep class WeightEntryEntity(
     @PrimaryKey(autoGenerate = false)
     var uuid: String,
     var currentWeight: Float,

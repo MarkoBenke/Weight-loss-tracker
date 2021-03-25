@@ -2,7 +2,7 @@ package com.marko.weightlosstracker.data.network.services
 
 import com.google.firebase.firestore.ktx.toObject
 import com.marko.weightlosstracker.data.network.FirebaseHelper
-import com.marko.weightlosstracker.data.network.entities.RemoteUser
+import com.marko.weightlosstracker.data.network.entities.UserDto
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
@@ -10,11 +10,11 @@ class UserService @Inject constructor(
     private val firebaseHelper: FirebaseHelper
 ) {
 
-    suspend fun insertUser(user: RemoteUser): Boolean {
+    suspend fun insertUser(userDto: UserDto): Boolean {
         return try {
             var isSuccessful = false
-            user.id = firebaseHelper.getUserId()
-            firebaseHelper.getUserDocument().set(user).addOnCompleteListener {
+            userDto.id = firebaseHelper.getUserId()
+            firebaseHelper.getUserDocument().set(userDto).addOnCompleteListener {
                 isSuccessful = it.isSuccessful
             }.await()
             isSuccessful
@@ -35,15 +35,15 @@ class UserService @Inject constructor(
         }
     }
 
-    suspend fun getUser(): RemoteUser? {
+    suspend fun getUser(): UserDto? {
         return try {
-            var user: RemoteUser? = null
+            var userDto: UserDto? = null
             firebaseHelper.getUserDocument().get().addOnCompleteListener {
                 if (it.isSuccessful) {
-                    user = it.result?.toObject<RemoteUser>()
+                    userDto = it.result?.toObject<UserDto>()
                 }
             }.await()
-            user
+            userDto
         } catch (e: Exception) {
             null
         }

@@ -1,7 +1,7 @@
 package com.marko.weightlosstracker.data.network.services
 
 import com.marko.weightlosstracker.data.network.FirebaseHelper
-import com.marko.weightlosstracker.data.network.entities.RemoteWeightEntry
+import com.marko.weightlosstracker.data.network.entities.WeightEntryDto
 import com.marko.weightlosstracker.data.util.WeightEntryTable
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
@@ -10,24 +10,24 @@ class WeightEntryService @Inject constructor(
     private val firebaseHelper: FirebaseHelper
 ) {
 
-    suspend fun getAllEntries(): List<RemoteWeightEntry>? {
+    suspend fun getAllEntries(): List<WeightEntryDto>? {
         return try {
-            var entries: MutableList<RemoteWeightEntry>? = null
+            var entryDtos: MutableList<WeightEntryDto>? = null
             firebaseHelper.getEntriesCollection().get().addOnCompleteListener {
                 if (it.isSuccessful) {
-                    entries = it.result?.toObjects(RemoteWeightEntry::class.java)
+                    entryDtos = it.result?.toObjects(WeightEntryDto::class.java)
                 }
             }.await()
-            entries
+            entryDtos
         } catch (e: Exception) {
             null
         }
     }
 
-    suspend fun insertWeightEntry(weightEntry: RemoteWeightEntry): Boolean {
+    suspend fun insertWeightEntry(weightEntryDto: WeightEntryDto): Boolean {
         return try {
             var isSuccessful = false
-            firebaseHelper.getEntriesCollection().document(weightEntry.uuid).set(weightEntry)
+            firebaseHelper.getEntriesCollection().document(weightEntryDto.uuid).set(weightEntryDto)
                 .addOnCompleteListener {
                     isSuccessful = it.isSuccessful
                 }.await()

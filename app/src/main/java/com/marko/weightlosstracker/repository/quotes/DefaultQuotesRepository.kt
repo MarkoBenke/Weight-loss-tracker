@@ -1,7 +1,7 @@
 package com.marko.weightlosstracker.repository.quotes
 
 import com.marko.weightlosstracker.data.local.dao.QuoteDao
-import com.marko.weightlosstracker.data.local.mappers.QuoteMapper
+import com.marko.weightlosstracker.model.mappers.QuoteMapper
 import com.marko.weightlosstracker.data.network.services.QuotesService
 import com.marko.weightlosstracker.model.Quote
 import com.marko.weightlosstracker.util.DataState
@@ -20,7 +20,7 @@ class DefaultQuotesRepository constructor(
             val response = quotesService.fetchQuote()
             if (response.isSuccessful) {
                 response.body()?.let { it ->
-                    val quote = quoteMapper.mapFromRemoteEntity(it.first())
+                    val quote = quoteMapper.mapFromDto(it.first())
                     quoteDao.insertQuote(quoteMapper.mapToEntity(quote))
                     getQuoteLocally()?.let { cachedQuote ->
                         emit(DataState.Success(cachedQuote))

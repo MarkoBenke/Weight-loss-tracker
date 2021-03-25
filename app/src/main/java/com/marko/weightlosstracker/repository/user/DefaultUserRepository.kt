@@ -2,8 +2,8 @@ package com.marko.weightlosstracker.repository.user
 
 import com.marko.weightlosstracker.data.local.dao.UserDao
 import com.marko.weightlosstracker.data.local.dao.WeightEntryDao
-import com.marko.weightlosstracker.data.local.mappers.UserMapper
-import com.marko.weightlosstracker.data.local.mappers.WeightEntryMapper
+import com.marko.weightlosstracker.model.mappers.UserMapper
+import com.marko.weightlosstracker.model.mappers.WeightEntryMapper
 import com.marko.weightlosstracker.data.local.settings.SettingsManager
 import com.marko.weightlosstracker.data.network.services.UserService
 import com.marko.weightlosstracker.data.network.services.WeightEntryService
@@ -26,10 +26,10 @@ class DefaultUserRepository constructor(
 
     override suspend fun insertUser(user: User): Flow<DataState<Unit>> = flow {
         emit(DataState.Loading)
-        val userResult = userService.insertUser(userMapper.mapToRemoteEntity(user))
+        val userResult = userService.insertUser(userMapper.mapToDto(user))
         if (userResult) {
             val weightEntryResult = weightEntryService.insertWeightEntry(
-                weightEntryMapper.mapToRemoteEntity(user.getInitialWeightEntry())
+                weightEntryMapper.mapToDto(user.getInitialWeightEntry())
             )
             if (weightEntryResult) {
                 userDao.insertUser(userMapper.mapToEntity(user))
@@ -58,11 +58,11 @@ class DefaultUserRepository constructor(
 
         if (remoteUser != null) {
             if (userCache != null) {
-                if (userMapper.mapFromRemoteEntity(remoteUser) != userMapper.mapFromEntity(userCache)) {
-                    userDao.updateUser(userMapper.remoteToLocal(remoteUser))
+                if (userMapper.mapFromDto(remoteUser) != userMapper.mapFromEntity(userCache)) {
+                    userDao.updateUser(userMapper.dtoToEntity(remoteUser))
                 }
             } else {
-                userDao.insertUser(userMapper.remoteToLocal(remoteUser))
+                userDao.insertUser(userMapper.dtoToEntity(remoteUser))
             }
         }
         emit(Unit)

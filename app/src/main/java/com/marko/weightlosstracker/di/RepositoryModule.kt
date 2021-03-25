@@ -4,9 +4,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.marko.weightlosstracker.data.local.dao.QuoteDao
 import com.marko.weightlosstracker.data.local.dao.UserDao
 import com.marko.weightlosstracker.data.local.dao.WeightEntryDao
-import com.marko.weightlosstracker.data.local.mappers.QuoteMapper
-import com.marko.weightlosstracker.data.local.mappers.UserMapper
-import com.marko.weightlosstracker.data.local.mappers.WeightEntryMapper
+import com.marko.weightlosstracker.model.mappers.QuoteMapper
+import com.marko.weightlosstracker.model.mappers.UserMapper
+import com.marko.weightlosstracker.model.mappers.WeightEntryMapper
 import com.marko.weightlosstracker.data.local.settings.SettingsManager
 import com.marko.weightlosstracker.data.network.services.QuotesService
 import com.marko.weightlosstracker.data.network.services.UserService

@@ -2,8 +2,8 @@ package com.marko.weightlosstracker.repository.weightentry
 
 import com.marko.weightlosstracker.data.local.dao.UserDao
 import com.marko.weightlosstracker.data.local.dao.WeightEntryDao
-import com.marko.weightlosstracker.data.local.entities.UserCache
-import com.marko.weightlosstracker.data.local.mappers.WeightEntryMapper
+import com.marko.weightlosstracker.data.local.entities.UserEntity
+import com.marko.weightlosstracker.model.mappers.WeightEntryMapper
 import com.marko.weightlosstracker.data.network.services.UserService
 import com.marko.weightlosstracker.data.network.services.WeightEntryService
 import com.marko.weightlosstracker.data.util.UserTable
@@ -41,7 +41,7 @@ class DefaultWeightEntryRepository(
             val localEntries = weightEntryDao.getAllWeightEntries()
             if (entriesResult.size > localEntries.size) {
                 entriesResult.forEach {
-                    weightEntryDao.insertWeightEntry(weightEntryMapper.remoteToLocal(it))
+                    weightEntryDao.insertWeightEntry(weightEntryMapper.dtoToEntity(it))
                 }
             }
         }
@@ -52,7 +52,7 @@ class DefaultWeightEntryRepository(
         emit(DataState.Loading)
 
         val entryResult =
-            weightEntryService.insertWeightEntry(weightEntryMapper.mapToRemoteEntity(weightEntry))
+            weightEntryService.insertWeightEntry(weightEntryMapper.mapToDto(weightEntry))
         if (entryResult) {
             weightEntryDao.insertWeightEntry(weightEntryMapper.mapToEntity(weightEntry))
             emit(DataState.Success(Unit))
@@ -149,7 +149,7 @@ class DefaultWeightEntryRepository(
         }
     }
 
-    private fun getUserMap(user: UserCache?): HashMap<String, Any?> {
+    private fun getUserMap(user: UserEntity?): HashMap<String, Any?> {
         return hashMapOf(
             UserTable.START_WAIST_SIZE to user?.startWaistSize,
             UserTable.START_BMI to user?.startBmi,
@@ -166,7 +166,7 @@ class DefaultWeightEntryRepository(
         )
     }
 
-    private fun modifyUserAndEntry(user: UserCache?, weightEntry: WeightEntry) {
+    private fun modifyUserAndEntry(user: UserEntity?, weightEntry: WeightEntry) {
         user?.apply {
             startWeight = weightEntry.currentWeight
             startBmi = calculateBmi(weightEntry.currentWeight, height)
