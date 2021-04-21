@@ -57,7 +57,7 @@ class AddEntryFragment : BaseFragment<AddEntryViewModel, Long>(
     }
 
     private fun subscribeToObservers() {
-        viewModel.validationLiveData.observe(viewLifecycleOwner, { event ->
+        viewModel.validationLiveData.observe(viewLifecycleOwner) { event ->
             event.getContentIfNotHandled()?.let { result ->
                 when (result) {
                     is DataState.Success -> {
@@ -78,7 +78,7 @@ class AddEntryFragment : BaseFragment<AddEntryViewModel, Long>(
                     DataState.Loading -> Unit
                 }
             }
-        })
+        }
 
         viewModel.insertWeightLiveData.observe(viewLifecycleOwner) { dataState ->
             when (dataState) {

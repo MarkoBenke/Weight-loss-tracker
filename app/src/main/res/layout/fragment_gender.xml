@@ -48,7 +48,7 @@
         app:ss_rightIcon="@drawable/ic_female_gender"
         app:ss_rightText="@string/gender_female"
         app:ss_selectedTextSize="20sp"
-        app:ss_sliderBackgroundColor="@color/dividerColor"
+        app:ss_sliderBackgroundColor="@color/grey"
         app:ss_switchColor="@color/primaryColor"
         app:ss_textColor="@color/primaryTextColor"
         app:ss_textSize="16sp" />

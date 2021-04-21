@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:cardCornerRadius="8dp"
-        app:cardElevation="4dp"
+        app:cardElevation="@dimen/card_elevation"
         app:cardUseCompatPadding="true">
 
         <RelativeLayout
@@ -31,7 +31,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/medium_margin"
-                    android:hint="@string/username">
+                    android:hint="@string/username"
+                    app:boxStrokeColor="@color/input_box_color">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/usernameEditText"
@@ -47,7 +48,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/medium_margin"
-                    android:hint="@string/target_weight">
+                    android:hint="@string/target_weight"
+                    app:boxStrokeColor="@color/input_box_color">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/targetWeightEditText"
@@ -64,7 +66,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/medium_margin"
-                    android:hint="@string/age">
+                    android:hint="@string/age"
+                    app:boxStrokeColor="@color/input_box_color">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/ageEditText"

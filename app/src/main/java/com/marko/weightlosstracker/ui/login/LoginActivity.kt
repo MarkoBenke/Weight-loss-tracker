@@ -5,11 +5,11 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.GoogleAuthProvider
 import com.marko.weightlosstracker.R
 import com.marko.weightlosstracker.databinding.ActivityLoginBinding
 import com.marko.weightlosstracker.model.User
-import com.marko.weightlosstracker.ui.dialogs.ErrorDialog
 import com.marko.weightlosstracker.ui.launch.LaunchActivity
 import com.marko.weightlosstracker.ui.login.result.AuthResultContract
 import com.marko.weightlosstracker.ui.main.MainActivity
@@ -39,10 +39,7 @@ class LoginActivity : AppCompatActivity() {
             when (result) {
                 is DataState.Error -> {
                     binding.progressBar.isVisible = false
-                    val dialog = ErrorDialog.newInstance(
-                         getString(R.string.unknown_error)
-                    )
-                    dialog.show(supportFragmentManager, ErrorDialog.TAG)
+                    showErrorDialog()
                 }
                 is DataState.Success -> {
                     binding.progressBar.isVisible = false
@@ -52,7 +49,7 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        viewModel.userLiveData.observe(this, { dataState ->
+        viewModel.userLiveData.observe(this) { dataState ->
             when (dataState) {
                 is DataState.Loading -> binding.progressBar.isVisible = true
                 is DataState.Success -> {
@@ -64,7 +61,7 @@ class LoginActivity : AppCompatActivity() {
                     startOnBoarding()
                 }
             }
-        })
+        }
     }
 
     private fun startOnBoarding() {
@@ -94,9 +91,17 @@ class LoginActivity : AppCompatActivity() {
             val credential = GoogleAuthProvider.getCredential(token, null)
             viewModel.loginWithGoogle(credential)
         } else {
-            val dialog = ErrorDialog.newInstance(getString(R.string.unknown_error))
-            dialog.show(supportFragmentManager, ErrorDialog.TAG)
+            showErrorDialog()
         }
+    }
+
+    private fun showErrorDialog() {
+        MaterialAlertDialogBuilder(this)
+            .setTitle(getString(R.string.unknown_error_title))
+            .setMessage(getString(R.string.unknown_error_message))
+            .setPositiveButton(getString(R.string.okay)) { dialog, _ ->
+                dialog.dismiss()
+            }.create().show()
     }
 
     companion object {

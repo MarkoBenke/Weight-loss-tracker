@@ -31,7 +31,7 @@ class HomeFragment : BaseFragment<HomeViewModel, Stats>(
     }
 
     private fun subscribeToQuoteObserver() {
-        viewModel.quoteLiveData.observe(viewLifecycleOwner, {
+        viewModel.quoteLiveData.observe(viewLifecycleOwner) {
             when (it) {
                 is DataState.Success -> {
                     binding.quoteText.text = it.data.quote
@@ -40,14 +40,12 @@ class HomeFragment : BaseFragment<HomeViewModel, Stats>(
                 }
                 is DataState.Error -> {
                     binding.progressBar.isVisible = false
-                    if (it.message.isEmpty()) showErrorDialog()
-                    else showErrorDialog(it.message)
                 }
                 DataState.Loading -> {
                     binding.progressBar.isVisible = true
                 }
             }
-        })
+        }
     }
 
     private fun initUi(stats: Stats) {
@@ -65,6 +63,12 @@ class HomeFragment : BaseFragment<HomeViewModel, Stats>(
 
     private fun setupBmiSegments(stats: Stats) {
         with(binding) {
+            segments.setDescriptionTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.primaryTextColor
+                )
+            )
             segments.setSegments(generateItemList())
             segments.valueSegment = getBmiType(stats.bmi)
             segments.setValueWithUnit(stats.bmi.short(), getString(R.string.bmi_label))
