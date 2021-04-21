@@ -65,6 +65,7 @@ class HomeFragment : BaseFragment<HomeViewModel, Stats>(
 
     private fun setupBmiSegments(stats: Stats) {
         with(binding) {
+            segments.setDescriptionTextColor(ContextCompat.getColor(requireContext(), R.color.primaryTextColor))
             segments.setSegments(generateItemList())
             segments.valueSegment = getBmiType(stats.bmi)
             segments.setValueWithUnit(stats.bmi.short(), getString(R.string.bmi_label))

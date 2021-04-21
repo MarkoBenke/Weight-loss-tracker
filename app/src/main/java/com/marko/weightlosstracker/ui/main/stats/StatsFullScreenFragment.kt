@@ -3,6 +3,7 @@ package com.marko.weightlosstracker.ui.main.stats
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.components.LimitLine
 import com.github.mikephil.charting.components.XAxis
@@ -83,6 +84,7 @@ class StatsFullScreenFragment : BaseFragment<StatsViewModel, StatsWeightEntryVie
             chart.setPinchZoom(true)
             chart.description = description
         }
+        setLabelsTextColor()
     }
 
     private fun initChartLimitLines(stats: Stats?) {
@@ -92,16 +94,39 @@ class StatsFullScreenFragment : BaseFragment<StatsViewModel, StatsWeightEntryVie
                 it.startWeight
             )
             startWeightLine.labelPosition = LimitLine.LimitLabelPosition.RIGHT_TOP
+            startWeightLine.textColor =
+                ContextCompat.getColor(requireContext(), R.color.primaryTextColor)
             val targetWeightLine = viewModel.createLimitLine(
                 getString(R.string.target_weight_chart),
                 it.targetWeight
             )
             targetWeightLine.labelPosition = LimitLine.LimitLabelPosition.LEFT_BOTTOM
+            targetWeightLine.textColor =
+                ContextCompat.getColor(requireContext(), R.color.primaryTextColor)
             val yAxis = binding.chart.axisLeft
 
             yAxis?.setDrawLimitLinesBehindData(true)
             yAxis?.addLimitLine(startWeightLine)
             yAxis?.addLimitLine(targetWeightLine)
         }
+    }
+
+    private fun setLabelsTextColor() {
+        binding.chart.axisLeft.textColor =
+            ContextCompat.getColor(requireContext(), R.color.primaryTextColor)
+        binding.chart.axisRight.textColor =
+            ContextCompat.getColor(requireContext(), R.color.primaryTextColor)
+        binding.chart.description.textColor =
+            ContextCompat.getColor(requireContext(), R.color.primaryTextColor)
+        binding.chart.legend.textColor =
+            ContextCompat.getColor(requireContext(), R.color.primaryTextColor)
+        binding.chart.xAxis.textColor =
+            ContextCompat.getColor(requireContext(), R.color.primaryTextColor)
+        binding.chart.data.setValueTextColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.primaryTextColor
+            )
+        )
     }
 }

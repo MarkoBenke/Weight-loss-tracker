@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primaryColor">#B084C9FB</color>
+    <color name="secondaryColor">#121212</color>
+    <color name="tertiaryColor">#B5BFC5EA</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#121212</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="grey">#d3d3d3</color>
+    <color name="splashColor">@color/surface</color>
+    <color name="dividerColor">#FBFBFB</color>
+    <color name="on_board_progress_color">#4B41E4</color>
+    <color name="primaryTextColor">#FFFFFF</color>
+    <color name="surface">#121212</color>
+
+    <color name="positiveTextColor">#81C784</color>
+    <color name="negativeTextColor">#E57373</color>
+
+    <color name="segment_one">#7AA4C6</color>
+    <color name="segment_two">#84B186</color>
+    <color name="segment_three">#E39780</color>
+    <color name="segment_four">#CA4845</color>
+</resources>

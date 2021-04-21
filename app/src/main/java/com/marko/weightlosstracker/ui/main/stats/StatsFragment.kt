@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.marko.weightlosstracker.R
 import com.marko.weightlosstracker.databinding.FragmentStatsBinding
@@ -150,6 +151,26 @@ class StatsFragment : BaseFragment<StatsViewModel, StatsWeightEntryViewData>(
             chart.setPinchZoom(true)
             chart.description = description
         }
+        setLabelsTextColor()
+    }
+
+    private fun setLabelsTextColor() {
+        binding.chart.axisLeft.textColor =
+            ContextCompat.getColor(requireContext(), R.color.primaryTextColor)
+        binding.chart.axisRight.textColor =
+            ContextCompat.getColor(requireContext(), R.color.primaryTextColor)
+        binding.chart.description.textColor =
+            ContextCompat.getColor(requireContext(), R.color.primaryTextColor)
+        binding.chart.legend.textColor =
+            ContextCompat.getColor(requireContext(), R.color.primaryTextColor)
+        binding.chart.xAxis.textColor =
+            ContextCompat.getColor(requireContext(), R.color.primaryTextColor)
+        binding.chart.data.setValueTextColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.primaryTextColor
+            )
+        )
     }
 
     private fun initChartLimitLines(stats: Stats?) {
@@ -158,12 +179,16 @@ class StatsFragment : BaseFragment<StatsViewModel, StatsWeightEntryViewData>(
                 getString(R.string.start_weight_chart),
                 it.startWeight
             )
+            startWeightLine.textColor =
+                ContextCompat.getColor(requireContext(), R.color.primaryTextColor)
             startWeightLine.labelPosition = LimitLine.LimitLabelPosition.RIGHT_TOP
             val targetWeightLine = viewModel.createLimitLine(
                 getString(R.string.target_weight_chart),
                 it.targetWeight
             )
             targetWeightLine.labelPosition = LimitLine.LimitLabelPosition.LEFT_BOTTOM
+            targetWeightLine.textColor =
+                ContextCompat.getColor(requireContext(), R.color.primaryTextColor)
             val yAxis = binding.chart.axisLeft
 
             yAxis?.setDrawLimitLinesBehindData(true)
