@@ -1,8 +1,8 @@
 {
   "project_info": {
-    "project_number": "118041892032",
-    "project_id": "free-weight-loss-tracker",
-    "storage_bucket": "free-weight-loss-tracker.appspot.com"
+    "project_number": "",
+    "project_id": "",
+    "storage_bucket": ""
   },
   "client": [
     {
@@ -14,44 +14,36 @@
       },
       "oauth_client": [
         {
-          "client_id": "118041892032-3vm3ooc1gtvdufh63u2jqjoh0a1afndi.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.marko.weightlosstracker",
-            "certificate_hash": "e69044bcd57b91c8c006ce524a89ecfbb8c930c2"
-          }
-        },
-        {
           "client_id": "118041892032-f6hojaevtmh6c9pcnnbqi3u6v1ohcs2m.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.marko.weightlosstracker",
-            "certificate_hash": "eb1909714c4951f7f2ac80749f0e62f575ab3169"
+            "certificate_hash": ""
           }
         },
         {
-          "client_id": "118041892032-pp0joohhqujj9jp2nb0g496t05v04699.apps.googleusercontent.com",
+          "client_id": "",
           "client_type": 1,
           "android_info": {
             "package_name": "com.marko.weightlosstracker",
-            "certificate_hash": "8fcdc30bce05efff56895366612f02a8bb7599f3"
+            "certificate_hash": ""
           }
         },
         {
-          "client_id": "118041892032-bpjh9pvsn02uqli05tsehhd48kcugj20.apps.googleusercontent.com",
+          "client_id": "",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAsQuLgV1w0XK_wGqA86jAAs0XBiumrOzE"
+          "current_key": ""
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "118041892032-bpjh9pvsn02uqli05tsehhd48kcugj20.apps.googleusercontent.com",
+              "client_id": "",
               "client_type": 3
             }
           ]
