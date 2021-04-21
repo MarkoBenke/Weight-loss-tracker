@@ -8,12 +8,12 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.marko.weightlosstracker.R
 import com.marko.weightlosstracker.databinding.FragmentEntryHistoryBinding
 import com.marko.weightlosstracker.model.WeightEntry
 import com.marko.weightlosstracker.ui.core.BaseFragment
 import com.marko.weightlosstracker.ui.core.viewBinding
-import com.marko.weightlosstracker.ui.dialogs.ConfirmationDialog
 import com.marko.weightlosstracker.ui.main.MainActivity
 import com.marko.weightlosstracker.ui.main.MainViewModel
 import com.marko.weightlosstracker.util.DataState
@@ -63,6 +63,24 @@ class EntryHistoryFragment : BaseFragment<EntryHistoryViewModel,
         }
     }
 
+    private fun showConfirmationDialog(weightEntry: WeightEntry) {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(getString(R.string.delete_entry_dialog_title))
+            .setMessage(getString(R.string.delete_entry_dialog_description))
+            .setPositiveButton(getString(R.string.yes)) { _, _ ->
+                if (mainViewModel.isNetworkAvailable) {
+                    viewModel.deleteEntry(weightEntry)
+                } else {
+                    entriesAdapter.notifyDataSetChanged()
+                    showNoInternetConnectionToast()
+                }
+            }
+            .setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
+                entriesAdapter.notifyDataSetChanged()
+                dialog.dismiss()
+            }.create().show()
+    }
+
     private val itemTouchCallback = object : ItemTouchHelper.SimpleCallback(
         0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
     ) {
@@ -91,28 +109,7 @@ class EntryHistoryFragment : BaseFragment<EntryHistoryViewModel,
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
             val position = viewHolder.layoutPosition
             val item = entriesAdapter.getItem(position)
-
-            val confirmationDialog = ConfirmationDialog.newInstance(
-                getString(R.string.delete_entry_dialog_title), getString(
-                    R.string.delete_entry_dialog_description
-                )
-            )
-            confirmationDialog.setDialogClickListener(object :
-                ConfirmationDialog.ConfirmationDialogClickListener {
-                override fun onConfirmClicked() {
-                    if (mainViewModel.isNetworkAvailable) {
-                        viewModel.deleteEntry(item)
-                    } else {
-                        entriesAdapter.notifyDataSetChanged()
-                        showNoInternetConnectionToast()
-                    }
-                }
-
-                override fun onDeclineClicked() {
-                    entriesAdapter.notifyDataSetChanged()
-                }
-            })
-            confirmationDialog.show(parentFragmentManager, ConfirmationDialog.TAG)
+            showConfirmationDialog(item)
         }
     }
 }

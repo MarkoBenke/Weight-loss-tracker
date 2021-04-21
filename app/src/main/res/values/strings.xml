@@ -74,7 +74,8 @@
     <string name="target_weight_description">Note: Set your target weight. The weight goal you want to achieve.</string>
     <string name="weigh_ins">Weigh-ins</string>
     <string name="waist_sizes">Waist sizes</string>
-    <string name="unknown_error">An unknown error occurred!\nPlease check your internet connection…</string>
+    <string name="unknown_error_title">An unknown error occurred!</string>
+    <string name="unknown_error_message">Please check your internet connection…</string>
     <string name="goal_accomplished">Goal accomplished!</string>
     <string name="privacy_policy">Privacy policy</string>
     <string name="version">Version: %1s</string>
@@ -99,4 +100,5 @@
     <string name="entry_details">Entry Details</string>
     <string name="update">Update</string>
     <string name="statistics">Statistics</string>
+    <string name="current_starting_weight">Current/Starting weight(kg)</string>
 </resources>

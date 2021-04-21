@@ -64,7 +64,8 @@
     <string name="target_weight_description">Napomena: Podesite svoju željenu kilažu. Cilj koji želite da postignete.</string>
     <string name="weigh_ins">Vaganja</string>
     <string name="waist_sizes">Veličine struka</string>
-    <string name="unknown_error">Greška!\nProverite internet konekciju…</string>
+    <string name="unknown_error_title">Greška!</string>
+    <string name="unknown_error_message">Proverite internet konekciju…</string>
     <string name="goal_accomplished">Cilj je postignut!</string>
     <string name="privacy_policy">Politika privatnosti</string>
     <string name="version">Verzija: %1s</string>
@@ -90,4 +91,5 @@
     <string name="update">Ažuriraj</string>
     <string name="add_tab_title">Dodaj Unos</string>
     <string name="statistics">@string/stats_tab</string>
+    <string name="current_starting_weight">Trenutna/Početna kilaža(kg)</string>
 </resources>

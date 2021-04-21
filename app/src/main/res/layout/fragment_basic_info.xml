@@ -45,6 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/username"
+            app:boxStrokeColor="@color/input_box_color"
             app:errorEnabled="true"
             app:helperText="@string/mandatory_field">
 
@@ -63,6 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/height"
+            app:boxStrokeColor="@color/input_box_color"
             app:errorEnabled="true"
             app:helperText="@string/mandatory_field">
 
@@ -83,6 +85,7 @@
             android:layout_marginTop="@dimen/medium_margin"
             android:hint="@string/age"
             app:errorEnabled="true"
+            app:boxStrokeColor="@color/input_box_color"
             app:helperText="@string/mandatory_field">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -91,7 +94,8 @@
                 android:layout_height="match_parent"
                 android:fontFamily="@font/roboto_medium"
                 android:inputType="number"
-                android:maxLength="@integer/age_entry_max_length" />
+                android:maxLength="@integer/age_entry_max_length"
+                 />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -100,8 +104,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/medium_margin"
-            android:hint="@string/goal_details_current_weight"
+            android:hint="@string/current_starting_weight"
             app:errorEnabled="true"
+            app:boxStrokeColor="@color/input_box_color"
             app:helperText="@string/mandatory_field">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -110,7 +115,8 @@
                 android:layout_height="match_parent"
                 android:fontFamily="@font/roboto_medium"
                 android:inputType="numberDecimal"
-                android:maxLength="@integer/weight_entry_max_length" />
+                android:maxLength="@integer/weight_entry_max_length"
+                 />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -120,6 +126,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/medium_margin"
             android:hint="@string/goal_details_waist_size"
+            app:boxStrokeColor="@color/input_box_color"
             app:errorEnabled="true"
             app:helperText="@string/optional_field">
 

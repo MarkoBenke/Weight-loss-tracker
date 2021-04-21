@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:cardCornerRadius="8dp"
-        app:cardElevation="3dp"
+        app:cardElevation="@dimen/card_elevation"
         app:cardUseCompatPadding="true">
 
         <RelativeLayout
@@ -28,12 +28,10 @@
                     android:id="@+id/title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/small_margin"
                     android:fontFamily="@font/mouse_memoirs"
                     android:gravity="center"
-                    android:layout_marginBottom="@dimen/small_margin"
                     android:letterSpacing="0.03"
-                    android:shadowColor="@color/grey"
-                    android:shadowRadius="4"
                     android:textColor="@color/primaryTextColor"
                     android:textSize="24sp"
                     tools:text="Hey you, time for new entry?" />
@@ -41,9 +39,9 @@
                 <View
                     android:id="@+id/divider"
                     android:layout_width="match_parent"
-                    android:layout_marginBottom="@dimen/medium_margin"
                     android:layout_height="1dp"
                     android:layout_marginHorizontal="@dimen/medium_margin"
+                    android:layout_marginBottom="@dimen/medium_margin"
                     android:background="@color/dividerColor" />
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -53,6 +51,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/medium_margin"
                     android:hint="@string/goal_details_current_weight"
+                    app:boxStrokeColor="@color/input_box_color"
                     app:errorEnabled="true"
                     app:helperText="@string/mandatory_field">
 
@@ -72,6 +71,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:hint="@string/goal_details_waist_size"
+                    app:boxStrokeColor="@color/input_box_color"
                     app:errorEnabled="true"
                     app:helperText="@string/optional_field">
 
@@ -90,6 +90,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/goal_details_description"
+                    app:boxStrokeColor="@color/input_box_color"
                     app:errorEnabled="true"
                     app:helperText="@string/optional_field">
 

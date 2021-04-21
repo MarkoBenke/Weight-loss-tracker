@@ -57,6 +57,7 @@ class DefaultUserRepository constructor(
         val userCache = userDao.getUser()
 
         if (remoteUser != null) {
+            settingsManager.saveStartDate(parseDate(remoteUser.startDate)!!.time)
             if (userCache != null) {
                 if (userMapper.mapFromDto(remoteUser) != userMapper.mapFromEntity(userCache)) {
                     userDao.updateUser(userMapper.dtoToEntity(remoteUser))

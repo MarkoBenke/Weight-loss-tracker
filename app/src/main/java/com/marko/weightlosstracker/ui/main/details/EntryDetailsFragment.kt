@@ -9,11 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.marko.weightlosstracker.R
 import com.marko.weightlosstracker.databinding.FragmentEntryDetailsBinding
 import com.marko.weightlosstracker.model.WeightEntry
 import com.marko.weightlosstracker.ui.core.viewBinding
-import com.marko.weightlosstracker.ui.dialogs.ErrorDialog
 import com.marko.weightlosstracker.ui.main.MainActivity
 import com.marko.weightlosstracker.ui.main.MainViewModel
 import com.marko.weightlosstracker.util.DataState
@@ -74,8 +74,7 @@ class EntryDetailsFragment : Fragment(R.layout.fragment_entry_details) {
             when (dataState) {
                 is DataState.Error -> {
                     binding.progressBar.isVisible = false
-                    val dialog = ErrorDialog.newInstance(getString(R.string.unknown_error))
-                    dialog.show(parentFragmentManager, ErrorDialog.TAG)
+                    showErrorDialog()
                 }
                 DataState.Loading -> binding.progressBar.isVisible = true
                 is DataState.Success -> {
@@ -103,5 +102,14 @@ class EntryDetailsFragment : Fragment(R.layout.fragment_entry_details) {
             getString(R.string.no_internet_connection_error),
             Toast.LENGTH_SHORT
         ).show()
+    }
+
+    private fun showErrorDialog() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(getString(R.string.unknown_error_title))
+            .setMessage(getString(R.string.unknown_error_message))
+            .setPositiveButton(getString(R.string.okay)) { dialog, _ ->
+                dialog.dismiss()
+            }.create().show()
     }
 }

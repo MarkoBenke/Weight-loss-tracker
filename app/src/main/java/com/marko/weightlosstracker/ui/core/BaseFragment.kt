@@ -5,8 +5,8 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.marko.weightlosstracker.R
-import com.marko.weightlosstracker.ui.dialogs.ErrorDialog
 
 abstract class BaseFragment<T : BaseViewModel<BaseModelData>, BaseModelData>(
     layoutId: Int, private val viewModelClass: Class<T>
@@ -32,14 +32,18 @@ abstract class BaseFragment<T : BaseViewModel<BaseModelData>, BaseModelData>(
         ).show()
     }
 
-    fun showErrorDialog(message: String = getString(R.string.unknown_error)) {
-        val dialog = ErrorDialog.newInstance(message)
-        dialog.show(parentFragmentManager, ErrorDialog.TAG)
+    fun showErrorDialog() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(getString(R.string.unknown_error_title))
+            .setMessage(getString(R.string.unknown_error_message))
+            .setPositiveButton(getString(R.string.okay)) { dialog, _ ->
+                dialog.dismiss()
+            }.create().show()
     }
 
     private fun subscribeToObservers() {
-        viewModel.modelLiveData.observe(viewLifecycleOwner, {
+        viewModel.modelLiveData.observe(viewLifecycleOwner) {
             updateUi(it)
-        })
+        }
     }
 }

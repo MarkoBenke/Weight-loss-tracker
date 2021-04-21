@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:cardCornerRadius="8dp"
-        app:cardElevation="4dp"
+        app:cardElevation="@dimen/card_elevation"
         app:cardUseCompatPadding="true">
 
         <ScrollView
@@ -32,8 +32,6 @@
                     android:layout_marginBottom="@dimen/small_margin"
                     android:letterSpacing="0.03"
                     android:maxLines="1"
-                    android:shadowColor="@color/grey"
-                    android:shadowRadius="4"
                     android:text="@string/chart_title"
                     android:textColor="@color/primaryTextColor"
                     android:textSize="24sp"
@@ -107,8 +105,6 @@
                         android:gravity="center"
                         android:letterSpacing="0.03"
                         android:maxLines="1"
-                        android:shadowColor="@color/grey"
-                        android:shadowRadius="4"
                         android:text="@string/progress_title"
                         android:textColor="@color/primaryTextColor"
                         android:textSize="24sp"

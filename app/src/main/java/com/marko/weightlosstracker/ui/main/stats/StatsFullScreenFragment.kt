@@ -35,7 +35,7 @@ class StatsFullScreenFragment : BaseFragment<StatsViewModel, StatsWeightEntryVie
             initWeightsChart(model)
             initChartLimitLines(model.stats)
         } else {
-            Toast.makeText(requireContext(), getString(R.string.unknown_error), Toast.LENGTH_SHORT)
+            Toast.makeText(requireContext(), getString(R.string.unknown_error_title), Toast.LENGTH_SHORT)
                 .show()
         }
     }
@@ -65,6 +65,12 @@ class StatsFullScreenFragment : BaseFragment<StatsViewModel, StatsWeightEntryVie
                         binding.chart.axisLeft.removeAllLimitLines()
                         binding.chart.invalidate()
                         binding.chart.animateX(StatsFragment.ANIMATE_DURATION)
+                        binding.chart.data.setValueTextColor(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                R.color.primaryTextColor
+                            )
+                        )
                     }
                 }
             }

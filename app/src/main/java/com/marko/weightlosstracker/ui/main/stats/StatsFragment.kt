@@ -43,7 +43,7 @@ class StatsFragment : BaseFragment<StatsViewModel, StatsWeightEntryViewData>(
             initChartLimitLines(model.stats)
             initStatsUi(model.stats)
         } else {
-            Toast.makeText(requireContext(), getString(R.string.unknown_error), Toast.LENGTH_SHORT)
+            Toast.makeText(requireContext(), getString(R.string.unknown_error_title), Toast.LENGTH_SHORT)
                 .show()
         }
     }
@@ -79,6 +79,12 @@ class StatsFragment : BaseFragment<StatsViewModel, StatsWeightEntryViewData>(
                         binding.chart.axisLeft.removeAllLimitLines()
                         binding.chart.invalidate()
                         binding.chart.animateX(ANIMATE_DURATION)
+                        binding.chart.data.setValueTextColor(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                R.color.primaryTextColor
+                            )
+                        )
                     }
                 }
             }
