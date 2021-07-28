@@ -1,9 +1,14 @@
 package com.marko.weightlosstracker.di
 
+import com.google.firebase.auth.FirebaseAuth
 import com.marko.weightlosstracker.data.network.FirebaseHelper
+import com.marko.weightlosstracker.data.network.services.user.FirebaseUserService
 import com.marko.weightlosstracker.data.network.services.QuotesService
-import com.marko.weightlosstracker.data.network.services.UserService
-import com.marko.weightlosstracker.data.network.services.WeightEntryService
+import com.marko.weightlosstracker.data.network.services.user.UserService
+import com.marko.weightlosstracker.data.network.services.weightentry.FirebaseWeightEntryService
+import com.marko.weightlosstracker.data.network.services.auth.AuthService
+import com.marko.weightlosstracker.data.network.services.auth.FirebaseAuthService
+import com.marko.weightlosstracker.data.network.services.weightentry.WeightEntryService
 import com.marko.weightlosstracker.util.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -28,10 +33,16 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideUserService(firebaseHelper: FirebaseHelper) = UserService(firebaseHelper)
+    fun provideUserService(firebaseHelper: FirebaseHelper): UserService =
+        FirebaseUserService(firebaseHelper)
 
     @Provides
     @Singleton
-    fun provideWeightEntryService(firebaseHelper: FirebaseHelper) =
-        WeightEntryService(firebaseHelper)
+    fun provideWeightEntryService(firebaseHelper: FirebaseHelper): WeightEntryService =
+        FirebaseWeightEntryService(firebaseHelper)
+
+    @Singleton
+    @Provides
+    fun provideAuthService(firebaseAuth: FirebaseAuth): AuthService =
+        FirebaseAuthService(firebaseAuth)
 }

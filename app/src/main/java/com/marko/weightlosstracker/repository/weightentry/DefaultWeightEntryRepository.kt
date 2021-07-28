@@ -3,13 +3,12 @@ package com.marko.weightlosstracker.repository.weightentry
 import com.marko.weightlosstracker.data.local.dao.UserDao
 import com.marko.weightlosstracker.data.local.dao.WeightEntryDao
 import com.marko.weightlosstracker.data.local.entities.UserEntity
-import com.marko.weightlosstracker.model.mappers.WeightEntryMapper
-import com.marko.weightlosstracker.data.network.services.UserService
-import com.marko.weightlosstracker.data.network.services.WeightEntryService
-import com.marko.weightlosstracker.data.util.UserTable
-import com.marko.weightlosstracker.data.util.WeightEntryTable
+import com.marko.weightlosstracker.data.network.services.user.UserService
+import com.marko.weightlosstracker.data.network.services.weightentry.WeightEntryService
 import com.marko.weightlosstracker.model.Stats
 import com.marko.weightlosstracker.model.WeightEntry
+import com.marko.weightlosstracker.model.mappers.UserMapper
+import com.marko.weightlosstracker.model.mappers.WeightEntryMapper
 import com.marko.weightlosstracker.util.Constants
 import com.marko.weightlosstracker.util.DataState
 import com.marko.weightlosstracker.util.calculateBmi
@@ -22,7 +21,8 @@ class DefaultWeightEntryRepository(
     private val weightEntryService: WeightEntryService,
     private val userDao: UserDao,
     private val userService: UserService,
-    private val weightEntryMapper: WeightEntryMapper
+    private val weightEntryMapper: WeightEntryMapper,
+    private val userMapper: UserMapper
 ) : WeightEntryRepository {
 
     override suspend fun getLocalEntries(): Flow<DataState<List<WeightEntry>>> = flow {
@@ -62,8 +62,7 @@ class DefaultWeightEntryRepository(
         //if user modifies his initial weight entry, modify users starting values as well
         if (user?.startDate == weightEntry.date) {
             modifyUserAndEntry(user, weightEntry)
-            val userMap = getUserMap(user)
-            val result = userService.updateUser(userMap)
+            val result = userService.updateUserWeightData(userMapper.entityToDto(user))
             if (result) {
                 userDao.updateUser(user)
                 emit(DataState.Success(Unit))
@@ -74,7 +73,8 @@ class DefaultWeightEntryRepository(
     override suspend fun updateWeightEntry(weightEntry: WeightEntry): Flow<DataState<Unit>> = flow {
         emit(DataState.Loading)
 
-        val entryResult = weightEntryService.updateWeightEntry(getWeightEntryMap(weightEntry))
+        val entryResult =
+            weightEntryService.updateWeightEntry(weightEntryMapper.mapToDto(weightEntry))
         if (entryResult) {
             weightEntryDao.updateWeightEntry(weightEntryMapper.mapToEntity(weightEntry))
             emit(DataState.Success(Unit))
@@ -85,8 +85,8 @@ class DefaultWeightEntryRepository(
             val user = userDao.getUser()
             user?.let {
                 modifyUserAndEntry(user, weightEntry)
-                val userMap = getUserMap(user)
-                val userResult = userService.updateUser(userMap)
+                val userResult =
+                    userService.updateUserWeightData(userMapper.entityToDto(user))
                 if (userResult) {
                     userDao.updateUser(user)
                     emit(DataState.Success(Unit))
@@ -147,23 +147,6 @@ class DefaultWeightEntryRepository(
             )
             emit(stats)
         }
-    }
-
-    private fun getUserMap(user: UserEntity?): HashMap<String, Any?> {
-        return hashMapOf(
-            UserTable.START_WAIST_SIZE to user?.startWaistSize,
-            UserTable.START_BMI to user?.startBmi,
-            UserTable.START_WEIGHT to user?.startWeight
-        )
-    }
-
-    private fun getWeightEntryMap(weightEntry: WeightEntry): HashMap<String, Any> {
-        return hashMapOf(
-            WeightEntryTable.UUID to weightEntry.uuid,
-            WeightEntryTable.CURRENT_WEIGHT to weightEntry.currentWeight,
-            WeightEntryTable.WAIST_SIZE to weightEntry.waistSize,
-            WeightEntryTable.DESCRIPTION to weightEntry.description
-        )
     }
 
     private fun modifyUserAndEntry(user: UserEntity?, weightEntry: WeightEntry) {

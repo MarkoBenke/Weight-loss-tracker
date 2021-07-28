@@ -58,6 +58,22 @@ class UserMapper @Inject constructor() : DomainMapper<UserDto, UserEntity, User>
         )
     }
 
+    fun entityToDto(entity: UserEntity): UserDto {
+        return UserDto(
+            username = entity.username,
+            startWeight = entity.startWeight,
+            currentWeight = entity.currentWeight,
+            targetWeight = entity.targetWeight,
+            startWaistSize = entity.startWaistSize,
+            startBmi = entity.startBmi,
+            height = entity.height,
+            startDate = entity.startDate,
+            age = entity.age,
+            gender = entity.gender,
+            goalName = entity.goalName
+        )
+    }
+
     fun dtoToEntity(userDto: UserDto): UserEntity {
         return UserEntity(
             username = userDto.username,

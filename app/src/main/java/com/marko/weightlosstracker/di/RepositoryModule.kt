@@ -1,16 +1,16 @@
 package com.marko.weightlosstracker.di
 
-import com.google.firebase.auth.FirebaseAuth
 import com.marko.weightlosstracker.data.local.dao.QuoteDao
 import com.marko.weightlosstracker.data.local.dao.UserDao
 import com.marko.weightlosstracker.data.local.dao.WeightEntryDao
+import com.marko.weightlosstracker.data.local.settings.SettingsManager
+import com.marko.weightlosstracker.data.network.services.QuotesService
+import com.marko.weightlosstracker.data.network.services.auth.AuthService
+import com.marko.weightlosstracker.data.network.services.user.UserService
+import com.marko.weightlosstracker.data.network.services.weightentry.WeightEntryService
 import com.marko.weightlosstracker.model.mappers.QuoteMapper
 import com.marko.weightlosstracker.model.mappers.UserMapper
 import com.marko.weightlosstracker.model.mappers.WeightEntryMapper
-import com.marko.weightlosstracker.data.local.settings.SettingsManager
-import com.marko.weightlosstracker.data.network.services.QuotesService
-import com.marko.weightlosstracker.data.network.services.UserService
-import com.marko.weightlosstracker.data.network.services.WeightEntryService
 import com.marko.weightlosstracker.repository.auth.AuthRepository
 import com.marko.weightlosstracker.repository.auth.DefaultAuthRepository
 import com.marko.weightlosstracker.repository.quotes.DefaultQuotesRepository
@@ -63,18 +63,20 @@ object RepositoryModule {
         weightEntryService: WeightEntryService,
         userDao: UserDao,
         userService: UserService,
-        entryMapper: WeightEntryMapper
+        entryMapper: WeightEntryMapper,
+        userMapper: UserMapper
     ): WeightEntryRepository =
         DefaultWeightEntryRepository(
             weightEntryDao,
             weightEntryService,
             userDao,
             userService,
-            entryMapper
+            entryMapper,
+            userMapper
         )
 
     @ViewModelScoped
     @Provides
-    fun provideAuthRepository(firebaseAuth: FirebaseAuth): AuthRepository =
-        DefaultAuthRepository(firebaseAuth)
+    fun provideAuthRepository(authService: AuthService): AuthRepository =
+        DefaultAuthRepository(authService)
 }

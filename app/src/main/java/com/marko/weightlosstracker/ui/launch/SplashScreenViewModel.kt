@@ -26,8 +26,8 @@ class SplashScreenViewModel @Inject constructor(
     private val _userLiveData = MutableLiveData<DataState<User?>>()
     val userLiveData: LiveData<DataState<User?>> = _userLiveData
 
-    private val _isUserSignedInLiveData = MutableLiveData<DataState<Unit>>()
-    val isUserSignedInLiveData: LiveData<DataState<Unit>> = _isUserSignedInLiveData
+    private val _isUserSignedInLiveData = MutableLiveData<Boolean>()
+    val isUserSignedInLiveData: LiveData<Boolean> = _isUserSignedInLiveData
 
     init {
         isUserSignedIn()
@@ -45,11 +45,6 @@ class SplashScreenViewModel @Inject constructor(
         }
     }
 
-    private fun isUserSignedIn() {
-        viewModelScope.launch(dispatchers.io) {
-            authRepository.isUserSignedIn().collect {
-                _isUserSignedInLiveData.postValue(it)
-            }
-        }
-    }
+    private fun isUserSignedIn() =
+        _isUserSignedInLiveData.postValue(authRepository.isUserSignedIn())
 }

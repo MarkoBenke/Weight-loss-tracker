@@ -64,10 +64,10 @@ class EntryHistoryFragmentTest : BaseTest() {
         swipeItemInRecyclerView(R.id.entriesRecView, FIRST_POSITION)
         sleepMedium()
 
-        isTextDisplayedInView(R.id.dialogTitle, context.getString(R.string.delete_entry_dialog_title))
-        isTextDisplayedInView(R.id.dialogDescription, context.getString(R.string.delete_entry_dialog_description))
+        isTextVisible(R.string.delete_entry_dialog_title)
+        isTextVisible(R.string.delete_entry_dialog_description)
 
-        clickOnView(R.id.confirm)
+        clickOnText(R.string.yes)
         sleepShort()
         checkRecyclerViewItemCount(R.id.entriesRecView, 2)
     }
@@ -79,10 +79,10 @@ class EntryHistoryFragmentTest : BaseTest() {
         swipeItemInRecyclerView(R.id.entriesRecView, FIRST_POSITION)
         sleepMedium()
 
-        isTextDisplayedInView(R.id.dialogTitle, context.getString(R.string.delete_entry_dialog_title))
-        isTextDisplayedInView(R.id.dialogDescription, context.getString(R.string.delete_entry_dialog_description))
+        isTextVisible(R.string.delete_entry_dialog_title)
+        isTextVisible(R.string.delete_entry_dialog_description)
 
-        clickOnView(R.id.cancel)
+        clickOnText(R.string.cancel)
         sleepShort()
         checkRecyclerViewItemCount(R.id.entriesRecView, 3)
     }
