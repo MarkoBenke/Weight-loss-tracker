@@ -1,4 +1,4 @@
-package com.marko.weightlosstracker.data.network.services
+package com.marko.weightlosstracker.data.network.services.weightentry
 
 import com.marko.weightlosstracker.data.network.FirebaseHelper
 import com.marko.weightlosstracker.data.network.entities.WeightEntryDto
@@ -6,11 +6,11 @@ import com.marko.weightlosstracker.data.util.WeightEntryTable
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
-class WeightEntryService @Inject constructor(
+class FirebaseWeightEntryService @Inject constructor(
     private val firebaseHelper: FirebaseHelper
-) {
+) : WeightEntryService {
 
-    suspend fun getAllEntries(): List<WeightEntryDto>? {
+    override suspend fun getAllEntries(): List<WeightEntryDto>? {
         return try {
             var entryDtos: MutableList<WeightEntryDto>? = null
             firebaseHelper.getEntriesCollection().get().addOnCompleteListener {
@@ -24,10 +24,10 @@ class WeightEntryService @Inject constructor(
         }
     }
 
-    suspend fun insertWeightEntry(weightEntryDto: WeightEntryDto): Boolean {
+    override suspend fun insertWeightEntry(weightEntry: WeightEntryDto): Boolean {
         return try {
             var isSuccessful = false
-            firebaseHelper.getEntriesCollection().document(weightEntryDto.uuid).set(weightEntryDto)
+            firebaseHelper.getEntriesCollection().document(weightEntry.uuid).set(weightEntry)
                 .addOnCompleteListener {
                     isSuccessful = it.isSuccessful
                 }.await()
@@ -37,11 +37,11 @@ class WeightEntryService @Inject constructor(
         }
     }
 
-    suspend fun updateWeightEntry(weightEntryMap: HashMap<String, Any>): Boolean {
+    override suspend fun updateWeightEntry(weightEntry: WeightEntryDto): Boolean {
         return try {
             var isSuccessful = false
-            val itemId = weightEntryMap[WeightEntryTable.UUID] as String
-            firebaseHelper.getEntriesCollection().document(itemId).update(weightEntryMap)
+            firebaseHelper.getEntriesCollection().document(weightEntry.uuid)
+                .update(getWeightEntryMap(weightEntry))
                 .addOnCompleteListener {
                     isSuccessful = it.isSuccessful
                 }.await()
@@ -51,7 +51,7 @@ class WeightEntryService @Inject constructor(
         }
     }
 
-    suspend fun deleteWeightEntry(id: String): Boolean {
+    override suspend fun deleteWeightEntry(id: String): Boolean {
         return try {
             var isSuccessful = false
             firebaseHelper.getEntriesCollection().document(id).delete().addOnCompleteListener {
@@ -61,5 +61,14 @@ class WeightEntryService @Inject constructor(
         } catch (e: Exception) {
             false
         }
+    }
+
+    private fun getWeightEntryMap(weightEntry: WeightEntryDto): HashMap<String, Any> {
+        return hashMapOf(
+            WeightEntryTable.UUID to weightEntry.uuid,
+            WeightEntryTable.CURRENT_WEIGHT to weightEntry.currentWeight,
+            WeightEntryTable.WAIST_SIZE to weightEntry.waistSize,
+            WeightEntryTable.DESCRIPTION to weightEntry.description
+        )
     }
 }

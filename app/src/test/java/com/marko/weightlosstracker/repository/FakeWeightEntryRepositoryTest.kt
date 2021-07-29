@@ -8,10 +8,9 @@ import com.marko.weightlosstracker.util.DataState
 import com.marko.weightlosstracker.util.parseDate
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import javax.inject.Inject
 
-class FakeWeightEntryRepositoryTest(private val shouldReturnError: Boolean = false)
-    : WeightEntryRepository {
+class FakeWeightEntryRepositoryTest(private val shouldReturnError: Boolean = false) :
+    WeightEntryRepository {
 
     private var entries = mutableListOf<WeightEntry>()
 

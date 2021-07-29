@@ -4,8 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.auth.AuthCredential
-import com.google.firebase.auth.AuthResult
 import com.marko.weightlosstracker.model.User
 import com.marko.weightlosstracker.repository.auth.AuthRepository
 import com.marko.weightlosstracker.repository.user.UserRepository
@@ -28,12 +26,12 @@ class LoginViewModel @Inject constructor(
     private val _userLiveData = MutableLiveData<DataState<User?>>()
     val userLiveData: LiveData<DataState<User?>> = _userLiveData
 
-    private val _authUserLiveData = MutableLiveData<DataState<AuthResult?>>()
-    val authUserLiveData: LiveData<DataState<AuthResult?>> = _authUserLiveData
+    private val _authUserLiveData = MutableLiveData<DataState<Unit>>()
+    val authUserLiveData: LiveData<DataState<Unit>> = _authUserLiveData
 
-    fun loginWithGoogle(credential: AuthCredential) {
+    fun loginWithGoogle(token: String) {
         viewModelScope.launch(dispatcherProvider.io) {
-            authRepository.signInUser(credential).collect {
+            authRepository.signInUser(token).collect {
                 _authUserLiveData.postValue(it)
             }
         }

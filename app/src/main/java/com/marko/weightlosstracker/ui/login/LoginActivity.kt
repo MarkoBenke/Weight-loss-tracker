@@ -78,9 +78,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun googleSignIn() {
-        authResultLauncher.launch(RC_SIGN_IN)
-    }
+    private fun googleSignIn() = authResultLauncher.launch(RC_SIGN_IN)
 
     private val authResultLauncher = registerForActivityResult(AuthResultContract()) { token ->
         handleAuthResponse(token)
@@ -88,8 +86,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun handleAuthResponse(token: String?) {
         if (token != null) {
-            val credential = GoogleAuthProvider.getCredential(token, null)
-            viewModel.loginWithGoogle(credential)
+            viewModel.loginWithGoogle(token)
         } else {
             showErrorDialog()
         }

@@ -32,19 +32,11 @@ class SplashScreenActivity : AppCompatActivity() {
     }
 
     private fun subscribeToObservers() {
-        viewModel.isUserSignedInLiveData.observe(this) { dataState ->
-            when (dataState) {
-                is DataState.Error -> {
-                    // User not signed in, navigate to login
-                    startLoginScreen()
-                }
-                is DataState.Success -> {
-                    // If user is signed in, get user
-                    viewModel.syncDataAndFetchUser()
-                }
-                else -> Unit
-            }
+        viewModel.isUserSignedInLiveData.observe(this) { signedIn ->
+            if (signedIn) viewModel.syncDataAndFetchUser()
+            else startLoginScreen()
         }
+
         viewModel.userLiveData.observe(this, { dataState ->
             when (dataState) {
                 is DataState.Loading -> Unit

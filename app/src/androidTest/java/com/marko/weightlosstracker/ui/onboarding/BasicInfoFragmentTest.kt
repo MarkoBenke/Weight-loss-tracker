@@ -41,7 +41,7 @@ class BasicInfoFragmentTest : BaseTest() {
         checkHintTextOnInputField(R.id.age, context.getString(R.string.age))
         checkHintTextOnInputField(
             R.id.currentWeight,
-            context.getString(R.string.goal_details_current_weight)
+            context.getString(R.string.current_starting_weight)
         )
         checkHintTextOnInputField(
             R.id.waistSize,

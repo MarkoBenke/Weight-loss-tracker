@@ -2,13 +2,12 @@ package com.marko.weightlosstracker.repository.user
 
 import com.marko.weightlosstracker.data.local.dao.UserDao
 import com.marko.weightlosstracker.data.local.dao.WeightEntryDao
+import com.marko.weightlosstracker.data.local.settings.SettingsManager
+import com.marko.weightlosstracker.data.network.services.user.UserService
+import com.marko.weightlosstracker.data.network.services.weightentry.WeightEntryService
+import com.marko.weightlosstracker.model.User
 import com.marko.weightlosstracker.model.mappers.UserMapper
 import com.marko.weightlosstracker.model.mappers.WeightEntryMapper
-import com.marko.weightlosstracker.data.local.settings.SettingsManager
-import com.marko.weightlosstracker.data.network.services.UserService
-import com.marko.weightlosstracker.data.network.services.WeightEntryService
-import com.marko.weightlosstracker.data.util.UserTable
-import com.marko.weightlosstracker.model.User
 import com.marko.weightlosstracker.util.DataState
 import com.marko.weightlosstracker.util.parseDate
 import kotlinx.coroutines.flow.Flow
@@ -44,8 +43,7 @@ class DefaultUserRepository constructor(
 
     override suspend fun updateUser(user: User): Flow<DataState<Unit>> = flow {
         emit(DataState.Loading)
-        val userMap = getUserMap(user)
-        val result = userService.updateUser(userMap)
+        val result = userService.updateUserProfile(userMapper.mapToDto(user))
         if (result) {
             userDao.updateUser(userMapper.mapToEntity(user))
             emit(DataState.Success(Unit))
@@ -88,13 +86,5 @@ class DefaultUserRepository constructor(
         user?.let {
             emit(it.username)
         } ?: emit("")
-    }
-
-    private fun getUserMap(user: User): HashMap<String, Any?> {
-        return hashMapOf(
-            UserTable.TARGET_WEIGHT to user.targetWeight,
-            UserTable.AGE to user.age,
-            UserTable.USERNAME to user.username
-        )
     }
 }

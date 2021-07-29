@@ -1,15 +1,15 @@
 package com.marko.weightlosstracker.ui.launch
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.google.common.truth.Truth.assertThat
 import com.marko.weightlosstracker.other.DataGenerator
 import com.marko.weightlosstracker.other.FakeDispatcherProvider
 import com.marko.weightlosstracker.other.MainCoroutineRule
 import com.marko.weightlosstracker.other.getOrAwaitValueTest
-import com.marko.weightlosstracker.repository.FakeUserRepositoryTest
-import com.marko.weightlosstracker.util.DataState
-import com.google.common.truth.Truth.assertThat
 import com.marko.weightlosstracker.repository.FakeAuthRepositoryTest
+import com.marko.weightlosstracker.repository.FakeUserRepositoryTest
 import com.marko.weightlosstracker.repository.FakeWeightEntryRepositoryTest
+import com.marko.weightlosstracker.util.DataState
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Rule
 import org.junit.Test
@@ -68,7 +68,7 @@ class SplashScreenViewModelTest {
 
         val value = viewModel.isUserSignedInLiveData.getOrAwaitValueTest()
 
-        assertThat(value).isEqualTo(DataState.Success(Unit))
+        assertThat(value).isEqualTo(true)
     }
 
     @Test
@@ -82,6 +82,6 @@ class SplashScreenViewModelTest {
 
         val value = viewModel.isUserSignedInLiveData.getOrAwaitValueTest()
 
-        assertThat(value).isEqualTo(DataState.Error("Error!"))
+        assertThat(value).isEqualTo(false)
     }
 }
