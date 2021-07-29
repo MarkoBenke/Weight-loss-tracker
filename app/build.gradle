@@ -23,11 +23,25 @@ android {
 
     signingConfigs {
         release {
-            storeFile file('../docs/wl-keystore.jks')
-            storePassword 'mare10rooney'
-            keyAlias 'weightlosstracker'
-            keyPassword 'mare10rooney'
+            def tmpFilePath = System.getProperty("user.home") + "/work/_temp/keystore/"
+            def allFilesFromDir = new File(tmpFilePath).listFiles()
+
+            if (allFilesFromDir != null) {
+                def keystoreFile = allFilesFromDir.first()
+                keystoreFile.renameTo("docs/wl-keystore.jks")
+            }
+
+            storeFile = file("docs/wl-keystore.jks")
+            storePassword System.getenv("SIGNING_STORE_PASSWORD")
+            keyAlias System.getenv("SIGNING_KEY_ALIAS")
+            keyPassword System.getenv("SIGNING_KEY_PASSWORD")
         }
+//        release {
+//            storeFile file('../docs/wl-keystore.jks')
+//            storePassword 'mare10rooney'
+//            keyAlias 'weightlosstracker'
+//            keyPassword 'mare10rooney'
+//        }
     }
 
     buildTypes {
